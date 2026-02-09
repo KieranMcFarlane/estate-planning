@@ -1,0 +1,27 @@
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon :global(svg) {
+  width: 1em;
+  height: 1em;
+  display: block;
+}
+
+.sm {
+  font-size: 0.875rem;
+}
+
+.md {
+  font-size: 1rem;
+}
+
+.lg {
+  font-size: 1.5rem;
+}
+
+.xl {
+  font-size: 2rem;
+}

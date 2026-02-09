@@ -1,0 +1,88 @@
+.main {
+    padding-top: var(--spacing-lg);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.title {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: var(--text-light);
+}
+
+.section,
+.sectionAlt {
+    margin-bottom: var(--spacing-xl);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sectionAlt {
+    background-color: var(--secondary-dark);
+    /* Card-like background or just subtle */
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+}
+
+.list {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.list li {
+    margin-bottom: 0.5rem;
+}
+
+.servicesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-xl);
+}
+
+.gridTitle {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.card {
+    background: white;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+}
+
+.card h3 {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.talkToUs {
+    text-align: center;
+    background-color: var(--primary-light);
+    color: white;
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.talkToUs h2 {
+    color: white;
+}
+
+.centeredBtn {
+    margin-top: var(--spacing-md);
+}

@@ -1,0 +1,178 @@
+.navbar {
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-bg-alt);
+    padding: var(--spacing-sm) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: var(--text-xl);
+    color: var(--color-text);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.logoSubtitle {
+    font-size: var(--text-xs);
+    font-weight: 400;
+    color: var(--color-text-muted);
+    margin-top: 2px;
+}
+
+.links {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.links a {
+    color: var(--color-text);
+    font-weight: 500;
+    font-size: var(--text-sm);
+    transition: color 0.2s;
+    text-decoration: none;
+}
+
+.links a:hover {
+    color: var(--color-primary);
+}
+
+.desktopCta {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.phone {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-weight: 600;
+    color: var(--color-text);
+    font-size: var(--text-sm);
+}
+
+.mobileToggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--spacing-xs);
+    color: var(--color-text);
+}
+
+.mobileCta {
+    display: none;
+}
+
+.phoneBtn,
+.bookBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    text-decoration: none;
+}
+
+.phoneBtn {
+    background-color: var(--color-bg-alt);
+    color: var(--color-text);
+}
+
+.bookBtn {
+    background-color: var(--color-secondary);
+    color: var(--color-text-white);
+}
+
+@media (max-width: 1024px) {
+    .links {
+        gap: var(--spacing-sm);
+    }
+
+    .links a {
+        font-size: var(--text-xs);
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: var(--spacing-xs) 0;
+    }
+
+    .container {
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        font-size: var(--text-lg);
+    }
+
+    .logoSubtitle {
+        font-size: 0.7rem;
+    }
+
+    .mobileToggle {
+        display: flex;
+    }
+
+    .desktopCta {
+        display: none;
+    }
+
+    .links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        order: 3;
+    }
+
+    .links.mobileOpen {
+        display: flex;
+    }
+
+    .links a {
+        padding: var(--spacing-sm) 0;
+        border-bottom: 1px solid var(--color-bg-alt);
+        font-size: var(--text-base);
+    }
+
+    .mobileCta {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--color-surface);
+        padding: var(--spacing-sm);
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 99;
+        gap: var(--spacing-sm);
+    }
+
+    .phoneBtn,
+    .bookBtn {
+        flex: 1;
+    }
+
+    /* Add padding to body content to account for fixed navbar */
+    :global(main) {
+        padding-bottom: 60px;
+    }
+}

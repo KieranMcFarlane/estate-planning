@@ -1,0 +1,20 @@
+.cta {
+    background-color: var(--secondary-dark);
+    /* Slightly darker/different for contrast */
+    padding: var(--spacing-xl) 0;
+}
+
+.heading {
+    color: var(--primary-dark);
+}
+
+.text {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto var(--spacing-sm);
+    color: var(--text-main);
+}
+
+.action {
+    margin-top: var(--spacing-md);
+}

@@ -1,0 +1,85 @@
+.main {
+    padding-top: var(--spacing-lg);
+}
+
+.header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.title {
+    color: var(--primary-color);
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: var(--text-light);
+}
+
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.introBox {
+    background-color: white;
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.list {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+}
+
+.list li {
+    margin-bottom: 0.5rem;
+}
+
+.sectionTitle {
+    color: var(--primary-dark);
+    margin-top: var(--spacing-xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.focusArea {
+    background-color: var(--secondary-dark);
+    /* Subtle bg */
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    margin: var(--spacing-md) 0;
+}
+
+.focusArea h3 {
+    color: var(--primary-color);
+    font-size: 1.125rem;
+    margin-bottom: 0.5rem;
+}
+
+.focusArea ul {
+    padding-left: 1.5rem;
+}
+
+.focusArea li {
+    margin-bottom: 0.5rem;
+}
+
+.cta {
+    text-align: center;
+    background-color: var(--primary-light);
+    color: white;
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    max-width: 800px;
+    margin: var(--spacing-xl) auto;
+}
+
+.cta h2 {
+    color: white;
+}
+
+.btnWrapper {
+    margin-top: var(--spacing-md);
+}

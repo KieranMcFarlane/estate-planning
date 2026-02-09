@@ -1,0 +1,55 @@
+.section {
+  width: 100%;
+}
+
+/* Size variants */
+.sm { padding: var(--spacing-md) 0; }
+.md { padding: var(--spacing-lg) 0; }
+.lg { padding: var(--spacing-xl) 0; }
+.xl { padding: var(--spacing-2xl) 0; }
+
+/* Color variants */
+.default {
+  background-color: var(--color-bg);
+}
+
+.alt {
+  background-color: var(--color-bg-alt);
+}
+
+.primary {
+  background-color: var(--color-primary);
+  color: var(--color-text-white);
+}
+
+.primary :global(h1),
+.primary :global(h2),
+.primary :global(h3),
+.primary :global(h4),
+.primary :global(h5),
+.primary :global(h6),
+.primary :global(p) {
+  color: var(--color-text-white);
+}
+
+.dark {
+  background-color: var(--color-text);
+  color: var(--color-text-white);
+}
+
+.dark :global(h1),
+.dark :global(h2),
+.dark :global(h3),
+.dark :global(h4),
+.dark :global(h5),
+.dark :global(h6),
+.dark :global(p) {
+  color: var(--color-text-white);
+}
+
+@media (max-width: 768px) {
+  .sm { padding: var(--spacing-sm) 0; }
+  .md { padding: var(--spacing-md) 0; }
+  .lg { padding: var(--spacing-lg) 0; }
+  .xl { padding: var(--spacing-xl) 0; }
+}

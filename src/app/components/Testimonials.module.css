@@ -1,0 +1,50 @@
+.testimonials {
+    background-color: var(--secondary-color);
+    padding-bottom: var(--spacing-xl);
+}
+
+.heading {
+    color: var(--primary-dark);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.card {
+    background: white;
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+}
+
+.stars {
+    color: var(--cta-color);
+    /* Orange/Gold */
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.text {
+    font-style: italic;
+    color: var(--text-main);
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+.author {
+    font-weight: 600;
+    color: var(--text-light);
+    font-size: 0.875rem;
+}
+
+.trust {
+    margin-top: var(--spacing-lg);
+    color: var(--primary-dark);
+    font-size: 1.125rem;
+}

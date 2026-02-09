@@ -1,0 +1,45 @@
+.whyChooseUs {
+    background-color: var(--primary-dark);
+    color: var(--secondary-color);
+}
+
+.whyChooseUs h2 {
+    color: var(--secondary-color);
+}
+
+.intro {
+    color: var(--secondary-dark);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.125rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.card {
+    background-color: rgba(255, 255, 255, 0.05);
+    /* Slight transparency */
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.icon {
+    color: var(--accent-color);
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.highlight {
+    color: var(--accent-color);
+    font-size: 1.125rem;
+    margin-top: var(--spacing-md);
+}

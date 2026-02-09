@@ -1,0 +1,75 @@
+.services {
+    background-color: var(--primary-light);
+    /* Soft contrast */
+    color: var(--text-white);
+    padding: var(--spacing-xl) 0;
+}
+
+.heading {
+    color: var(--text-white);
+}
+
+.subHeading {
+    color: var(--secondary-color);
+    margin-bottom: var(--spacing-md);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xl);
+}
+
+.serviceList {
+    list-style: none;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.serviceItem {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.bullet {
+    color: var(--accent-color);
+}
+
+.right {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+}
+
+.situationList {
+    list-style: none;
+}
+
+.situationItem {
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    line-height: 1.5;
+}
+
+.check {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.note {
+    margin-top: var(--spacing-md);
+    font-style: italic;
+    opacity: 0.9;
+    color: var(--secondary-color);
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+}

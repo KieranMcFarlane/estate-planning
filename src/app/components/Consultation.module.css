@@ -1,0 +1,23 @@
+.consultation {
+    background-color: var(--secondary-color);
+    padding: var(--spacing-xl) 0;
+}
+
+.content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.heading {
+    margin-bottom: var(--spacing-md);
+}
+
+.note {
+    margin-top: var(--spacing-md);
+    font-size: 1.125rem;
+    color: var(--primary-color);
+}
+
+/* Reusing file for small component styles if appropriate, but let's separate for cleanliness. 
+This file is for Consultation.tsx
+*/
