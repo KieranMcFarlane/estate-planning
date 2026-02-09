@@ -1,0 +1,103 @@
+.section {
+    background-color: var(--color-bg-alt);
+    padding: var(--spacing-xl) 0;
+}
+
+.heading {
+    text-align: center;
+    font-size: var(--text-2xl);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-xl);
+}
+
+.timeline {
+    max-width: 700px;
+    margin: 0 auto var(--spacing-xl);
+}
+
+.step {
+    display: flex;
+    gap: var(--spacing-md);
+    position: relative;
+}
+
+.stepConnector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.stepDot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--color-secondary);
+    border: 3px solid var(--color-surface);
+    box-shadow: 0 0 0 2px var(--color-secondary);
+    z-index: 1;
+}
+
+.stepLine {
+    width: 2px;
+    flex: 1;
+    background-color: var(--color-secondary);
+    min-height: 60px;
+    margin-top: -4px;
+}
+
+.step:last-child .stepLine {
+    display: none;
+}
+
+.stepContent {
+    padding-bottom: var(--spacing-lg);
+}
+
+.stepTitle {
+    font-size: var(--text-lg);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-xs);
+}
+
+.stepDescription {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+    margin: 0 0 var(--spacing-sm) 0;
+}
+
+.stepCta {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-secondary);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: var(--text-sm);
+    transition: color 0.2s;
+}
+
+.stepCta:hover {
+    color: var(--color-secondary-dark);
+}
+
+.finalCta {
+    text-align: center;
+    padding: var(--spacing-xl);
+    background-color: var(--color-surface);
+    border-radius: var(--radius-lg);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.finalCtaText {
+    color: var(--color-text);
+    font-size: var(--text-lg);
+    margin-bottom: var(--spacing-md);
+}
+
+@media (max-width: 768px) {
+    .stepContent {
+        padding-bottom: var(--spacing-md);
+    }
+}

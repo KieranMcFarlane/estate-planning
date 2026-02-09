@@ -49,19 +49,119 @@
     color: var(--color-primary);
 }
 
+/* Shadcn Dropdown Menu Integration */
+.dropdownTrigger {
+    background: none;
+    border: none;
+    color: var(--color-text);
+    font-weight: 500;
+    font-size: var(--text-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.dropdownTrigger:hover {
+    color: var(--color-primary);
+}
+
+.dropdownIcon {
+    transition: transform 0.2s ease;
+    color: var(--color-text-muted);
+}
+
+.dropdownTrigger[data-state="open"] .dropdownIcon {
+    transform: rotate(180deg);
+}
+
+.shadcnDropdown {
+    min-width: 160px;
+}
+
+.shadcnDropdown .dropdownItem {
+    width: 100%;
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.shadcnDropdown .dropdownItem:hover {
+    background-color: var(--color-bg-alt);
+    color: var(--color-primary);
+}
+
+.desktopOnly {
+    display: block;
+}
+
+.mobileOnly {
+    display: none;
+}
+
+.mobileResourceLink {
+    display: block;
+    padding: var(--spacing-sm) 0;
+    color: var(--color-text);
+    font-weight: 500;
+    font-size: var(--text-sm);
+    text-decoration: none;
+}
+
+.mobileResourceLink:hover {
+    color: var(--color-primary);
+}
+
 .desktopCta {
     display: flex;
     align-items: center;
     gap: var(--spacing-md);
 }
 
-.phone {
+.phoneLink {
     display: flex;
     align-items: center;
-    gap: 0.375rem;
-    font-weight: 600;
+    gap: 0.5rem;
+    text-decoration: none;
     color: var(--color-text);
+    transition: color 0.2s;
+}
+
+.phoneLink:hover {
+    color: var(--color-primary);
+}
+
+.phoneInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.phoneLabel {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.phoneNumber {
+    font-weight: 700;
     font-size: var(--text-sm);
+    color: var(--color-primary);
+}
+
+.ctaButton {
+    background-color: var(--color-secondary);
+}
+
+.ctaButton:hover {
+    background-color: var(--color-secondary-dark);
 }
 
 .mobileToggle {
@@ -93,6 +193,27 @@
 .phoneBtn {
     background-color: var(--color-bg-alt);
     color: var(--color-text);
+    flex-direction: column;
+    gap: 0;
+}
+
+.phoneBtn div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.2;
+}
+
+.phoneBtnLabel {
+    font-size: 0.65rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.phoneBtnNumber {
+    font-weight: 700;
+    color: var(--color-primary);
 }
 
 .bookBtn {
@@ -107,6 +228,14 @@
 
     .links a {
         font-size: var(--text-xs);
+    }
+
+    .desktopOnly {
+        display: none;
+    }
+
+    .mobileOnly {
+        display: block;
     }
 }
 

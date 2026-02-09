@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import Button from './base/Button';
 import styles from './HowItWorks.module.css';
 
 export default function HowItWorks() {
@@ -7,12 +7,12 @@ export default function HowItWorks() {
         {
             num: "1",
             title: "A relaxed conversation",
-            desc: "We start by listening. You can tell us about your family, your wishes, and what matters most. We’ll answer your questions and explain your options clearly."
+            desc: "We start by listening. You can tell us about your family, your wishes, and what matters most. We'll answer your questions and explain your options clearly."
         },
         {
             num: "2",
             title: "Your personalised estate plan",
-            desc: "We’ll recommend the right documents for your situation — whether that’s a Will, Trusts, LPAs, or inheritance tax planning."
+            desc: "We'll recommend the right documents for your situation — whether that's a Will, Trusts, LPAs, or inheritance tax planning."
         },
         {
             num: "3",
@@ -27,7 +27,7 @@ export default function HowItWorks() {
                 <div className="text-center mb-lg">
                     <h2 className={styles.heading}>A simple process, at your pace</h2>
                     <p className={styles.intro}>
-                        You don’t need to know exactly what you need before you speak to us. We’ll guide you step by step.
+                        You don't need to know exactly what you need before you speak to us. We'll guide you step by step.
                     </p>
                 </div>
 
@@ -41,9 +41,12 @@ export default function HowItWorks() {
                     ))}
                 </div>
 
-                <div className={`text-center ${styles.action}`}>
-                    <Button asChild variant="default">
-                        <Link href="/contact">Book a free call</Link>
+                <div className={`text-center ${styles.actions}`}>
+                    <Button href="/contact" variant="primary" size="lg">
+                        Book a free call
+                    </Button>
+                    <Button href="/how-it-works" variant="outline" size="lg">
+                        See the full process
                     </Button>
                 </div>
             </div>

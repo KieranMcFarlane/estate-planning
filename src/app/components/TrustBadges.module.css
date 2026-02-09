@@ -33,20 +33,27 @@
     gap: 0.25rem;
 }
 
+.number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
+}
+
 .rating {
-    color: #FFDE59;
+    color: var(--color-highlight);
     font-size: 1.5rem;
 }
 
 .icon {
     font-size: 1.5rem;
-    color: var(--primary-color);
+    color: var(--color-primary);
 }
 
 .badgeText {
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--text-main);
+    color: var(--color-text);
 }
 
 @media (max-width: 768px) {

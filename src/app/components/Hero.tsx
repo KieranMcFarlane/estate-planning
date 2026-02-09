@@ -1,5 +1,5 @@
 import styles from './Hero.module.css';
-import { Button } from '@/components/ui/button';
+import Button from './base/Button';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -8,20 +8,29 @@ export default function Hero() {
         <section className={styles.hero}>
             <div className={`container ${styles.container}`}>
                 <div className={styles.content}>
+                    <p className={styles.eyebrow}>Trusted by over 1,000 families across the Midlands</p>
                     <h1 className={styles.title}>
-                        Estate planning, made simple
+                        The simpler way to secure your family's future
                     </h1>
                     <p className={styles.subtitle}>
                         Wills, Trusts and Lasting Powers of Attorney in Royal Leamington Spa.
                         We'll explain everything clearly and guide you through at your pace.
                     </p>
+                    <div className={styles.trustIndicator}>
+                        <span className={styles.trustIcon}>✓</span>
+                        <span>Nearly 20 years of experience • 5-star rated on Google</span>
+                    </div>
                     <div className={styles.actions}>
-                        <Button asChild variant="default" size="lg">
-                            <Link href="/contact">Book a free call</Link>
+                        <Button href="/contact" variant="primary" size="lg">
+                            Book a free call
                         </Button>
-                        <Button asChild variant="outline" size="lg">
-                            <Link href="#how-it-works">See how it works</Link>
+                        <Button href="#how-it-works" variant="outline" size="lg">
+                            See how it works
                         </Button>
+                    </div>
+                    <div className={styles.phoneCta}>
+                        <span className={styles.phoneIcon}>📞</span>
+                        <span>Or call us free: <strong>07902 863999</strong></span>
                     </div>
                     <p className={styles.note}>No pressure. No jargon. Just friendly guidance.</p>
                 </div>

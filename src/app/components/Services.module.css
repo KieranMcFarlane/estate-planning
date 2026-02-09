@@ -5,6 +5,32 @@
     padding: var(--spacing-xl) 0;
 }
 
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.stat {
+    text-align: center;
+}
+
+.statNumber {
+    display: block;
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--color-highlight);
+    line-height: 1;
+}
+
+.statLabel {
+    display: block;
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 0.5rem;
+}
+
 .heading {
     color: var(--text-white);
 }
@@ -68,6 +94,14 @@
 }
 
 @media (max-width: 768px) {
+    .stats {
+        gap: var(--spacing-md);
+    }
+
+    .statNumber {
+        font-size: var(--text-3xl);
+    }
+
     .grid {
         grid-template-columns: 1fr;
         gap: var(--spacing-md);

@@ -6,16 +6,28 @@ import styles from './AboutUs.module.css';
 export default function AboutUs() {
     const values = [
         {
-            title: "Nearly two decades of experience",
-            description: "Helping individuals and families protect what matters most"
+            title: "Established 2006",
+            description: "Nearly 20 years serving families across Leamington Spa and the Midlands"
+        },
+        {
+            title: "1,000+ families helped",
+            description: "From first-time Will writers to complex estate planning"
+        },
+        {
+            title: "5-star rated",
+            description: "Consistently excellent reviews on Google from satisfied clients"
         },
         {
             title: "Clear, jargon-free guidance",
-            description: "We explain everything in plain English"
+            description: "We explain everything in plain English — guaranteed"
         },
         {
-            title: "A calm, supportive approach",
-            description: "We go at your pace, never rushing or judging"
+            title: "STEP qualified",
+            description: "Members of the Society of Trust and Estate Practitioners"
+        },
+        {
+            title: "Home visits available",
+            description: "Evening and weekend appointments across the region"
         }
     ];
 
@@ -33,8 +45,9 @@ export default function AboutUs() {
             <div className={styles.content}>
                 <p>
                     At <strong>Pathway Estate Planning</strong>, we're here to make it easier.
-                    We bring nearly <strong>two decades of experience</strong> helping individuals and families
-                    protect what matters most — with clear advice and a calm, supportive approach.
+                    Since <strong>2006</strong>, we've helped <strong>over 1,000 families</strong> across
+                    Leamington Spa, Warwick, and the Midlands protect what matters most —
+                    with clear advice and a calm, supportive approach.
                 </p>
                 <p>
                     We take the time to listen properly, understand your situation, and guide you through
@@ -49,7 +62,7 @@ export default function AboutUs() {
                 </div>
             </div>
 
-            <Grid cols={{ mobile: 1, tablet: 3 }} gap="md" className={styles.valuesGrid}>
+            <Grid cols={{ mobile: 1, tablet: 2, desktop: 3 }} gap="md" className={styles.valuesGrid}>
                 {values.map((value, index) => (
                     <Card key={index} variant="elevated" padding="md">
                         <h3 className={styles.valueTitle}>{value.title}</h3>

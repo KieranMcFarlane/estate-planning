@@ -2,6 +2,19 @@
     padding-top: var(--spacing-lg);
 }
 
+.intro {
+    max-width: 700px;
+    margin: 0 auto var(--spacing-xl);
+    text-align: center;
+}
+
+.intro p {
+    font-size: var(--text-lg);
+    line-height: 1.8;
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-md);
+}
+
 .header {
     text-align: center;
     margin-bottom: var(--spacing-xl);

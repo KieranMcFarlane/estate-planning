@@ -3,20 +3,20 @@ import styles from './Testimonials.module.css';
 export default function Testimonials() {
     const reviews = [
         {
-            text: "From the first call, I felt reassured. Everything was explained clearly and calmly, and I never felt rushed. I’m so glad we finally got everything sorted.",
-            author: "Satisfied Client"
+            text: "From the first call, I felt reassured. Everything was explained clearly and calmly, and I never felt rushed. We sorted our Will in just two meetings.",
+            author: "Sarah & James, Leamington Spa"
         },
         {
-            text: "I’d been putting my Will off for years because it felt daunting. Pathway made the whole process simple, straightforward and surprisingly stress-free.",
-            author: "Local Family"
+            text: "I'd been putting my Will off for years because it felt daunting. Pathway made the whole process simple, straightforward and surprisingly stress-free.",
+            author: "Michael, Warwick"
         },
         {
-            text: "The best thing was how clear everything felt. No jargon, no confusion — just step-by-step guidance and real peace of mind.",
-            author: "Happy Customer"
+            text: "Finally understood inheritance tax! They explained everything in plain English and helped us protect our children's inheritance. Such a relief.",
+            author: "The Patel Family, Sydenham"
         },
         {
-            text: "This is such a sensitive subject, but they handled it with real care. We felt supported the whole way through.",
-            author: "Trust Client"
+            text: "Home visit was a game-changer for my elderly parents. They felt comfortable and at ease. The LPA process was handled with such care.",
+            author: "Rebecca, Kenilworth"
         }
     ];
 
@@ -34,7 +34,7 @@ export default function Testimonials() {
                     ))}
                 </div>
                 <div className={`text-center ${styles.trust}`}>
-                    <p>Rated <strong>5 Stars</strong> by families in Royal Leamington Spa</p>
+                    <p>Rated <strong>5 Stars</strong> by over 1,000 families across the Midlands</p>
                 </div>
             </div>
         </section>

@@ -1,0 +1,168 @@
+.progressTracker {
+    background-color: var(--color-bg-alt);
+}
+
+.header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto var(--spacing-lg);
+}
+
+.header h2 {
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+}
+
+.description {
+    color: var(--color-text-muted);
+    font-size: var(--text-base);
+}
+
+.trackerCard {
+    background-color: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+    max-width: 700px;
+    margin: 0 auto var(--spacing-xl);
+}
+
+.strengthHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.strengthInfo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.strengthLabel {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.strengthBadge {
+    padding: 0.375rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+}
+
+.progressPercent {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-text);
+}
+
+.progressBar {
+    height: 12px;
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-bottom: var(--spacing-lg);
+}
+
+.progressFill {
+    height: 100%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    border-radius: var(--radius-full);
+}
+
+.itemsList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.item:hover {
+    background-color: var(--color-bg-alt);
+}
+
+.checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkmark {
+    width: 24px;
+    height: 24px;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--color-text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    background-color: var(--color-surface);
+}
+
+.item:hover .checkmark {
+    border-color: var(--color-primary);
+}
+
+.checkbox:checked + .checkmark {
+    background-color: var(--color-success);
+    border-color: var(--color-success);
+    color: var(--color-text-white);
+}
+
+.itemContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.itemLabel {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.itemDescription {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+
+.cta {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.ctaText {
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--text-lg);
+}
+
+@media (max-width: 768px) {
+    .trackerCard {
+        padding: var(--spacing-md);
+    }
+
+    .strengthHeader {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+
+    .progressPercent {
+        font-size: var(--text-xl);
+    }
+}

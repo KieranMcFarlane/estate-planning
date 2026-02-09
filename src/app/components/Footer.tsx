@@ -9,10 +9,31 @@ export default function Footer() {
                 <div className={styles.column}>
                     <h3 className={styles.heading}>Pathway Estate Planning</h3>
                     <p className={styles.tagline}>Wills, Trusts & Lasting Powers of Attorney in Royal Leamington Spa.</p>
+
+                    {/* Trust Indicators */}
+                    <div className={styles.trustBadges}>
+                        <div className={styles.trustBadge}>
+                            <span className={styles.trustIcon}>★★★★★</span>
+                            <span className={styles.trustText}>5-star rated</span>
+                        </div>
+                        <div className={styles.trustBadge}>
+                            <span className={styles.trustIcon}>✓</span>
+                            <span className={styles.trustText}>STEP qualified</span>
+                        </div>
+                        <div className={styles.trustBadge}>
+                            <span className={styles.trustIcon}>£</span>
+                            <span className={styles.trustText}>No hidden fees</span>
+                        </div>
+                    </div>
+
+                    {/* Contact */}
                     <div className={styles.contact}>
                         <a href="tel:07902863999" className={styles.contactLink}>
                             <Icon name="phone" size="sm" />
-                            <span>07902 863999</span>
+                            <div>
+                                <span className={styles.contactLabel}>Free consultation</span>
+                                <span className={styles.contactNumber}>07902 863999</span>
+                            </div>
                         </a>
                         <a href="mailto:info@pathwayestateplanning.co.uk" className={styles.contactLink}>
                             <Icon name="mail" size="sm" />
@@ -22,14 +43,22 @@ export default function Footer() {
                 </div>
 
                 <div className={styles.column}>
-                    <h4 className={styles.subheading}>Services</h4>
+                    <h4 className={styles.subheading}>Estate Planning</h4>
                     <ul className={styles.list}>
                         <li><Link href="/wills">Wills</Link></li>
                         <li><Link href="/trusts">Trusts</Link></li>
                         <li><Link href="/lpa">Lasting Powers of Attorney</Link></li>
                         <li><Link href="/inheritance-tax-planning">Inheritance Tax Planning</Link></li>
+                    </ul>
+                </div>
+
+                <div className={styles.column}>
+                    <h4 className={styles.subheading}>Specialist Services</h4>
+                    <ul className={styles.list}>
                         <li><Link href="/asset-protection">Asset Protection</Link></li>
-                        <li><Link href="/probate">Probate Support</Link></li>
+                        <li><Link href="/business-protection">Business Protection</Link></li>
+                        <li><Link href="/care-planning">Care Planning</Link></li>
+                        <li><Link href="/agricultural-land">Agricultural Land</Link></li>
                     </ul>
                 </div>
 
@@ -47,15 +76,42 @@ export default function Footer() {
                 <div className={styles.column}>
                     <h4 className={styles.subheading}>Company</h4>
                     <ul className={styles.list}>
-                        <li><Link href="/#about">About Us</Link></li>
-                        <li><Link href="/#how-it-works">How It Works</Link></li>
+                        <li><Link href="/about">About Us</Link></li>
+                        <li><Link href="/how-it-works">How It Works</Link></li>
                         <li><Link href="/contact">Contact</Link></li>
                     </ul>
                 </div>
             </div>
+
+            {/* Trust & Credentials Bar */}
+            <div className={styles.credentials}>
+                <div className="container">
+                    <div className={styles.credentialsGrid}>
+                        <div className={styles.credential}>
+                            <strong>Established 2006</strong>
+                            <span>Serving Leamington Spa & the Midlands</span>
+                        </div>
+                        <div className={styles.credential}>
+                            <strong>Fully Insured</strong>
+                            <span>Professional indemnity coverage</span>
+                        </div>
+                        <div className={styles.credential}>
+                            <strong>1,000+ Families</strong>
+                            <span>Helped across the Midlands</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div className={styles.copyright}>
                 <div className="container">
-                    <p>&copy; {new Date().getFullYear()} Pathway Estate Planning. All rights reserved.</p>
+                    <div className={styles.copyrightContent}>
+                        <p>&copy; {new Date().getFullYear()} Pathway Estate Planning. All rights reserved.</p>
+                        <div className={styles.legalLinks}>
+                            <Link href="/privacy">Privacy Policy</Link>
+                            <Link href="/terms">Terms of Service</Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </footer>

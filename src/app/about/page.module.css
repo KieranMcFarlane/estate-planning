@@ -1,0 +1,119 @@
+.main {
+    background-color: var(--color-bg);
+}
+
+.hero {
+    padding: var(--spacing-xl) 0;
+    text-align: center;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-secondary);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+}
+
+.title {
+    font-size: var(--text-4xl);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+}
+
+.subtitle {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.statsBanner {
+    background-color: var(--color-primary);
+    color: white;
+    padding: var(--spacing-lg) 0;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+    text-align: center;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.statNumber {
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.statLabel {
+    font-size: var(--text-sm);
+    opacity: 0.9;
+}
+
+.ctaSection {
+    background-color: var(--color-bg-alt);
+    padding: var(--spacing-xl) 0;
+}
+
+.ctaContent {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.ctaContent h2 {
+    font-size: var(--text-2xl);
+    color: var(--color-text);
+    margin-bottom: var(--spacing-md);
+}
+
+.ctaContent p {
+    color: var(--color-text-muted);
+    margin-bottom: var(--spacing-lg);
+}
+
+.ctaButtons {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: var(--spacing-lg) 0;
+    }
+
+    .title {
+        font-size: var(--text-3xl);
+    }
+
+    .statsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .statNumber {
+        font-size: var(--text-3xl);
+    }
+
+    .ctaButtons {
+        flex-direction: column;
+    }
+
+    .ctaButtons button,
+    .ctaButtons a {
+        width: 100%;
+    }
+}

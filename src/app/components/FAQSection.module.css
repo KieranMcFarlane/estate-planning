@@ -1,0 +1,45 @@
+.faqSection {
+    background-color: var(--color-bg-alt);
+}
+
+.header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto var(--spacing-lg);
+}
+
+.header h2 {
+    color: var(--color-text);
+    margin-bottom: var(--spacing-sm);
+}
+
+.intro {
+    color: var(--color-text-muted);
+    font-size: var(--text-base);
+}
+
+.cta {
+    text-align: center;
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background-color: var(--color-surface);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.cta p {
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.contactLink {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.contactLink:hover {
+    color: var(--color-primary-dark);
+}
