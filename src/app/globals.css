@@ -37,30 +37,41 @@
 
   --radius: 0.5rem;
 
-  /* Modern Estate Planning Color Palette - Legacy CSS Variables */
-  /* Primary - Calm Teal */
-  --color-primary: #2F6F6A;
-  --color-primary-dark: #245650;
-  --color-primary-light: #7FB3AC;
+  /* Modern Estate Planning Color Palette - Enhanced 2025 */
+  /* Primary - Warm Navy Blue (more trustworthy, modern) */
+  --color-primary: #1E4D6B;
+  --color-primary-dark: #153A52;
+  --color-primary-light: #4A7C9A;
 
-  /* Secondary - Warm Clay */
-  --color-secondary: #C58B63;
-  --color-secondary-dark: #A87453;
+  /* Secondary - Enhanced Warm Clay (stronger CTA) */
+  --color-secondary: #D4824E;
+  --color-secondary-dark: #B56B3D;
 
-  /* Backgrounds */
-  --color-bg: #F7F4EF;
+  /* Tertiary NEW - Soft Sage Green (calming, growth, trust) */
+  --color-tertiary: #7BA38A;
+  --color-tertiary-dark: #5D8269;
+  --color-tertiary-light: #A8C9B5;
+
+  /* Action Color NEW - Warm Coral (urgency, conversion) */
+  --color-action: #E07A5F;
+  --color-action-dark: #C4644D;
+
+  /* Enhanced Backgrounds */
+  --color-bg: #F9F6F1; /* Warmer off-white */
   --color-surface: #FFFFFF;
-  --color-bg-alt: #EEF2F0;
+  --color-bg-alt: #F2ECE4; /* More contrast */
+  --color-bg-warm: #FFF8F0; /* NEW - warm tint for hero */
 
-  /* Text */
-  --color-text: #2B3A3A;
-  --color-text-muted: #5F6F6F;
+  /* Enhanced Text */
+  --color-text: #2A2F32; /* Softer black */
+  --color-text-muted: #5A6368;
   --color-text-white: #FFFFFF;
 
-  /* Accents */
+  /* Enhanced Accents */
   --color-accent: #C9B27D;
   --color-success: #5C7A66;
   --color-error: #B85C5C;
+  --color-highlight-primary: #F4C962; /* Stronger yellow */
   --color-highlight: #E8D44C; /* softer yellow, inspired by Farewill */
   --color-success-light: #E8F5E9;
 
@@ -457,6 +468,49 @@ p {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
   margin-top: 0.5rem;
+}
+
+/* Background patterns and gradients */
+.bg-pattern-dots {
+    background-image: radial-gradient(circle, var(--color-primary-light) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-tertiary) 100%);
+}
+
+.bg-gradient-tertiary {
+    background: linear-gradient(135deg, var(--color-tertiary-light) 0%, var(--color-bg-alt) 100%);
+}
+
+/* Enhanced animations */
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
 }
 
 /* Responsive adjustments */

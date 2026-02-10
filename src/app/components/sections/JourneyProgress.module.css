@@ -1,0 +1,151 @@
+.journeyProgress {
+    padding: var(--spacing-lg) 0;
+    background-color: var(--color-bg-warm);
+}
+
+.stepsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    position: relative;
+}
+
+.stepItem {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.stepHeader {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.stepCircle {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-xl);
+    font-weight: 700;
+    font-family: var(--font-heading), sans-serif;
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    transition: all 0.3s ease;
+}
+
+.stepCircle svg {
+    width: 24px;
+    height: 24px;
+}
+
+.stepCircle.upcoming {
+    background-color: var(--color-bg-alt);
+    color: var(--color-text-muted);
+    border: 2px solid var(--color-text-muted);
+}
+
+.stepCircle.current {
+    background-color: var(--color-action);
+    color: var(--color-text-white);
+    border: 3px solid var(--color-action-dark);
+    box-shadow: 0 0 0 4px rgba(224, 122, 95, 0.2);
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.stepCircle.completed {
+    background-color: var(--color-tertiary);
+    color: var(--color-text-white);
+    border: 2px solid var(--color-tertiary);
+}
+
+.stepLine {
+    flex: 1;
+    height: 3px;
+    background-color: var(--color-bg-alt);
+    margin: 0 var(--spacing-sm);
+    border-radius: var(--radius-full);
+}
+
+.stepLine.lineCompleted {
+    background-color: var(--color-tertiary);
+}
+
+.stepContent {
+    margin-top: var(--spacing-sm);
+    max-width: 200px;
+}
+
+.stepTitle {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+}
+
+.stepDescription {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: 1.4;
+}
+
+/* Current step highlight */
+.stepItem:nth-child(1) .stepTitle,
+.stepItem:nth-child(2) .stepTitle,
+.stepItem:nth-child(3) .stepTitle,
+.stepItem:nth-child(4) .stepTitle {
+    color: var(--color-text);
+}
+
+.stepCircle.current + .stepContent .stepTitle {
+    color: var(--color-action);
+}
+
+@media (max-width: 768px) {
+    .stepsContainer {
+        flex-direction: column;
+        gap: var(--spacing-lg);
+    }
+
+    .stepHeader {
+        justify-content: center;
+        margin-bottom: var(--spacing-xs);
+    }
+
+    .stepLine {
+        display: none;
+    }
+
+    .stepCircle {
+        width: 48px;
+        height: 48px;
+        font-size: var(--text-lg);
+    }
+
+    .stepCircle svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .stepContent {
+        margin-top: var(--spacing-sm);
+        max-width: 100%;
+    }
+
+    .stepTitle {
+        font-size: var(--text-base);
+    }
+
+    .stepDescription {
+        font-size: var(--text-xs);
+    }
+}

@@ -76,6 +76,19 @@
     background-color: var(--color-bg-alt);
 }
 
+.action {
+    background-color: var(--color-action);
+    color: var(--color-text-white);
+    border-color: var(--color-action);
+}
+
+.action:hover {
+    background-color: var(--color-action-dark);
+    border-color: var(--color-action-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px -4px rgba(224, 122, 95, 0.3);
+}
+
 /* Mobile full width */
 @media (max-width: 768px) {
     .btn {

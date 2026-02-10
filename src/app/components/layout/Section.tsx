@@ -2,7 +2,7 @@ import styles from './Section.module.css';
 
 export interface SectionProps {
   children: React.ReactNode;
-  variant?: 'default' | 'alt' | 'primary' | 'dark';
+  variant?: 'default' | 'alt' | 'primary' | 'dark' | 'warm' | 'gradient';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
   id?: string;

@@ -24,10 +24,31 @@
 }
 
 .stars {
-    color: var(--cta-color);
-    /* Orange/Gold */
+    color: var(--color-action);
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
+}
+
+/* Featured testimonial card */
+.featured {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-tertiary) 100%);
+    color: var(--color-text-white);
+    grid-column: span 1;
+}
+
+@media (min-width: 1024px) {
+    .featured {
+        grid-column: span 2;
+    }
+}
+
+.featuredText {
+    color: var(--color-text-white);
+    font-size: var(--text-lg);
+}
+
+.featuredAuthor {
+    color: var(--color-tertiary-light);
 }
 
 .text {
@@ -45,6 +66,35 @@
 
 .trust {
     margin-top: var(--spacing-lg);
-    color: var(--primary-dark);
+    color: var(--color-primary-dark);
     font-size: 1.125rem;
+}
+
+.trustBadges {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.badgeNumber {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    font-family: var(--font-heading), sans-serif;
+    color: var(--color-tertiary);
+    line-height: 1;
+}
+
+.badgeLabel {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
 }

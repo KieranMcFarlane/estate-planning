@@ -304,4 +304,68 @@
     :global(main) {
         padding-bottom: 60px;
     }
+
+    .floatingCtaDesktop {
+        display: none;
+    }
 }
+
+/* Floating Desktop CTA */
+.floatingCtaDesktop {
+    position: fixed;
+    bottom: var(--spacing-md);
+    right: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background-color: var(--color-surface);
+    border-radius: var(--radius-full);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    z-index: 90;
+    animation: slideInRight 0.6s ease-out;
+    opacity: 0.95;
+    transition: opacity 0.2s ease;
+}
+
+.floatingCtaDesktop:hover {
+    opacity: 1;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(120%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 0.95;
+    }
+}
+
+.floatingPhone {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--color-bg-alt);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    transition: all 0.2s ease;
+}
+
+.floatingPhone:hover {
+    background-color: var(--color-primary);
+    color: var(--color-text-white);
+}
+
+/* Hide floating CTA on smaller screens */
+@media (max-width: 1280px) {
+    .floatingCtaDesktop {
+        display: none;
+    }
+}
+

@@ -47,6 +47,14 @@
   color: var(--color-text-white);
 }
 
+.warm {
+  background-color: var(--color-bg-warm);
+}
+
+.gradient {
+  background: linear-gradient(135deg, var(--color-tertiary-light) 0%, var(--color-bg-alt) 100%);
+}
+
 @media (max-width: 768px) {
   .sm { padding: var(--spacing-sm) 0; }
   .md { padding: var(--spacing-md) 0; }

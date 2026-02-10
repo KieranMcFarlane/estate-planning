@@ -17,6 +17,20 @@
     max-width: 540px;
 }
 
+.badgeUrgency {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--color-action);
+    color: var(--color-text-white);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin-bottom: var(--spacing-sm);
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 .eyebrow {
     font-size: var(--text-sm);
     text-transform: uppercase;
@@ -45,19 +59,19 @@
     align-items: center;
     gap: 0.5rem;
     font-size: var(--text-sm);
-    color: var(--color-primary);
+    color: var(--color-tertiary-dark);
     font-weight: 500;
     margin-bottom: var(--spacing-md);
     padding: 0.5rem 1rem;
-    background: rgba(47, 111, 106, 0.08);
+    background: linear-gradient(135deg, rgba(123, 163, 138, 0.15) 0%, rgba(74, 124, 154, 0.1) 100%);
     border-radius: var(--radius-full);
     width: fit-content;
 }
 
-.trustIcon {
-    color: var(--color-success);
-    font-weight: bold;
-    font-size: 1.2rem;
+.trustIndicator svg {
+    color: var(--color-tertiary);
+    width: 20px;
+    height: 20px;
 }
 
 .actions {

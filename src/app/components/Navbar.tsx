@@ -113,6 +113,17 @@ export default function Navbar() {
                     Book a Call
                 </Link>
             </div>
+
+            {/* Floating Desktop CTA */}
+            <div className={styles.floatingCtaDesktop}>
+                <a href="tel:07902863999" className={styles.floatingPhone}>
+                    <Icon name="phone" size="sm" />
+                    <span>07902 863999</span>
+                </a>
+                <Button href="/contact" variant="action" size="sm">
+                    Book Free Call
+                </Button>
+            </div>
         </nav>
     );
 }

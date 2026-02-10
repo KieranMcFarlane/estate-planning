@@ -2,12 +2,19 @@ import styles from './Hero.module.css';
 import Button from './base/Button';
 import Link from 'next/link';
 import Image from 'next/image';
+import Icon from './base/Icon';
 
 export default function Hero() {
     return (
         <section className={styles.hero}>
             <div className={`container ${styles.container}`}>
                 <div className={styles.content}>
+                    {/* Urgency Badge */}
+                    <div className={styles.badgeUrgency}>
+                        <Icon name="clock" size="sm" />
+                        <span>Limited free consultations this month</span>
+                    </div>
+
                     <p className={styles.eyebrow}>Trusted by over 1,000 families across the Midlands</p>
                     <h1 className={styles.title}>
                         The simpler way to secure your family's future
@@ -17,19 +24,19 @@ export default function Hero() {
                         We'll explain everything clearly and guide you through at your pace.
                     </p>
                     <div className={styles.trustIndicator}>
-                        <span className={styles.trustIcon}>✓</span>
+                        <Icon name="shield-check" size="sm" />
                         <span>Nearly 20 years of experience • 5-star rated on Google</span>
                     </div>
                     <div className={styles.actions}>
-                        <Button href="/contact" variant="primary" size="lg">
+                        <Button href="/contact" variant="action" size="lg">
                             Book a free call
                         </Button>
-                        <Button href="#how-it-works" variant="outline" size="lg">
+                        <Button href="#how-it-works" variant="secondary" size="lg">
                             See how it works
                         </Button>
                     </div>
                     <div className={styles.phoneCta}>
-                        <span className={styles.phoneIcon}>📞</span>
+                        <Icon name="phone" size="sm" />
                         <span>Or call us free: <strong>07902 863999</strong></span>
                     </div>
                     <p className={styles.note}>No pressure. No jargon. Just friendly guidance.</p>
