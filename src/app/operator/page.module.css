@@ -1,0 +1,262 @@
+.shell {
+  min-height: 100vh;
+  background: #f6f1ea;
+  color: #243234;
+  padding: 7.5rem clamp(1rem, 3vw, 2.5rem) 3rem;
+}
+
+.header {
+  max-width: 1180px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(36, 50, 52, 0.16);
+  padding-bottom: 1.25rem;
+}
+
+.kicker {
+  color: #64716e;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.header h1,
+.sectionHeader h2 {
+  margin: 0.25rem 0 0;
+  font-family: var(--font-heading), serif;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.header h1 {
+  font-size: clamp(2.35rem, 5vw, 4.2rem);
+}
+
+.headerActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.headerActions a,
+.workstream a,
+.footerBand a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  border: 1px solid rgba(30, 77, 107, 0.25);
+  background: #ffffff;
+  color: #1e4d6b;
+  padding: 0.6rem 0.85rem;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.statusGrid {
+  max-width: 1180px;
+  margin: 0 auto 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.statusItem,
+.workstream,
+.sidePanel,
+.footerBand {
+  border: 1px solid rgba(36, 50, 52, 0.14);
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.statusItem {
+  min-height: 5.5rem;
+  display: grid;
+  align-content: space-between;
+  padding: 0.85rem;
+  border-left: 4px solid #7ba38a;
+}
+
+.statusItem[data-tone="manual"] {
+  border-left-color: #d4824e;
+}
+
+.statusItem[data-tone="blocked"] {
+  border-left-color: #b85c5c;
+}
+
+.statusItem span,
+.serviceList dt {
+  color: #65706d;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.statusItem strong {
+  font-size: 1.05rem;
+}
+
+.layout {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(290px, 0.8fr);
+  gap: 1rem;
+}
+
+.primary,
+.sidePanel {
+  min-width: 0;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.sectionHeader h2 {
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+}
+
+.sectionHeader svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #1e4d6b;
+}
+
+.workstreamGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.workstream {
+  min-height: 13.5rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.workstreamIcon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: grid;
+  place-items: center;
+  background: #eaf2ee;
+  color: #1e4d6b;
+}
+
+.workstreamIcon svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.workstream h3 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.workstream p {
+  min-height: 4.5rem;
+  margin: 0.45rem 0 1rem;
+  color: #586461;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.sidePanel {
+  align-self: start;
+  padding: 1rem;
+}
+
+.serviceList {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.serviceList div {
+  border-top: 1px solid rgba(36, 50, 52, 0.1);
+  padding-top: 0.75rem;
+}
+
+.serviceList div:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.serviceList dd {
+  margin: 0.25rem 0 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.serviceList dd span {
+  overflow-wrap: anywhere;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.8rem;
+  color: #344143;
+}
+
+.serviceList dd strong {
+  justify-self: start;
+  background: #eef5f1;
+  color: #335941;
+  padding: 0.22rem 0.45rem;
+  font-size: 0.75rem;
+}
+
+.footerBand {
+  max-width: 1180px;
+  margin: 1rem auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.95rem 1rem;
+}
+
+.footerBand div {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footerBand svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #5d8269;
+  flex: 0 0 auto;
+}
+
+.footerBand p {
+  margin: 0;
+  color: #596563;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .shell {
+    padding-top: 6.25rem;
+  }
+
+  .header,
+  .layout,
+  .footerBand {
+    display: grid;
+  }
+
+  .statusGrid,
+  .workstreamGrid {
+    grid-template-columns: 1fr;
+  }
+}
