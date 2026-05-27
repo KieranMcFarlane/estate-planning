@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from './ComparisonCards.module.css';
 
 export interface ComparisonOption {
@@ -28,7 +29,7 @@ const defaultComparisons: Comparison[] = [
                 description: "A Will takes effect when you die and specifies how your assets should be distributed.",
                 features: [
                     "Takes effect only after death",
-                    "Goes through probate (can take months)",
+                    "Goes through probate",
                     "Public document once probated",
                     "Can be challenged more easily",
                     "Essential for everyone"
@@ -87,7 +88,7 @@ const defaultComparisons: Comparison[] = [
                 title: "DIY Will",
                 description: "Templates you complete yourself, often available online or from stationers.",
                 features: [
-                    "Low upfront cost (£10-£50)",
+                    "Low upfront cost",
                     "No expert advice",
                     "High risk of errors",
                     "Not suitable for complex families",
@@ -121,7 +122,7 @@ export default function ComparisonCards({
                 <div className={styles.header}>
                     <h2>{heading}</h2>
                     <p className={styles.description}>
-                        Estate planning involves important choices. Here are clear comparisons to help you understand what's right for you.
+                        Estate planning involves important choices. Here are clear comparisons to help you understand what&apos;s right for you.
                     </p>
                 </div>
 
@@ -157,7 +158,7 @@ export default function ComparisonCards({
 
                 <div className={styles.cta}>
                     <p className={styles.ctaText}>Still unsure which option is right for you?</p>
-                    <a href="/contact" className={styles.ctaLink}>Book a free call to discuss your situation</a>
+                    <Link href="/contact" className={styles.ctaLink}>Book an initial chat to discuss your situation</Link>
                 </div>
             </div>
         </section>

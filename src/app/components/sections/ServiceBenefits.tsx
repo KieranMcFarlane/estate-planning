@@ -55,12 +55,12 @@ const defaultBenefits: Benefit[] = [
     {
         icon: 'clock',
         title: 'Responsive Communication',
-        description: 'Questions between meetings? We\'re available by phone, email, or video call. No waiting weeks for a response.',
+        description: 'Questions between meetings? We\'re available by phone, email, or video call. No long waits for a response.',
     },
     {
         icon: 'trending-up',
-        title: 'Fixed Pricing, No Surprises',
-        description: 'Know exactly what you\'ll pay before we start. No hourly billing, no hidden costs, no ongoing subscriptions.',
+        title: 'Clear Costs, No Surprises',
+        description: 'We explain costs before work begins, with no hourly billing or unexpected extras.',
         highlight: true
     }
 ];

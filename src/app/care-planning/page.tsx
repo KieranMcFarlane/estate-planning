@@ -1,78 +1,65 @@
-import Link from "next/link";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import { Button } from "@/components/ui/button";
-import styles from "./page.module.css";
+import SubpageTemplate from "../components/SubpageTemplate";
 
 export default function CarePlanningPage() {
-    return (
-        <>
-            <Navbar />
-            <main className={styles.main}>
-                <div className="container">
-                    <header className={styles.header}>
-                        <h1 className={styles.title}>Care Planning</h1>
-                        <p className={styles.subtitle}>Support when you need it most</p>
-                    </header>
-
-                    <section className={styles.content}>
-                        <div className={styles.introBox}>
-                            <p>
-                                Planning for later life isn’t always easy to think about — but having a plan in place can bring real peace of mind.
-                            </p>
-                            <p>
-                                Care planning helps you understand the practical, financial and legal aspects of long-term care, so that:
-                            </p>
-                            <ul className={styles.list}>
-                                <li>your wishes are respected</li>
-                                <li>important decisions are made by the right people</li>
-                                <li>your finances are structured as safely as possible</li>
-                                <li>your family feels supported, not overwhelmed</li>
-                            </ul>
-                            <p>
-                                Whether you’re planning for yourself or helping a loved one, we’ll guide you through the process with care, patience and clarity.
-                            </p>
-                        </div>
-
-                        <h2 className={styles.sectionTitle}>Why care planning matters</h2>
-                        <p>
-                            The cost of long-term care can be significant, and without planning, it can affect savings and assets more quickly than people expect.
-                        </p>
-                        <p>
-                            <strong>Care planning is not about fear — it’s about preparation.</strong>
-                        </p>
-                        <p>
-                            Our goal is to help you feel informed and supported, so you can make calm decisions before anything becomes urgent.
-                        </p>
-
-                        <div className={styles.focusArea}>
-                            <h3>We can help you understand:</h3>
-                            <ul>
-                                <li>funding options and financial planning considerations</li>
-                                <li>how Powers of Attorney may support future decision-making</li>
-                                <li>how to protect assets where appropriate</li>
-                                <li>how to ensure care choices match your wishes</li>
-                            </ul>
-                        </div>
-
-                        <p>
-                            We work with trusted financial professionals where needed, and we’ll always explain things clearly in plain English.
-                        </p>
-                    </section>
-
-                    <section className={styles.cta}>
-                        <h2>Talk to us</h2>
-                        <p>Preparing for later life doesn’t have to be overwhelming.</p>
-                        <p>Talk to our friendly team today — we’re here to listen, support and guide you.</p>
-                        <div className={styles.btnWrapper}>
-                            <Button asChild variant="default">
-                                <Link href="/contact">Book a free call</Link>
-                            </Button>
-                        </div>
-                    </section>
-                </div>
-            </main>
-            <Footer />
-        </>
-    );
+  return (
+    <SubpageTemplate
+      eyebrow="Later-life planning"
+      title="Care Planning"
+      subtitle="Practical, calm support for decisions that can feel difficult to face."
+      heroImage="/care_planning.jpg"
+      heroAlt="Care professional talking with an older person at home"
+      intro={[
+        "Planning for later life is not always easy to think about, but having a plan in place can bring real peace of mind.",
+        "Care planning helps you understand the practical, financial and legal aspects of long-term care, whether you are planning for yourself or helping a loved one.",
+      ]}
+      blocks={[
+        {
+          heading: "What care planning helps with",
+          paragraphs: [
+            "The cost of long-term care can be significant, and without planning it can affect savings and assets more quickly than people expect.",
+            "Care planning is not about fear. It is about preparation, clarity, and making calm decisions before anything becomes urgent.",
+          ],
+          items: [
+            "Your wishes are respected",
+            "Important decisions are made by the right people",
+            "Your finances are structured as safely as possible",
+            "Your family feels supported, not overwhelmed",
+          ],
+        },
+        {
+          heading: "We can help you understand",
+          variant: "cream",
+          cards: [
+            {
+              title: "Funding options",
+              body: "We explain the practical considerations around care funding and where specialist financial advice may be useful.",
+            },
+            {
+              title: "Powers of Attorney",
+              body: "We help you understand how LPAs can support future decision-making if you can no longer make decisions yourself.",
+            },
+            {
+              title: "Asset protection",
+              body: "We talk through appropriate planning options clearly, without fear-led promises or confusing schemes.",
+            },
+            {
+              title: "Care choices",
+              body: "We help you think through how your care preferences can be understood, recorded and respected.",
+            },
+          ],
+        },
+        {
+          heading: "Support that stays human",
+          paragraphs: [
+            "We work with trusted financial professionals where needed, and we always explain things clearly in plain English.",
+            "Our goal is to help you feel informed and supported, so your family can make decisions with more confidence.",
+          ],
+        },
+      ]}
+      cta={{
+        title: "Preparing for later life does not have to be overwhelming.",
+        body: "Talk to our friendly team today. We are here to listen, support and guide you.",
+      }}
+    />
+  );
 }

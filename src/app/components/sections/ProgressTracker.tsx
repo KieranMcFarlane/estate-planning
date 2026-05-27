@@ -57,7 +57,7 @@ export default function ProgressTracker({
     heading = "How complete is your estate plan?",
     description = "Check off the documents you have in place. The more complete your plan, the more protected your family will be.",
     items = defaultItems,
-    ctaText = "Complete your plan - book a free call",
+    ctaText = "Complete your plan - book a initial chat",
     ctaLink = "/contact"
 }: ProgressTrackerProps) {
     const [planItems, setPlanItems] = useState<PlanItem[]>(items);

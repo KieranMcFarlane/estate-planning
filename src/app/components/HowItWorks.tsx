@@ -43,7 +43,7 @@ export default function HowItWorks() {
 
                 <div className={`text-center ${styles.actions}`}>
                     <Button href="/contact" variant="primary" size="lg">
-                        Book a free call
+                        Book an initial chat
                     </Button>
                     <Button href="/how-it-works" variant="outline" size="lg">
                         See the full process

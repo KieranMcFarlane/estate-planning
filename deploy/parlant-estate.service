@@ -1,0 +1,18 @@
+[Unit]
+Description=Pathway Parlant Estate Chat Service
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/repos/estate-planning/services/parlant-estate
+Environment=ESTATE_ROOT=/home/ubuntu/repos/estate-planning
+Environment=ESTATE_KNOWLEDGE_PATH=/home/ubuntu/repos/estate-planning/data/estate-knowledge.json
+Environment=ESTATE_LEADS_PATH=/home/ubuntu/repos/estate-planning/data/leads/estate-handoffs.jsonl
+EnvironmentFile=-/home/ubuntu/repos/estate-planning/.env
+ExecStart=/home/ubuntu/repos/estate-planning/services/parlant-estate/.venv/bin/uvicorn app:app --host 127.0.0.1 --port 8800
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

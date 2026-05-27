@@ -1,60 +1,41 @@
-import Link from "next/link";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import { Button } from "@/components/ui/button";
-import styles from "./page.module.css";
+import SubpageTemplate from "../components/SubpageTemplate";
 
 export default function BusinessProtectionPage() {
-    return (
-        <>
-            <Navbar />
-            <main className={styles.main}>
-                <div className="container">
-                    <header className={styles.header}>
-                        <h1 className={styles.title}>Business Protection</h1>
-                        <p className={styles.subtitle}>Protect your business — and the people who rely on it</p>
-                    </header>
-
-                    <section className={styles.section}>
-                        <p>
-                            If you own a business, estate planning becomes even more important.
-                        </p>
-                        <p>
-                            Without clear planning, business assets can become tied up in delays, uncertainty, or disputes — which can affect your family, business partners, and employees.
-                        </p>
-                        <p>
-                            We can help you create a plan that protects your business interests and supports the people involved.
-                        </p>
-                    </section>
-
-                    <section className={styles.section}>
-                        <h2>How business protection can help</h2>
-                        <p>Business estate planning may include:</p>
-                        <ul className={styles.list}>
-                            <li>ensuring the right people take control</li>
-                            <li>protecting business assets for family or partners</li>
-                            <li>reducing disruption and uncertainty</li>
-                            <li>supporting continuity planning</li>
-                            <li>aligning business planning with your Will and overall estate plan</li>
-                        </ul>
-                    </section>
-
-                    <section className={styles.section}>
-                        <h2>Clear advice, without complexity</h2>
-                        <p>Business planning doesn’t need to feel overwhelming. We’ll guide you step by step and explain your options clearly.</p>
-                    </section>
-
-                    <section className={styles.cta}>
-                        <h2>Ready to get started?</h2>
-                        <div className={styles.btnWrapper}>
-                            <Button asChild variant="default">
-                                <Link href="/contact">Book a free call</Link>
-                            </Button>
-                        </div>
-                    </section>
-                </div>
-            </main>
-            <Footer />
-        </>
-    );
+  return (
+    <SubpageTemplate
+      eyebrow="Specialist planning"
+      title="Business Protection"
+      subtitle="Protect your business and the people who rely on it."
+      heroImage="/generated/document-signing.jpg"
+      heroAlt="Business and estate planning documents being signed"
+      intro={[
+        "If you own a business, estate planning becomes even more important.",
+        "Without clear planning, business assets can become tied up in delays, uncertainty or disputes, which can affect your family, business partners and employees.",
+        "We can help you create a plan that protects your business interests and supports the people involved.",
+      ]}
+      blocks={[
+        {
+          heading: "How business protection can help",
+          variant: "cream",
+          items: [
+            "Ensure the right people take control",
+            "Protect business assets for family or partners",
+            "Reduce disruption and uncertainty",
+            "Support continuity planning",
+            "Align business planning with your Will and estate plan",
+          ],
+        },
+        {
+          heading: "Clear advice, without complexity",
+          paragraphs: [
+            "Business planning does not need to feel overwhelming. We guide you step by step and explain your options clearly.",
+          ],
+        },
+      ]}
+      cta={{
+        title: "Want to protect your business properly?",
+        body: "Talk to us and we will help you understand the practical next steps.",
+      }}
+    />
+  );
 }

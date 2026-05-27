@@ -45,15 +45,15 @@ const defaultGuides: Guide[] = [
 
 export default function FreeGuides({
     guides = defaultGuides,
-    heading = "Free guides to help you get started",
+    heading = "Helpful guides to help you get started",
     description = "Download our comprehensive guides to understand estate planning better. No obligation, just helpful information.",
-    ctaText = "Download your free guides"
+    ctaText = "Download your guides"
 }: FreeGuidesProps) {
     return (
         <section className={`section ${styles.freeGuides}`}>
             <div className="container">
                 <div className={styles.header}>
-                    <p className={styles.eyebrow}>Free Resources</p>
+                    <p className={styles.eyebrow}>Helpful Resources</p>
                     <h2>{heading}</h2>
                     <p className={styles.description}>{description}</p>
                 </div>
@@ -76,7 +76,7 @@ export default function FreeGuides({
                 <div className={styles.cta}>
                     <p className={styles.ctaText}>Need more specific advice?</p>
                     <Button href="/contact" variant="primary" size="md">
-                        Book a free consultation
+                        Book an initial consultation
                     </Button>
                 </div>
             </div>

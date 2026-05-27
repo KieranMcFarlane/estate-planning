@@ -7,7 +7,7 @@ export default function AboutUs() {
     const values = [
         {
             title: "Established 2006",
-            description: "Nearly 20 years serving families across Leamington Spa and the Midlands"
+            description: "Over 15 years serving families across Leamington Spa and the Midlands"
         },
         {
             title: "1,000+ families helped",

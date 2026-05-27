@@ -2,68 +2,117 @@
 
 import { useState } from 'react';
 import Link from "next/link";
-import Button from "./base/Button";
+import Image from "next/image";
 import Icon from "./base/Icon";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [openMenu, setOpenMenu] = useState<"services" | "resources" | null>(null);
+
+    const services = [
+        { href: "/wills", label: "Wills", body: "Clear wishes, properly recorded." },
+        { href: "/trusts", label: "Trusts", body: "Protect assets for the right people." },
+        { href: "/lpa", label: "Lasting Powers of Attorney", body: "Choose who can act for you." },
+        { href: "/inheritance-tax-planning", label: "Inheritance Tax Planning", body: "Support with mitigating tax." },
+        { href: "/care-planning", label: "Care Planning", body: "Plan ahead for later-life decisions." },
+        { href: "/business-protection", label: "Business Protection", body: "Keep your business protected." },
+        { href: "/agricultural-land", label: "Agricultural Land", body: "Planning for farms and land." },
+    ];
 
     const resources = [
-        { href: "/helpful-info", label: "Helpful Info" },
-        { href: "/faq", label: "FAQ" },
-        { href: "/glossary", label: "Glossary" },
+        { href: "/estate-planning", label: "All Services", body: "A full overview of estate planning." },
+        { href: "/extended-services", label: "Extended Services", body: "Probate, advice and related support." },
+        { href: "/helpful-info", label: "Helpful Information", body: "A practical planning checklist." },
+        { href: "/glossary", label: "Glossary of Terms", body: "Plain-English legal explanations." },
+        { href: "/faq", label: "FAQ", body: "Answers to common questions." },
     ];
+
+    const close = () => {
+        setMobileMenuOpen(false);
+        setOpenMenu(null);
+    };
 
     return (
         <nav className={styles.navbar}>
             <div className={`container ${styles.container}`}>
-                <Link href="/" className={styles.logo}>
-                    Pathway <span className={styles.logoSubtitle}>Estate Planning</span>
+                <Link href="/" className={styles.logo} aria-label="Pathway Estate Planning, home">
+                    <Image src="/pathway-logo.png" alt="Pathway Estate Planning Specialists" width={2680} height={880} className={styles.logoImage} priority />
                 </Link>
 
                 <div className={`${styles.links} ${mobileMenuOpen ? styles.mobileOpen : ''}`}>
-                    <Link href="/about" onClick={() => setMobileMenuOpen(false)}>About</Link>
-                    <Link href="/estate-planning" onClick={() => setMobileMenuOpen(false)}>Services</Link>
+                    <Link href="/" onClick={close}>Home</Link>
 
-                    {/* Resources Dropdown - Desktop Only */}
-                    <div className={styles.desktopOnly}>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <button className={styles.dropdownTrigger}>
-                                    Resources
-                                    <Icon name="chevron-down" size="sm" className={styles.dropdownIcon} />
-                                </button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="start" className={styles.shadcnDropdown}>
-                                {resources.map((resource) => (
-                                    <DropdownMenuItem key={resource.href} asChild>
-                                        <Link
-                                            href={resource.href}
-                                            onClick={() => setMobileMenuOpen(false)}
-                                            className={styles.dropdownItem}
-                                        >
-                                            {resource.label}
-                                        </Link>
-                                    </DropdownMenuItem>
-                                ))}
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                    <div className={`${styles.navItem} ${styles.desktopOnly}`}>
+                        <button
+                            className={`${styles.dropdownTrigger} ${openMenu === "services" ? styles.open : ""}`}
+                            onClick={() => setOpenMenu(openMenu === "services" ? null : "services")}
+                            aria-haspopup="true"
+                            aria-expanded={openMenu === "services"}
+                            type="button"
+                        >
+                            Services
+                            <Icon name="chevron-down" size="sm" className={styles.dropdownIcon} />
+                        </button>
+                        <div className={`${styles.dropdown} ${openMenu === "services" ? styles.dropdownOpen : ""}`} role="menu">
+                            {services.map((service) => (
+                                <Link
+                                    href={service.href}
+                                    onClick={close}
+                                    className={styles.dropdownItem}
+                                    key={service.href}
+                                >
+                                    {service.label}
+                                    <small>{service.body}</small>
+                                </Link>
+                            ))}
+                        </div>
                     </div>
 
-                    {/* Resources Links - Mobile Only */}
+                    <div className={`${styles.navItem} ${styles.desktopOnly}`}>
+                        <button
+                            className={`${styles.dropdownTrigger} ${openMenu === "resources" ? styles.open : ""}`}
+                            onClick={() => setOpenMenu(openMenu === "resources" ? null : "resources")}
+                            aria-haspopup="true"
+                            aria-expanded={openMenu === "resources"}
+                            type="button"
+                        >
+                            Resources
+                            <Icon name="chevron-down" size="sm" className={styles.dropdownIcon} />
+                        </button>
+                        <div className={`${styles.dropdown} ${openMenu === "resources" ? styles.dropdownOpen : ""}`} role="menu">
+                            {resources.map((resource) => (
+                                <Link
+                                    href={resource.href}
+                                    onClick={close}
+                                    className={styles.dropdownItem}
+                                    key={resource.href}
+                                >
+                                    {resource.label}
+                                    <small>{resource.body}</small>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+
                     <div className={styles.mobileOnly}>
+                        <p className={styles.mobileGroupTitle}>Services</p>
+                        {services.map((service) => (
+                            <Link
+                                key={service.href}
+                                href={service.href}
+                                onClick={close}
+                                className={styles.mobileResourceLink}
+                            >
+                                {service.label}
+                            </Link>
+                        ))}
+                        <p className={styles.mobileGroupTitle}>Resources</p>
                         {resources.map((resource) => (
                             <Link
                                 key={resource.href}
                                 href={resource.href}
-                                onClick={() => setMobileMenuOpen(false)}
+                                onClick={close}
                                 className={styles.mobileResourceLink}
                             >
                                 {resource.label}
@@ -71,22 +120,20 @@ export default function Navbar() {
                         ))}
                     </div>
 
-                    <Link href="/how-it-works" onClick={() => setMobileMenuOpen(false)}>How It Works</Link>
-                    <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
+                    <Link href="/how-it-works" onClick={close}>How It Works</Link>
+                    <Link href="/about" onClick={close}>About</Link>
+                    <Link href="/contact" onClick={close}>Contact</Link>
                 </div>
 
                 <div className={styles.desktopCta}>
                     <a href="tel:07902863999" className={styles.phoneLink}>
                         <Icon name="phone" size="sm" />
-                        <div className={styles.phoneInfo}>
-                            <span className={styles.phoneLabel}>Free consultation</span>
-                            <span className={styles.phoneNumber}>07902 863999</span>
-                        </div>
+                        <span>Call us</span>
                     </a>
-                    <Button href="/contact" variant="primary" size="sm" className={styles.ctaButton}>
+                    <Link href="/contact" className={styles.ctaButton}>
                         <Icon name="calendar" size="sm" />
-                        Book a Call
-                    </Button>
+                        Book initial chat
+                    </Link>
                 </div>
 
                 <button
@@ -102,27 +149,16 @@ export default function Navbar() {
             {/* Mobile Sticky CTA */}
             <div className={styles.mobileCta}>
                 <a href="tel:07902863999" className={styles.phoneBtn}>
-                    <Icon name="phone" size="sm" />
+                        <Icon name="phone" size="sm" />
                     <div>
-                        <span className={styles.phoneBtnLabel}>Free</span>
+                        <span className={styles.phoneBtnLabel}>Call us</span>
                         <span className={styles.phoneBtnNumber}>07902 863999</span>
                     </div>
                 </a>
                 <Link href="/contact" className={styles.bookBtn}>
                     <Icon name="calendar" size="sm" />
-                    Book a Call
+                    Book a chat
                 </Link>
-            </div>
-
-            {/* Floating Desktop CTA */}
-            <div className={styles.floatingCtaDesktop}>
-                <a href="tel:07902863999" className={styles.floatingPhone}>
-                    <Icon name="phone" size="sm" />
-                    <span>07902 863999</span>
-                </a>
-                <Button href="/contact" variant="action" size="sm">
-                    Book Free Call
-                </Button>
             </div>
         </nav>
     );

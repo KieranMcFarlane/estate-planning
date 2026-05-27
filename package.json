@@ -4,23 +4,39 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "NEXT_PRIVATE_BUILD_WORKER=0 next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "ux:check": "playwright test tests/visual-smoke.spec.ts",
+    "knowledge:generate": "node scripts/generate-estate-knowledge.mjs",
+    "db:chat:migrate": "node scripts/migrate-estate-chat.mjs",
+    "qa:agent-browser": "node scripts/agent-browser-pathway-qa.mjs",
+    "test:chat": "node --test tests/parlant-estate.test.mjs",
+    "test:estate-chat-api": "node --test tests/estate-chat-api.test.mjs",
+    "smoke:twenty-webhook": "node scripts/smoke-twenty-webhook.mjs"
   },
   "dependencies": {
+    "@ai-sdk/react": "^3.0.187",
     "@radix-ui/react-accordion": "^1.2.12",
+    "@radix-ui/react-dialog": "^1.1.15",
     "@radix-ui/react-dropdown-menu": "^2.1.16",
+    "@radix-ui/react-popover": "^1.1.15",
     "@radix-ui/react-slot": "^1.2.4",
+    "ai": "^6.0.185",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
     "lucide-react": "^0.563.0",
     "next": "16.1.4",
+    "postgres": "^3.4.9",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "tailwind-merge": "^3.4.0"
+    "streamdown": "^2.5.0",
+    "tailwind-merge": "^3.4.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

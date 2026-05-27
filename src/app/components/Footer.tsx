@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Icon from "./base/Icon";
 import styles from "./Footer.module.css";
 
@@ -7,8 +8,10 @@ export default function Footer() {
         <footer className={styles.footer}>
             <div className={`container ${styles.container}`}>
                 <div className={styles.column}>
-                    <h3 className={styles.heading}>Pathway Estate Planning</h3>
-                    <p className={styles.tagline}>Wills, Trusts & Lasting Powers of Attorney in Royal Leamington Spa.</p>
+                    <Link href="/" className={styles.logo} aria-label="Pathway Estate Planning, home">
+                        <Image src="/pathway-white.png" alt="Pathway Estate Planning Specialists" width={2680} height={880} className={styles.logoImage} />
+                    </Link>
+                    <p className={styles.tagline}>Clear, practical estate planning for individuals and families across Warwickshire. Handled with care.</p>
 
                     {/* Trust Indicators */}
                     <div className={styles.trustBadges}>
@@ -31,7 +34,7 @@ export default function Footer() {
                         <a href="tel:07902863999" className={styles.contactLink}>
                             <Icon name="phone" size="sm" />
                             <div>
-                                <span className={styles.contactLabel}>Free consultation</span>
+                                <span className={styles.contactLabel}>Call us</span>
                                 <span className={styles.contactNumber}>07902 863999</span>
                             </div>
                         </a>
@@ -110,6 +113,8 @@ export default function Footer() {
                         <div className={styles.legalLinks}>
                             <Link href="/privacy">Privacy Policy</Link>
                             <Link href="/terms">Terms of Service</Link>
+                            <Link href="/cookies">Cookies</Link>
+                            <Link href="/complaints">Complaints</Link>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,347 @@
+.hero {
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--paper, #faf8f4);
+  border-bottom: 1px solid var(--hairline, #e5e1d8);
+}
+
+.heroImage {
+  object-fit: cover;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(250, 248, 244, 0.98) 0%, rgba(250, 248, 244, 0.94) 28%, rgba(250, 248, 244, 0.7) 43%, rgba(250, 248, 244, 0.32) 58%, rgba(250, 248, 244, 0.08) 70%, transparent 82%),
+    radial-gradient(ellipse at 20% 48%, rgba(250, 248, 244, 0.5) 0%, rgba(250, 248, 244, 0.25) 34%, transparent 66%);
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 64px, var(--container, 1200px));
+  max-width: 590px;
+  margin: 0 auto 0 max(32px, calc((100vw - var(--container, 1200px)) / 2));
+  padding: 112px 0 96px;
+  color: var(--ink, #1a1d1a);
+  text-align: left;
+}
+
+.eyebrow,
+.blockEyebrow {
+  margin: 0 0 14px;
+  color: var(--sage, #2f4d7a);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.heroContent h1 {
+  margin: 0;
+  font-family: var(--serif, var(--font-instrument-serif), Georgia, serif);
+  font-size: clamp(42px, 6vw, 68px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink, #1a1d1a);
+}
+
+.heroContent p:last-child {
+  max-width: 540px;
+  margin: 22px 0 0;
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--stone, #6b6e68);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.primaryButton,
+.secondaryButton,
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s, transform 0.15s;
+}
+
+.primaryButton,
+.ctaButton {
+  border: 1px solid transparent;
+  background: var(--sage, #2f4d7a);
+  color: #fff;
+}
+
+.primaryButton:hover,
+.ctaButton:hover {
+  background: var(--sage-deep, #1f3559);
+}
+
+.secondaryButton {
+  border: 1px solid rgba(107, 110, 104, 0.45);
+  background: rgba(250, 248, 244, 0.18);
+  color: var(--ink, #1a1d1a);
+}
+
+.secondaryButton:hover {
+  border-color: var(--ink, #1a1d1a);
+  background: rgba(250, 248, 244, 0.42);
+}
+
+.content {
+  background: var(--paper, #faf8f4);
+  padding-bottom: 112px;
+}
+
+.intro,
+.blockInner,
+.consultation {
+  width: min(100% - 64px, 920px);
+  margin: 0 auto;
+}
+
+.intro {
+  max-width: 820px;
+  padding: 84px 0 42px;
+  font-family: var(--serif, var(--font-instrument-serif), Georgia, serif);
+  font-size: clamp(22px, 2vw, 28px);
+  font-weight: 300;
+  line-height: 1.45;
+  color: var(--ink, #1a1d1a);
+}
+
+.intro p + p,
+.block p + p {
+  margin-top: 18px;
+}
+
+.block {
+  padding: 70px 0;
+}
+
+.cream {
+  background: var(--cream, #f2efe8);
+  border-top: 1px solid var(--hairline, #e5e1d8);
+  border-bottom: 1px solid var(--hairline, #e5e1d8);
+}
+
+.block h2,
+.consultation h2 {
+  max-width: 760px;
+  margin: 0 0 22px;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  color: var(--ink, #1a1d1a);
+}
+
+.block h2 {
+  font-family: var(--serif, var(--font-instrument-serif), Georgia, serif);
+}
+
+.consultation h2 {
+  font-family: var(--font-source-serif-4), "Source Serif 4", Georgia, serif;
+}
+
+.block p,
+.consultation p {
+  max-width: 780px;
+  color: var(--stone, #6b6e68);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.blockEyebrow {
+  color: var(--sage, #2f4d7a);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 28px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list li {
+  position: relative;
+  padding-left: 30px;
+  color: var(--ink, #1a1d1a);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.35em;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: var(--sage-light, #dce6f2);
+  box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.52);
+}
+
+.cardGrid,
+.cardGridWide {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 32px;
+}
+
+.cardGridWide {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.card {
+  border: 1px solid var(--hairline, #e5e1d8);
+  border-radius: 14px;
+  background: var(--paper, #faf8f4);
+  padding: 30px;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.card:hover {
+  border-color: var(--sage, #2f4d7a);
+  box-shadow: 0 12px 32px rgba(31, 53, 89, 0.08);
+  transform: translateY(-2px);
+}
+
+.card h3 {
+  margin: 0 0 10px;
+  font-family: var(--serif, var(--font-instrument-serif), Georgia, serif);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--ink, #1a1d1a);
+}
+
+.card p {
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.card ul {
+  margin: 18px 0 0;
+  padding-left: 18px;
+  color: var(--stone, #6b6e68);
+  line-height: 1.65;
+}
+
+.consultation {
+  padding: 84px 48px;
+  border: 0;
+  border-radius: 0;
+  background:
+    radial-gradient(ellipse at center, rgba(10, 14, 18, 0.04) 0%, rgba(10, 14, 18, 0.02) 36%, rgba(10, 14, 18, 0.42) 74%, rgba(10, 14, 18, 0.7) 100%),
+    linear-gradient(90deg, rgba(10, 14, 18, 0.68), rgba(10, 14, 18, 0.12) 44%, rgba(10, 14, 18, 0.66)),
+    linear-gradient(180deg, rgba(10, 14, 18, 0.58), rgba(10, 14, 18, 0.24) 48%, rgba(10, 14, 18, 0.68)),
+    url("/generated/clear-path-hero-night.png") center / cover no-repeat;
+  color: var(--paper, #faf8f4);
+  text-align: center;
+  transform: translateY(56px);
+  position: relative;
+  overflow: hidden;
+}
+
+.consultation::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 0%, transparent 42%, rgba(10, 14, 18, 0.18) 82%);
+  pointer-events: none;
+}
+
+.consultation > * {
+  position: relative;
+  z-index: 1;
+}
+
+.consultation h2,
+.consultation p {
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--paper, #faf8f4);
+}
+
+.consultation p {
+  color: rgba(250, 248, 244, 0.72);
+}
+
+.ctaButton {
+  margin-top: 28px;
+}
+
+@media (max-width: 760px) {
+  .hero {
+    min-height: 640px;
+    align-items: flex-start;
+  }
+
+  .hero::before {
+    background:
+      linear-gradient(180deg, rgba(250, 248, 244, 0.98) 0%, rgba(250, 248, 244, 0.9) 45%, rgba(250, 248, 244, 0.34) 100%),
+      linear-gradient(90deg, rgba(250, 248, 244, 0.72), rgba(250, 248, 244, 0.14));
+  }
+
+  .heroContent,
+  .intro,
+  .blockInner,
+  .consultation {
+    width: min(100% - 40px, 920px);
+  }
+
+  .heroContent {
+    max-width: none;
+    margin: 0 auto;
+    padding: 82px 0 72px;
+    text-align: center;
+  }
+
+  .heroContent p:last-child {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .heroActions {
+    justify-content: center;
+  }
+
+  .intro {
+    padding-top: 58px;
+  }
+
+  .list,
+  .cardGrid,
+  .cardGridWide {
+    grid-template-columns: 1fr;
+  }
+
+  .consultation {
+    width: min(100% - 32px, 920px);
+    padding: 48px 24px;
+  }
+}

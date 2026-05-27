@@ -12,7 +12,7 @@ export default function WhyChooseUs() {
         },
         {
             title: "One fair price, no surprises",
-            desc: "No subscriptions, no ongoing fees, no hidden costs. You pay once, it's done forever"
+            desc: "Clear costs are agreed before work begins, with no surprises or hourly billing"
         },
         {
             title: "STEP qualified & fully insured",
@@ -23,8 +23,8 @@ export default function WhyChooseUs() {
             desc: "Evening and weekend appointments. We come to you if getting out is difficult"
         },
         {
-            title: "Most clients complete in 2-3 meetings",
-            desc: "We move at your pace, but we're efficient too. From first call to signed documents, typically within 30 days"
+            title: "A process paced around you",
+            desc: "We move at your pace while keeping everything clear, practical, and easy to follow"
         }
     ];
 

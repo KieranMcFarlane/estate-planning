@@ -7,7 +7,7 @@ export interface JourneyProgressProps {
 
 export default function JourneyProgress({ currentStep = 1, className = '' }: JourneyProgressProps) {
     const steps = [
-        { number: 1, title: "Free Consultation", description: "No obligation chat" },
+        { number: 1, title: "Initial Consultation", description: "No obligation chat" },
         { number: 2, title: "Personal Plan", description: "Tailored to your needs" },
         { number: 3, title: "Documents Ready", description: "We prepare everything" },
         { number: 4, title: "Complete", description: "Your family is protected" }

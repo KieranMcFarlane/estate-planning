@@ -12,6 +12,8 @@
 
 # testing
 /coverage
+/test-results
+/screenshots/ux
 
 # next.js
 /.next/
@@ -32,6 +34,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +42,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local services/runtime data
+/chatbot/
+/services/parlant-estate/.venv/
+/services/parlant-estate/__pycache__/
+/services/parlant-estate/parlant-data/
+/data/leads/*.jsonl
+/parlant-data/

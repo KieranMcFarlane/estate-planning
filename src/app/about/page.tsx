@@ -1,146 +1,72 @@
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import AboutUs from "../components/AboutUs";
-import WhyChooseUs from "../components/WhyChooseUs";
-import Testimonials from "../components/Testimonials";
-import SecurityBadge from "../components/sections/SecurityBadge";
-import ServiceBenefits from "../components/sections/ServiceBenefits";
-import Button from "../components/base/Button";
-import styles from "./page.module.css";
+import SubpageTemplate from "../components/SubpageTemplate";
 
 export default function AboutPage() {
-    return (
-        <>
-            <Navbar />
-            <main className={styles.main}>
-                {/* Hero Section */}
-                <section className={styles.hero}>
-                    <div className="container">
-                        <span className={styles.eyebrow}>About Us</span>
-                        <h1 className={styles.title}>Trusted estate planning experts serving the Midlands</h1>
-                        <p className={styles.subtitle}>
-                            Since 2006, we've helped over 1,000 families across Leamington Spa, Warwick, and the surrounding areas
-                            protect what matters most with calm, step-by-step guidance.
-                        </p>
-                    </div>
-                </section>
-
-                {/* Stats Banner */}
-                <section className={styles.statsBanner}>
-                    <div className="container">
-                        <div className={styles.statsGrid}>
-                            <div className={styles.stat}>
-                                <span className={styles.statNumber}>18+</span>
-                                <span className={styles.statLabel}>Years of Experience</span>
-                            </div>
-                            <div className={styles.stat}>
-                                <span className={styles.statNumber}>1,000+</span>
-                                <span className={styles.statLabel}>Families Helped</span>
-                            </div>
-                            <div className={styles.stat}>
-                                <span className={styles.statNumber}>5★</span>
-                                <span className={styles.statLabel}>Google Rating</span>
-                            </div>
-                            <div className={styles.stat}>
-                                <span className={styles.statNumber}>STEP</span>
-                                <span className={styles.statLabel}>Qualified</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* About Section */}
-                <AboutUs />
-
-                {/* Why Choose Us */}
-                <WhyChooseUs />
-
-                {/* What Makes Us Different */}
-                <ServiceBenefits
-                    benefits={[
-                        {
-                            icon: "home",
-                            title: "Home Visits Available",
-                            description: "We come to you across Leamington Spa, Warwick, and surrounding areas. Particularly helpful for elderly clients or those with mobility issues.",
-                            highlight: true
-                        },
-                        {
-                            icon: "calendar",
-                            title: "Evening & Weekend Appointments",
-                            description: "We understand life is busy. Schedule meetings outside work hours at a time that suits you.",
-                            highlight: true
-                        },
-                        {
-                            icon: "folder",
-                            title: "Secure Document Storage",
-                            description: "We store your important documents safely and provide copies to you and your attorneys as needed.",
-                        },
-                        {
-                            icon: "check-circle",
-                            title: "Annual Review Reminders",
-                            description: "Life changes — marriages, divorces, births, deaths. We'll remind you to review your estate plan when it matters.",
-                        },
-                        {
-                            icon: "users",
-                            title: "Family Meeting Coordination",
-                            description: "We can facilitate family meetings to ensure everyone understands your wishes and avoids future conflicts.",
-                            highlight: true
-                        },
-                        {
-                            icon: "check",
-                            title: "Unlimited Amendments During Process",
-                            description: "Your situation is unique. We'll work with you until every detail reflects your wishes exactly.",
-                        },
-                        {
-                            icon: "clock",
-                            title: "Responsive Communication",
-                            description: "Questions between meetings? We're available by phone, email, or video call. No waiting weeks for a response.",
-                        },
-                        {
-                            icon: "trending-up",
-                            title: "Fixed Pricing, No Surprises",
-                            description: "Know exactly what you'll pay before we start. No hourly billing, no hidden costs, no ongoing subscriptions.",
-                            highlight: true
-                        }
-                    ]}
-                    heading="What makes Pathway different?"
-                    description="We offer the personal touch that DIY services can't match, with expertise that gives you peace of mind."
-                    vsHeading="Why choose professional over DIY?"
-                    ctaText="Experience the Pathway difference"
-                    ctaLink="/contact"
-                />
-
-                {/* Security & Credentials */}
-                <SecurityBadge
-                    heading="Your security and peace of mind"
-                    description="We take our responsibilities seriously. Here's how we protect you and your family."
-                />
-
-                {/* Testimonials */}
-                <Testimonials />
-
-                {/* CTA Section */}
-                <section className={styles.ctaSection}>
-                    <div className="container">
-                        <div className={styles.ctaContent}>
-                            <h2>Ready to get started?</h2>
-                            <p>
-                                Whether you need a simple Will or comprehensive estate planning, we're here to help.
-                                Book a free, no-obligation consultation to discuss your situation.
-                            </p>
-                            <div className={styles.ctaButtons}>
-                                <Button href="/contact" variant="primary" size="lg">
-                                    Book a Free Call
-                                </Button>
-                                <Button href="tel:07902863999" variant="outline" size="lg">
-                                    Call 07902 863999
-                                </Button>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </main>
-            <Footer />
-        </>
-    );
+  return (
+    <SubpageTemplate
+      eyebrow="About Pathway"
+      title="Estate planning that feels calm, clear and human"
+      subtitle="Trusted support for families across Leamington Spa, Warwickshire and the Midlands."
+      heroImage="/leamington_location.jpg"
+      heroAlt="Green gardens and historic Leamington Spa architecture"
+      intro={[
+        "Pathway Estate Planning helps individuals and families put clear, practical plans in place for the people and assets they care about most.",
+        "Our work is built around careful listening, plain-English guidance and a process that feels manageable from the first conversation to the final document.",
+      ]}
+      blocks={[
+        {
+          heading: "Why families choose us",
+          variant: "grid",
+          cards: [
+            {
+              title: "Genuinely personal",
+              body: "You are guided by people who take the time to understand your family, your wishes and your concerns.",
+            },
+            {
+              title: "Clear and practical",
+              body: "We explain things plainly, avoid unnecessary jargon and help you make confident decisions.",
+            },
+            {
+              title: "Local and approachable",
+              body: "We support families in Leamington Spa, Warwickshire and surrounding areas, with home visits available where helpful.",
+            },
+            {
+              title: "Properly experienced",
+              body: "We bring years of estate planning experience across Wills, Trusts, LPAs, care planning and tax considerations.",
+            },
+            {
+              title: "No pressure",
+              body: "We will tell you what is suitable, what is not, and what can wait.",
+            },
+            {
+              title: "Handled with care",
+              body: "Estate planning can be sensitive. We keep the process calm, respectful and steady.",
+            },
+          ],
+        },
+        {
+          heading: "What makes Pathway different?",
+          variant: "cream",
+          items: [
+            "Home visits available",
+            "Appointments shaped around your needs",
+            "Secure document storage where needed",
+            "Family conversations handled carefully",
+            "Clear costs before work begins",
+            "Plain-English guidance from start to finish",
+          ],
+        },
+        {
+          heading: "Our role",
+          paragraphs: [
+            "We are here to help you understand your options, put the right documents in place, and make things easier for the people you love.",
+            "Whether you need a simple Will or more joined-up estate planning, we will help you move forward clearly.",
+          ],
+        },
+      ]}
+      cta={{
+        title: "Ready to talk it through?",
+        body: "Start with an initial conversation and we will help you understand what matters for your situation.",
+      }}
+    />
+  );
 }

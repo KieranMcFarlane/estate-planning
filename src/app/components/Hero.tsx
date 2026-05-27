@@ -1,6 +1,5 @@
 import styles from './Hero.module.css';
 import Button from './base/Button';
-import Link from 'next/link';
 import Image from 'next/image';
 import Icon from './base/Icon';
 
@@ -12,24 +11,24 @@ export default function Hero() {
                     {/* Urgency Badge */}
                     <div className={styles.badgeUrgency}>
                         <Icon name="clock" size="sm" />
-                        <span>Limited free consultations this month</span>
+                        <span>Initial, no-obligation chats available</span>
                     </div>
 
                     <p className={styles.eyebrow}>Trusted by over 1,000 families across the Midlands</p>
                     <h1 className={styles.title}>
-                        The simpler way to secure your family's future
+                        Estate planning that feels calm, clear, and human
                     </h1>
                     <p className={styles.subtitle}>
-                        Wills, Trusts and Lasting Powers of Attorney in Royal Leamington Spa.
-                        We'll explain everything clearly and guide you through at your pace.
+                        Wills, trusts and lasting powers of attorney in Royal Leamington Spa,
+                        explained simply and shaped around your family.
                     </p>
                     <div className={styles.trustIndicator}>
                         <Icon name="shield-check" size="sm" />
-                        <span>Nearly 20 years of experience • 5-star rated on Google</span>
+                        <span>Over 15 years of experience • 5-star rated on Google</span>
                     </div>
                     <div className={styles.actions}>
                         <Button href="/contact" variant="action" size="lg">
-                            Book a free call
+                            Book an initial chat
                         </Button>
                         <Button href="#how-it-works" variant="secondary" size="lg">
                             See how it works
@@ -37,14 +36,14 @@ export default function Hero() {
                     </div>
                     <div className={styles.phoneCta}>
                         <Icon name="phone" size="sm" />
-                        <span>Or call us free: <strong>07902 863999</strong></span>
+                        <span>Or call us: <strong>07902 863999</strong></span>
                     </div>
                     <p className={styles.note}>No pressure. No jargon. Just friendly guidance.</p>
                 </div>
                 <div className={styles.imageWrapper}>
                     <Image
-                        src="https://images.unsplash.com/photo-1758687126914-79766e86df15?auto=format&fit=crop&w=1600&q=80"
-                        alt="Couple reading together on a couch"
+                        src="/generated/clear-path-hero.jpg"
+                        alt="Warm garden path leading to a welcoming front door"
                         width={1600}
                         height={1067}
                         className={styles.heroImage}

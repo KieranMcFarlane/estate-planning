@@ -1,73 +1,60 @@
-import Link from "next/link";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import { Button } from "@/components/ui/button";
-import styles from "./page.module.css";
+import SubpageTemplate from "../components/SubpageTemplate";
 
 export default function TrustsPage() {
-    return (
-        <>
-            <Navbar />
-            <main className={styles.main}>
-                <div className="container">
-                    <header className={styles.header}>
-                        <h1 className={styles.title}>Trusts</h1>
-                        <p className={styles.subtitle}>Extra protection and control — when you need it</p>
-                    </header>
-
-                    <section className={styles.section}>
-                        <p>
-                            Trusts can be a powerful part of estate planning, but they’re often misunderstood.
-                        </p>
-                        <p>
-                            A Trust can help protect assets for your loved ones, add structure to how inheritance is passed on, and provide additional reassurance when family situations are more complex.
-                        </p>
-                        <p>
-                            At <strong>Pathway Estate Planning</strong>, we’ll explain everything clearly, without jargon — and help you decide whether a Trust is right for you.
-                        </p>
-                    </section>
-
-                    <section className={styles.section}>
-                        <h2>Why people choose Trust planning</h2>
-                        <p>Trusts may be useful if you want to:</p>
-                        <ul className={styles.list}>
-                            <li>protect inheritance for children or grandchildren</li>
-                            <li>support vulnerable beneficiaries</li>
-                            <li>reduce risk of family disputes</li>
-                            <li>add structure to how assets are managed</li>
-                            <li>plan ahead for future uncertainty</li>
-                            <li>explore inheritance tax planning options (where appropriate)</li>
-                        </ul>
-                        <p>
-                            Trust planning isn’t for everyone — and we’ll always be honest about what is (and isn’t) suitable for your situation.
-                        </p>
-                    </section>
-
-                    <section className={styles.section}>
-                        <h2>A simple explanation</h2>
-                        <p>Many people find Trusts confusing. That’s normal.</p>
-                        <p>We’ll talk you through:</p>
-                        <ul className={styles.list}>
-                            <li>what a Trust is</li>
-                            <li>why you might need one</li>
-                            <li>how it works in real life</li>
-                            <li>the responsibilities involved</li>
-                            <li>what the next step would look like</li>
-                        </ul>
-                    </section>
-
-                    <section className={styles.cta}>
-                        <h2>Talk to us</h2>
-                        <p>If you’ve heard the word “Trust” and weren’t sure whether it applied to you — we can help you understand it clearly.</p>
-                        <div className={styles.btnWrapper}>
-                            <Button asChild variant="default">
-                                <Link href="/contact">Book a free call</Link>
-                            </Button>
-                        </div>
-                    </section>
-                </div>
-            </main>
-            <Footer />
-        </>
-    );
+  return (
+    <SubpageTemplate
+      eyebrow="Estate planning services"
+      title="Trusts"
+      subtitle="Extra protection and control, explained in plain English."
+      heroImage="/generated/document-signing.jpg"
+      heroAlt="Estate planning documents being reviewed"
+      intro={[
+        "Trusts can be a powerful part of estate planning, but they are often misunderstood.",
+        "A Trust can help protect assets for your loved ones, add structure to how inheritance is passed on, and provide reassurance when family situations are more complex.",
+        "We explain everything clearly, without jargon, and help you decide whether a Trust is right for you.",
+      ]}
+      blocks={[
+        {
+          heading: "Why people choose Trust planning",
+          variant: "cream",
+          paragraphs: [
+            "Trust planning is not for everyone, and we will always be honest about what is and is not suitable for your situation.",
+          ],
+          items: [
+            "Protect inheritance for children or grandchildren",
+            "Support vulnerable beneficiaries",
+            "Reduce risk of family disputes",
+            "Add structure to how assets are managed",
+            "Plan ahead for future uncertainty",
+            "Explore tax planning options where appropriate",
+          ],
+        },
+        {
+          heading: "A simple explanation",
+          cards: [
+            {
+              title: "What a Trust is",
+              body: "We explain the structure, who is involved, and how it works in real life.",
+            },
+            {
+              title: "Why you might need one",
+              body: "We look at your family, assets and aims before recommending anything.",
+            },
+            {
+              title: "Responsibilities involved",
+              body: "Trustees have important duties, and we make sure those are understood from the start.",
+            },
+            {
+              title: "What happens next",
+              body: "If a Trust is right for you, we guide you through the setup clearly and carefully.",
+            },
+          ],
+        },
+      ]}
+      cta={{
+        title: "Unsure whether a Trust applies to you?",
+        body: "We can help you understand the options clearly before you make any decision.",
+      }}
+    />
+  );
 }

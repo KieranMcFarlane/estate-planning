@@ -13,7 +13,7 @@ export default function FinalCTA() {
                 <p className={styles.text}>Let’s take the next step together.</p>
                 <div className={styles.action}>
                     <Button asChild variant="default">
-                        <Link href="/contact">Book a free call</Link>
+                        <Link href="/contact">Book an initial chat</Link>
                     </Button>
                 </div>
             </div>
