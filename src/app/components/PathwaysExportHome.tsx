@@ -331,7 +331,7 @@ function FAQ({ onBook }: { onBook: () => void }) {
         </div>
         <p className="faq__see-all">
           <a href="#contact" onClick={(event) => { event.preventDefault(); onBook(); }}>
-            Ask us directly <ArrowRight width="14" height="14" style={{ verticalAlign: "middle" }} />
+            Ask us directly <ArrowRight width="14" height="14" />
           </a>
         </p>
       </div>
@@ -474,7 +474,7 @@ export default function PathwaysExportHome() {
         <Services />
         <div className="softcta">
           <div className="container">
-            <p>Not sure what you need?<a href="#contact" onClick={(event) => { event.preventDefault(); onBook(); }}>Start with an initial chat. <ArrowRight width="14" height="14" style={{ verticalAlign: "middle" }} /></a></p>
+            <p>Not sure what you need?<a href="#contact" onClick={(event) => { event.preventDefault(); onBook(); }}>Start with an initial chat. <ArrowRight width="14" height="14" /></a></p>
           </div>
         </div>
         <Testimonials />

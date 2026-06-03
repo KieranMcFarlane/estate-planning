@@ -13,22 +13,6 @@ export default function Footer() {
                     </Link>
                     <p className={styles.tagline}>Clear, practical estate planning for individuals and families across Warwickshire. Handled with care.</p>
 
-                    {/* Trust Indicators */}
-                    <div className={styles.trustBadges}>
-                        <div className={styles.trustBadge}>
-                            <span className={styles.trustIcon}>★★★★★</span>
-                            <span className={styles.trustText}>5-star rated</span>
-                        </div>
-                        <div className={styles.trustBadge}>
-                            <span className={styles.trustIcon}>✓</span>
-                            <span className={styles.trustText}>STEP qualified</span>
-                        </div>
-                        <div className={styles.trustBadge}>
-                            <span className={styles.trustIcon}>£</span>
-                            <span className={styles.trustText}>No hidden fees</span>
-                        </div>
-                    </div>
-
                     {/* Contact */}
                     <div className={styles.contact}>
                         <a href="tel:07902863999" className={styles.contactLink}>
@@ -83,26 +67,6 @@ export default function Footer() {
                         <li><Link href="/how-it-works">How It Works</Link></li>
                         <li><Link href="/contact">Contact</Link></li>
                     </ul>
-                </div>
-            </div>
-
-            {/* Trust & Credentials Bar */}
-            <div className={styles.credentials}>
-                <div className="container">
-                    <div className={styles.credentialsGrid}>
-                        <div className={styles.credential}>
-                            <strong>Established 2006</strong>
-                            <span>Serving Leamington Spa & the Midlands</span>
-                        </div>
-                        <div className={styles.credential}>
-                            <strong>Fully Insured</strong>
-                            <span>Professional indemnity coverage</span>
-                        </div>
-                        <div className={styles.credential}>
-                            <strong>1,000+ Families</strong>
-                            <span>Helped across the Midlands</span>
-                        </div>
-                    </div>
                 </div>
             </div>
 

@@ -12,10 +12,8 @@ import {
   Copy,
   HeartHandshake,
   Maximize2,
-  Menu,
   MessageCircle,
   Minimize2,
-  PanelLeft,
   PenSquare,
   Phone,
   RotateCcw,
@@ -33,7 +31,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Response } from "./ai/Response";
-import { ChatHistoryPanel } from "./chat-history/ChatHistoryPanel";
 import { getStoredChat } from "./chat-history/browserChatStorage";
 import { useEstateChatHistory } from "./chat-history/useEstateChatHistory";
 import {
@@ -86,7 +83,6 @@ export default function EstateAssistant() {
   const [chatId, setChatId] = useState(createClientChatId);
   const [open, setOpen] = useState(false);
   const [fullChatOpen, setFullChatOpen] = useState(false);
-  const [fullHistoryOpen, setFullHistoryOpen] = useState(false);
   const [input, setInput] = useState("");
   const [fullInput, setFullInput] = useState("");
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
@@ -214,7 +210,6 @@ export default function EstateAssistant() {
     setChatId(nextChatId);
     setMessages(getStoredChat(nextChatId)?.messages ?? []);
     resetTransientChatState();
-    if (window.matchMedia("(max-width: 880px)").matches) setFullHistoryOpen(false);
   };
 
   const createChatSession = (nextChatId: string) => {
@@ -222,7 +217,6 @@ export default function EstateAssistant() {
     setChatId(nextChatId);
     setMessages([]);
     resetTransientChatState();
-    if (window.matchMedia("(max-width: 880px)").matches) setFullHistoryOpen(false);
   };
 
   const chatHistory = useEstateChatHistory({
@@ -273,34 +267,6 @@ export default function EstateAssistant() {
       scrollElement.scrollTop = scrollElement.scrollHeight;
     });
   }, [messages, status, fullChatOpen]);
-
-  useEffect(() => {
-    if (!open) return;
-
-    const scrollY = window.scrollY;
-    const previousHtmlOverflow = document.documentElement.style.overflow;
-    const previousBodyOverflow = document.body.style.overflow;
-    const previousBodyPosition = document.body.style.position;
-    const previousBodyTop = document.body.style.top;
-    const previousBodyWidth = document.body.style.width;
-
-    document.documentElement.style.overflow = "hidden";
-    document.body.style.overflow = "hidden";
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = "100%";
-
-    return () => {
-      document.documentElement.style.overflow = previousHtmlOverflow;
-      document.body.style.overflow = previousBodyOverflow;
-      document.body.style.position = previousBodyPosition;
-      document.body.style.top = previousBodyTop;
-      document.body.style.width = previousBodyWidth;
-      window.scrollTo(0, scrollY);
-      requestAnimationFrame(() => window.scrollTo(0, scrollY));
-      window.setTimeout(() => window.scrollTo(0, scrollY), 0);
-    };
-  }, [open]);
 
   const updateScrollStickiness = () => {
     const scrollElement = scrollRef.current;
@@ -412,7 +378,6 @@ export default function EstateAssistant() {
   const openFullChat = () => {
     setOpen(false);
     setFullChatOpen(true);
-    setFullHistoryOpen(!window.matchMedia("(max-width: 880px)").matches);
     fullStickToBottomRef.current = true;
     void chatHistory.loadHistory({ reset: true });
   };
@@ -459,18 +424,9 @@ export default function EstateAssistant() {
           showCloseButton={false}
           aria-label="Pathway maximised planning chat"
         >
-          <section className={styles.fullShell} data-sidebar={fullHistoryOpen ? "open" : "closed"} aria-label="Pathway maximised planning chat">
+          <section className={styles.fullShell} aria-label="Pathway maximised planning chat">
             <aside className={styles.fullRail} aria-label="Chat workspace controls">
               <div className={styles.fullRailTop}>
-                <button
-                  className={styles.railButton}
-                  type="button"
-                  onClick={() => setFullHistoryOpen((current) => !current)}
-                  aria-label={fullHistoryOpen ? "Collapse chat history" : "Expand chat history"}
-                  aria-pressed={fullHistoryOpen}
-                >
-                  <PanelLeft size={18} aria-hidden="true" />
-                </button>
                 <button
                   className={styles.railButton}
                   type="button"
@@ -495,35 +451,10 @@ export default function EstateAssistant() {
               </div>
             </aside>
 
-            <div className={styles.fullSidebar} data-open={fullHistoryOpen}>
-              <ChatHistoryPanel
-                activeChatId={chatId}
-                actionId={chatHistory.actionId}
-                chats={chatHistory.chats}
-                error={chatHistory.error}
-                groupedChats={chatHistory.groupedChats}
-                hasMore={chatHistory.hasMore}
-                isLoading={chatHistory.isLoading}
-                onClose={() => setFullHistoryOpen(false)}
-                onDeleteAllChats={() => void chatHistory.deleteAllChats()}
-                onDeleteChat={(targetChatId) => void chatHistory.deleteChat(targetChatId)}
-                onLoadMore={() => void chatHistory.loadHistory()}
-                onNewChat={chatHistory.startNewChat}
-                onSwitchChat={chatHistory.switchChat}
-                open={fullHistoryOpen}
-                showCloseButton
-                showSideActions={false}
-                surface="overlay"
-              />
-            </div>
-
             <section className={styles.fullMain} aria-label="Active Pathway chat">
               <DialogHeader className={styles.fullHeader}>
                 <DialogTitle className="sr-only">Ask Pathway</DialogTitle>
                 <div className={styles.fullHeaderActions}>
-                  <button className={`${styles.iconButton} ${styles.fullHistoryButton}`} type="button" onClick={() => setFullHistoryOpen(true)} aria-label="Open chat history">
-                    <Menu size={18} aria-hidden="true" />
-                  </button>
                   <DialogClose className={styles.iconButton} aria-label="Minimise full chat">
                     <Minimize2 size={18} aria-hidden="true" />
                   </DialogClose>
@@ -923,7 +854,6 @@ export default function EstateAssistant() {
 
       <button className={styles.launcher} type="button" onClick={() => setOpen(true)} aria-expanded={open} aria-label="Open planning assistant">
         <MessageCircle size={20} aria-hidden="true" />
-        <span>Planning assistant</span>
       </button>
     </div>
   );

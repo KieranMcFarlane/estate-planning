@@ -389,17 +389,16 @@ section { padding: var(--s-7) 0; }
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
   align-items: center;
+  justify-items: center;
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 32px;
 }
 .trust {
-  display: flex; align-items: center; gap: 14px;
+  display: flex; align-items: center; justify-content: center; gap: 14px;
   font-size: 14px; line-height: 1.35;
   padding-right: 24px;
-  border-right: 1px solid rgba(255,255,255,0.12);
 }
-.trust:last-child { border-right: none; }
 @media (max-width: 880px) { .trust { border-right: none; padding-right: 0; } }
 .trust__icon {
   width: 36px; height: 36px;
@@ -653,10 +652,13 @@ section { padding: var(--s-7) 0; }
 .softcta p {
   font-family: var(--serif); font-size: 22px; color: var(--ink);
   font-style: italic; font-weight: 300;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  flex-wrap: wrap;
 }
 .softcta a {
   color: var(--sage); text-decoration: none; font-weight: 500; font-style: normal;
-  font-family: var(--sans); margin-left: 8px;
+  font-family: var(--sans);
+  display: inline-flex; align-items: center; gap: 6px;
 }
 .softcta a:hover { text-decoration: underline; }
 
@@ -803,7 +805,10 @@ section { padding: var(--s-7) 0; }
   text-align: center; margin-top: 36px;
   font-size: 15px;
 }
-.faq__see-all a { color: var(--sage); text-decoration: none; font-weight: 500; }
+.faq__see-all a {
+  color: var(--sage); text-decoration: none; font-weight: 500;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+}
 
 /* Final CTA */
 .finalcta {
@@ -837,8 +842,8 @@ section { padding: var(--s-7) 0; }
 .finalcta__ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 .finalcta .btn--ghost { color: var(--paper); border-color: rgba(250,248,244,0.4); }
 .finalcta .btn--ghost:hover { border-color: var(--paper); background: rgba(250,248,244,0.05); }
-.finalcta__phone {
-  margin-top: 28px; font-size: 14px; color: rgba(250,248,244,0.6);
+.finalcta p.finalcta__phone {
+  margin: 24px auto 0; font-size: 14px; color: rgba(250,248,244,0.6);
 }
 .finalcta__phone a { color: var(--paper); }
 

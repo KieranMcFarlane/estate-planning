@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  min-height: 560px;
+  height: 480px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -29,7 +29,7 @@
   width: min(100% - 64px, var(--container, 1200px));
   max-width: 590px;
   margin: 0 auto 0 max(32px, calc((100vw - var(--container, 1200px)) / 2));
-  padding: 112px 0 96px;
+  padding: 84px 0 76px;
   color: var(--ink, #1a1d1a);
   text-align: left;
 }
@@ -45,18 +45,19 @@
 }
 
 .heroContent h1 {
-  margin: 0;
+  margin: 0 0 24px;
+  max-width: max-content;
   font-family: var(--serif, var(--font-instrument-serif), Georgia, serif);
-  font-size: clamp(42px, 6vw, 68px);
+  font-size: 56px;
   font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  letter-spacing: 0;
   color: var(--ink, #1a1d1a);
 }
 
 .heroContent p:last-child {
   max-width: 540px;
-  margin: 22px 0 0;
+  margin: 0;
   font-size: 19px;
   line-height: 1.6;
   color: var(--stone, #6b6e68);
@@ -149,7 +150,7 @@
 .consultation h2 {
   max-width: 760px;
   margin: 0 0 22px;
-  font-size: clamp(32px, 4vw, 52px);
+  font-size: clamp(32px, 3.2vw, 42px);
   font-weight: 400;
   line-height: 1.12;
   letter-spacing: -0.015em;
@@ -162,6 +163,11 @@
 
 .consultation h2 {
   font-family: var(--font-source-serif-4), "Source Serif 4", Georgia, serif;
+  max-width: 700px;
+  font-size: clamp(30px, 3.2vw, 44px);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: 0;
 }
 
 .block p,
@@ -254,7 +260,7 @@
 .consultation {
   padding: 84px 48px;
   border: 0;
-  border-radius: 0;
+  border-radius: 8px;
   background:
     radial-gradient(ellipse at center, rgba(10, 14, 18, 0.04) 0%, rgba(10, 14, 18, 0.02) 36%, rgba(10, 14, 18, 0.42) 74%, rgba(10, 14, 18, 0.7) 100%),
     linear-gradient(90deg, rgba(10, 14, 18, 0.68), rgba(10, 14, 18, 0.12) 44%, rgba(10, 14, 18, 0.66)),
@@ -297,7 +303,7 @@
 
 @media (max-width: 760px) {
   .hero {
-    min-height: 640px;
+    height: 480px;
     align-items: flex-start;
   }
 
@@ -319,6 +325,11 @@
     margin: 0 auto;
     padding: 82px 0 72px;
     text-align: center;
+  }
+
+  .heroContent h1 {
+    max-width: none;
+    font-size: 42px;
   }
 
   .heroContent p:last-child {

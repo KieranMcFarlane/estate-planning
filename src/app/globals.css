@@ -4,6 +4,7 @@
 
 /* shadcn/ui Theme Variables - HSL format */
 :root {
+  --navbar-height: 92px;
   --background: 40 20% 97%; /* #F7F4EF */
   --foreground: 180 15% 13%; /* #2B3A3A */
 
@@ -172,13 +173,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body {
+  padding-top: var(--navbar-height);
+}
+
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 92px;
+  scroll-padding-top: var(--navbar-height);
 }
 
 :target {
-  scroll-margin-top: 92px;
+  scroll-margin-top: var(--navbar-height);
 }
 
 .semantic-target-highlight {

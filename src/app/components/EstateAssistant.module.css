@@ -23,9 +23,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  min-height: 48px;
-  padding: 0 18px;
+  width: 48px;
+  height: 48px;
+  padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.34);
   border-radius: 999px;
   background: #1f3f6d;
@@ -43,6 +43,10 @@
   background: #183457;
   transform: translateY(-1px);
   box-shadow: 0 20px 48px rgba(19, 38, 65, 0.26);
+}
+
+.launcher span {
+  display: none;
 }
 
 .panel {
@@ -206,21 +210,6 @@
   text-transform: uppercase;
 }
 
-.fullSidebar {
-  flex: 0 0 326px;
-  min-width: 0;
-  min-height: 0;
-  overflow: hidden;
-  border-right: 1px solid rgba(229, 225, 216, 0.92);
-  transition: flex-basis 0.2s ease, opacity 0.18s ease;
-}
-
-.fullShell[data-sidebar="closed"] .fullSidebar {
-  flex-basis: 0;
-  pointer-events: none;
-  opacity: 0;
-}
-
 .fullMain {
   flex: 1 1 auto;
   min-width: 0;
@@ -232,7 +221,7 @@
 
 .fullHeader {
   display: flex;
-  flex-direction: initial;
+  flex-direction: row !important;
   align-items: center;
   justify-content: flex-end;
   min-height: 58px;
@@ -265,11 +254,8 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
+  margin-left: auto;
   flex: 0 0 auto;
-}
-
-.fullHistoryButton {
-  display: none;
 }
 
 .fullConversationWrap {
@@ -1051,9 +1037,8 @@
 
   .launcher {
     align-self: flex-end;
-    min-height: 44px;
-    padding: 0 14px;
-    font-size: 13px;
+    width: 44px;
+    height: 44px;
   }
 
   .panel {
@@ -1152,32 +1137,9 @@
     display: none;
   }
 
-  .fullSidebar {
-    position: absolute;
-    inset: 0 auto 0 56px;
-    z-index: 18;
-    width: min(326px, calc(100vw - 56px));
-    max-width: calc(100vw - 56px);
-    transform: translateX(-105%);
-    opacity: 1;
-    box-shadow: 22px 0 50px rgba(22, 31, 42, 0.18);
-    transition: transform 0.22s ease;
-  }
-
-  .fullSidebar[data-open="true"] {
-    transform: translateX(0);
-  }
-
-  .fullShell[data-sidebar="closed"] .fullSidebar {
-    opacity: 1;
-  }
-
-  .fullHistoryButton {
-    display: grid;
-  }
-
   .fullHeader {
     align-items: center;
+    justify-content: flex-end;
     min-height: 54px;
     padding: 10px 14px;
   }
