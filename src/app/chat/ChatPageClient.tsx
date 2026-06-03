@@ -353,7 +353,11 @@ export default function ChatPageClient({ initialChatId }: { initialChatId: strin
               );
             })}
 
-            {status === "submitted" && <div className={styles.statusBubble}>Checking the guarded Pathway knowledgebase...</div>}
+            {status === "submitted" && (
+              <div className={styles.statusBubble}>
+                Thinking...
+              </div>
+            )}
             {error && <div className={styles.errorBubble}>The chat had trouble connecting. Please try again or call 07902 863999.</div>}
 
             {(handoffMode === "needs-details" || handoffMode === "sending" || handoffMode === "error") && (

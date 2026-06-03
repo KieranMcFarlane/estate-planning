@@ -5,3 +5,23 @@ signal.nakanodigital.com {
 estate.nakanodigital.com {
 	reverse_proxy 127.0.0.1:3006
 }
+
+yellowpanther.nakanodigital.com {
+	reverse_proxy 127.0.0.1:3217
+}
+
+fractional.nakanodigital.com {
+	reverse_proxy 127.0.0.1:3008
+}
+
+hands.nakanodigital.com {
+	reverse_proxy 127.0.0.1:3009
+}
+
+admin.nakanodigital.com {
+	reverse_proxy 127.0.0.1:4100
+}
+
+estate-admin.nakanodigital.com {
+	reverse_proxy 127.0.0.1:4101
+}

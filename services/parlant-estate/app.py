@@ -43,6 +43,9 @@ MODEL_TOOL_POLICY = os.environ.get("MODEL_TOOL_POLICY", "prefer_tools").strip().
 TWENTY_BASE_URL = os.environ.get("TWENTY_BASE_URL", "http://127.0.0.1:3010").rstrip("/")
 TWENTY_API_TOKEN = os.environ.get("TWENTY_API_TOKEN", "").strip()
 PARLANT_NATIVE_ENABLED = os.environ.get("PARLANT_NATIVE_ENABLED", "auto").strip().lower()
+PARLANT_NLP_SERVICE = os.environ.get("PARLANT_NLP_SERVICE", "auto").strip().lower()
+PARLANT_OPENAI_SCHEMATIC_MODEL = os.environ.get("PARLANT_OPENAI_SCHEMATIC_MODEL", "gpt-4.1-nano").strip().lower()
+EMCIE_MODEL_TIER = os.environ.get("EMCIE_MODEL_TIER", "").strip().lower()
 PARLANT_NATIVE_PORT = int(os.environ.get("PARLANT_NATIVE_PORT", "8801"))
 PARLANT_NATIVE_TOOL_PORT = int(os.environ.get("PARLANT_NATIVE_TOOL_PORT", "8819"))
 PARLANT_NATIVE_BASE_URL = os.environ.get(
@@ -504,15 +507,33 @@ def retrieve(query: str, knowledge: dict[str, Any], limit: int = 3) -> list[Know
 def native_parlant_enabled() -> bool:
     if PARLANT_NATIVE_ENABLED in {"0", "false", "no", "off", "disabled"}:
         return False
-    return bool(parlant_sdk and AsyncParlantClient and os.environ.get("OPENAI_API_KEY"))
+    if not parlant_sdk or not AsyncParlantClient:
+        return False
+    if PARLANT_NLP_SERVICE == "emcie":
+        return bool(os.environ.get("EMCIE_API_KEY"))
+    if PARLANT_NLP_SERVICE == "auto" and os.environ.get("EMCIE_API_KEY"):
+        return True
+    return bool(os.environ.get("OPENAI_API_KEY"))
 
 
 def pathway_native_nlp_service(container: Any) -> Any:
-    from parlant.adapters.nlp.openai_service import GPT_5_Nano, OpenAIService
+    if PARLANT_NLP_SERVICE == "emcie" or (PARLANT_NLP_SERVICE == "auto" and os.environ.get("EMCIE_API_KEY")):
+        return parlant_sdk.NLPServices.emcie(container)
+
+    if PARLANT_NLP_SERVICE in {"openai", "openai-default"}:
+        return parlant_sdk.NLPServices.openai(container)
+
+    from parlant.adapters.nlp.openai_service import GPT_4_1_Nano, GPT_5_Nano, OpenAIService
+
+    schematic_generators = {
+        "gpt-4.1-nano": GPT_4_1_Nano,
+        "gpt-5-nano": GPT_5_Nano,
+    }
+    schematic_generator = schematic_generators.get(PARLANT_OPENAI_SCHEMATIC_MODEL, GPT_4_1_Nano)
 
     class PathwayOpenAIService(OpenAIService):
         async def get_schematic_generator(self, t: type[Any], hints: dict[str, Any] = {}) -> Any:
-            return GPT_5_Nano[t](self._logger, self._tracer, self._meter)  # type: ignore[index]
+            return schematic_generator[t](self._logger, self._tracer, self._meter)  # type: ignore[index]
 
     return PathwayOpenAIService(container[parlant_sdk.Logger], container[parlant_sdk.Tracer], container[parlant_sdk.Meter])
 
@@ -701,8 +722,8 @@ async def bootstrap_native_parlant_agent(server: Any) -> Any:
         with contextlib.suppress(Exception):
             await agent.create_guideline(
                 id="pathway-guideline-human-handoff-tool",
-                condition="The visitor asks to book, be contacted, speak with a person, or discuss personal circumstances",
-                action="Initiate a human handoff and explain that only minimal contact details are needed.",
+                condition="The visitor explicitly asks to book, be contacted, speak with a person, arrange a call, or send their contact details",
+                action="Initiate a human handoff only for explicit contact or booking requests, then explain that only minimal contact details are needed.",
                 tools=[handoff_tool],
                 criticality=parlant_sdk.Criticality.HIGH,
                 priority=100,
@@ -731,7 +752,9 @@ async def mark_native_parlant_ready(server: Any) -> None:
 async def run_native_parlant_sidecar() -> None:
     if not native_parlant_enabled():
         PARLANT_NATIVE_STATE["status"] = "disabled"
-        if not os.environ.get("OPENAI_API_KEY"):
+        if PARLANT_NLP_SERVICE == "emcie" and not os.environ.get("EMCIE_API_KEY"):
+            PARLANT_NATIVE_STATE["error"] = "EMCIE_API_KEY is not set"
+        elif not os.environ.get("OPENAI_API_KEY"):
             PARLANT_NATIVE_STATE["error"] = "OPENAI_API_KEY is not set"
         elif not parlant_sdk:
             PARLANT_NATIVE_STATE["error"] = "parlant.sdk is not importable"
@@ -1660,6 +1683,53 @@ def should_use_model(user_text: str, pages: list[KnowledgePage]) -> bool:
     return True
 
 
+def needs_governed_parlant(
+    user_text: str,
+    messages: list[ChatMessage],
+    navigation: dict[str, Any] | None = None,
+) -> tuple[bool, str]:
+    lowered = user_text.lower()
+    if not user_text.strip():
+        return False, "empty"
+    if is_greeting(user_text):
+        return False, "greeting"
+    if is_handoff_request(user_text):
+        return True, "handoff"
+    if is_high_risk(user_text) or asks_for_fee_or_timeframe(user_text):
+        return True, "guardrail"
+    if any(
+        re.search(pattern, lowered)
+        for pattern in [
+            r"\b(should i|do i need|what should i|would i need|is it right for me|best option|recommend|recommendation)\b",
+            r"\b(avoid tax|reduce tax|inheritance tax|iht|tax planning|care fees?|care costs?|care funding)\b",
+            r"\b(legal advice|financial advice|probate advice|eligibility|eligible|entitled|capacity|mental capacity)\b",
+            r"\b(put my house|protect my house|protect my home|protect my assets|second marriage|blended family)\b",
+        ]
+    ):
+        return True, "sensitive_intent"
+    if asks_capability(user_text):
+        return False, "capability"
+    if navigation and navigation.get("auto"):
+        return False, "navigation"
+    if any(
+        message.role == "assistant"
+        and re.search(r"\b(handoff|book|appointment|consultation|contact details|speak directly)\b", message.content.lower())
+        for message in messages[-4:]
+    ):
+        return True, "journey"
+    return False, "fast_path"
+
+
+def should_return_fast_draft(route_reason: str, user_text: str, navigation: dict[str, Any] | None) -> bool:
+    if route_reason in {"empty", "greeting", "capability", "navigation"}:
+        return True
+    if is_out_of_scope(user_text):
+        return True
+    if navigation and navigation.get("auto") and not re.search(r"\b(explain|tell me|what is|how does|why)\b", user_text.lower()):
+        return True
+    return False
+
+
 def openai_answer_sync(
     user_text: str,
     messages: list[ChatMessage],
@@ -1868,10 +1938,35 @@ async def maybe_model_answer(
         metadata["disabled"] = True
         return draft_answer, metadata
 
-    native_answer, native_metadata = await native_parlant_answer(request, user_text, draft_answer)
-    if native_metadata.get("used"):
-        native_metadata["fallbackProvider"] = metadata
-        return native_answer, native_metadata
+    use_parlant, route_reason = needs_governed_parlant(user_text, messages, navigation)
+    metadata["route"] = "parlant" if use_parlant else "fast"
+    metadata["routeReason"] = route_reason
+    native_metadata: dict[str, Any] = {
+        "provider": "parlant",
+        "id": PARLANT_AGENT_ID,
+        "configured": native_parlant_enabled(),
+        "used": False,
+        "skipped": not use_parlant,
+        "routeReason": route_reason,
+    }
+
+    if use_parlant:
+        native_answer, native_metadata = await native_parlant_answer(request, user_text, draft_answer)
+        native_metadata["route"] = "parlant"
+        native_metadata["routeReason"] = route_reason
+        if native_metadata.get("used"):
+            native_metadata["fallbackProvider"] = metadata
+            return native_answer, native_metadata
+
+    if should_return_fast_draft(route_reason, user_text, navigation):
+        if native_metadata.get("configured"):
+            metadata["nativeFallback"] = native_metadata
+        metadata["used"] = False
+        metadata["draftOnly"] = True
+        if navigation and navigation.get("auto") and navigation.get("targets"):
+            target = navigation["targets"][0]
+            return f"I found the closest place on the site: {target['title']}.", metadata
+        return draft_answer, metadata
 
     if not should_use_model(user_text, pages):
         if native_metadata.get("configured"):
@@ -2001,6 +2096,9 @@ async def health() -> dict[str, Any]:
         "modelId": MODEL_ID,
         "modelToolPolicy": MODEL_TOOL_POLICY,
         "modelConfigured": model_available(),
+        "parlantNlpService": PARLANT_NLP_SERVICE,
+        "parlantOpenaiSchematicModel": PARLANT_OPENAI_SCHEMATIC_MODEL,
+        "emcieModelTier": EMCIE_MODEL_TIER or "default",
         "nativeParlant": {
             "enabled": native_parlant_enabled(),
             "status": PARLANT_NATIVE_STATE.get("status"),
@@ -2037,7 +2135,7 @@ async def chat(request: ChatRequest) -> JSONResponse:
         navigation=navigation,
         disabled=bool(request.metadata.get("disableModel")) or bool(clarification_text),
     )
-    if navigation and navigation.get("auto"):
+    if navigation and navigation.get("auto") and "closest place on the site" not in response_text.lower():
         target = navigation["targets"][0]
         response_text += f"\n\nI found the closest place on the site: {target['title']}. I will take you there after this answer."
 

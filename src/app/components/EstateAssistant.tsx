@@ -622,7 +622,9 @@ export default function EstateAssistant() {
                     })}
 
                     {status === "submitted" && (
-                      <div className={styles.statusBubble}>Checking the guarded Pathway knowledgebase...</div>
+                      <div className={styles.statusBubble}>
+                        Thinking...
+                      </div>
                     )}
                     {error && (
                       <div className={styles.errorBubble}>
@@ -806,7 +808,9 @@ export default function EstateAssistant() {
             })}
 
             {status === "submitted" && (
-              <div className={styles.statusBubble}>Checking the guarded Pathway knowledgebase...</div>
+              <div className={styles.statusBubble}>
+                Thinking...
+              </div>
             )}
             {error && (
               <div className={styles.errorBubble}>

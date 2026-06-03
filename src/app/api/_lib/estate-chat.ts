@@ -29,7 +29,7 @@ export type ParlantChatResponse = {
 
 export function fallbackAnswer() {
   return [
-    "I cannot reach the guarded Pathway chat service right now.",
+    "The Pathway chat is taking longer than expected to prepare a careful answer.",
     "You can still call 07902 863999 or email info@pathwayestateplanning.co.uk.",
     "For safety, please do not rely on chat for legal, tax, financial, urgent, or personal advice.",
   ].join("\n\n");
@@ -75,7 +75,7 @@ export async function fetchParlantAnswer(body: {
       messages: body.messages,
       metadata: body.metadata ?? {},
     }),
-    signal: AbortSignal.timeout(25_000),
+    signal: AbortSignal.timeout(55_000),
   });
 
   if (!response.ok) {

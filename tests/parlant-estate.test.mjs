@@ -36,6 +36,21 @@ async function chatMessages(messages, id = `test-${Date.now()}`) {
   return response.json();
 }
 
+async function liveChat(content, id = `live-${Date.now()}`) {
+  const response = await fetch(`${SERVICE_URL}/chat`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      id,
+      messages: [{ role: "user", content }],
+      metadata: { pageUrl: "https://estate.nakanodigital.com/test" },
+    }),
+  });
+
+  assert.equal(response.status, 200);
+  return response.json();
+}
+
 test("knowledgebase includes public routes and key glossary terms", async () => {
   const knowledge = JSON.parse(await readFile(KNOWLEDGE_PATH, "utf8"));
   const routes = new Set(knowledge.pages.map((page) => page.route));
@@ -86,6 +101,24 @@ test("greetings and capability prompts do not trigger fallback", async () => {
   const capability = await chat("what can you do?", "capability-test");
   assert.match(capability.text, /explain the basics|find the right page/i);
   assert.doesNotMatch(capability.text, /do not have enough information/i);
+});
+
+test("live routing keeps simple turns fast and reserves Parlant for governed turns", async () => {
+  const greeting = await liveChat("Hi", "routing-greeting-test");
+  assert.equal(greeting.model.provider, "openai");
+  assert.equal(greeting.model.route, "fast");
+  assert.equal(greeting.model.nativeFallback.skipped, true);
+
+  const advice = await liveChat("Do I need a trust for my house?", "routing-trust-advice-test");
+  assert.equal(advice.model.provider, "parlant");
+  assert.equal(advice.model.used, true);
+  assert.equal(advice.model.route, "parlant");
+  assert.equal(advice.model.routeReason, "sensitive_intent");
+
+  const booking = await liveChat("Book me a consultation", "routing-booking-test");
+  assert.equal(booking.model.provider, "parlant");
+  assert.equal(booking.model.used, true);
+  assert.equal(booking.model.routeReason, "handoff");
 });
 
 test("booking intent writes a local handoff record", async () => {

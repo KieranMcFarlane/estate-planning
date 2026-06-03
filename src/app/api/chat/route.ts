@@ -12,9 +12,8 @@ import {
 import {
   chunkText,
   fallbackAnswer,
-  fetchParlantAnswer,
-  toParlantMessages,
 } from "../_lib/estate-chat";
+import { answerEstateChatWithLiteRouter } from "../_lib/estate-lite";
 import {
   assertWithinRateLimit,
   databaseErrorResponse,
@@ -28,7 +27,7 @@ import {
 } from "../_lib/estate-chat-store";
 
 export const runtime = "nodejs";
-export const maxDuration = 30;
+export const maxDuration = 60;
 
 const idSchema = z.string().min(8).max(96).regex(/^[A-Za-z0-9_-]+$/);
 const textPartSchema = z.object({
@@ -137,9 +136,9 @@ export async function POST(request: Request) {
         let text = fallbackAnswer();
 
         try {
-          const result = await fetchParlantAnswer({
+          const result = await answerEstateChatWithLiteRouter({
             id: body.id,
-            messages: toParlantMessages(uiMessages),
+            messages: uiMessages,
             metadata: body.metadata,
           });
           text = result.text || fallbackAnswer();
