@@ -1,7 +1,20 @@
 import SubpageTemplate from "../components/SubpageTemplate";
+import JsonLd from "../components/JsonLd";
+import { absoluteUrl, breadcrumbJsonLd, metadataForRoute } from "../seo";
+
+export const metadata = metadataForRoute("/faq");
 
 export default function FAQPage() {
+  const faqItems = [
+    ["Do I need a Will?", "A properly prepared Will helps ensure your wishes are followed, your beneficiaries are protected, children or dependants can be cared for, and confusion or disputes are less likely."],
+    ["What happens without a Will?", "If someone dies without a valid Will, their estate is distributed according to the Rules of Intestacy, which may not reflect what they would have wanted."],
+    ["What is a Lasting Power of Attorney?", "An LPA lets you appoint someone you trust to make decisions on your behalf if you are unable to."],
+    ["What is a Trust?", "A Trust is a legal arrangement used to protect or manage assets for someone else."],
+    ["What is Inheritance Tax?", "Inheritance Tax may be payable depending on the value of an estate, allowances, reliefs and exemptions."],
+  ];
+
   return (
+    <>
     <SubpageTemplate
       eyebrow="Helpful answers"
       title="Frequently Asked Questions"
@@ -79,5 +92,24 @@ export default function FAQPage() {
         linkText: "Contact us",
       }}
     />
+    <JsonLd
+      data={[
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "@id": `${absoluteUrl("/faq")}#faq`,
+          mainEntity: faqItems.map(([name, text]) => ({
+            "@type": "Question",
+            name,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text,
+            },
+          })),
+        },
+        breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Frequently Asked Questions", path: "/faq" }]),
+      ]}
+    />
+    </>
   );
 }

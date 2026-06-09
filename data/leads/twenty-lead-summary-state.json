@@ -63,6 +63,46 @@
       "email": "complex-smoke-visitor-context+1779362145336@example.com",
       "phone": "+44 7902000000",
       "createdAt": "2026-05-21T11:15:45.420Z"
+    },
+    "cc90e897-2913-4444-ae66-051601df5dbe": {
+      "id": "cc90e897-2913-4444-ae66-051601df5dbe",
+      "firstName": "Twenty",
+      "lastName": "Smoke 1780912226494",
+      "email": "twenty-smoke+1780912226494@example.com",
+      "phone": "+44 7902000000",
+      "createdAt": "2026-06-08T09:50:26.854Z"
+    },
+    "877671df-49e8-49e2-a0d4-1498d697dd52": {
+      "id": "877671df-49e8-49e2-a0d4-1498d697dd52",
+      "firstName": "Twenty",
+      "lastName": "Smoke 1780912377002",
+      "email": "twenty-smoke+1780912377002@example.com",
+      "phone": "+44 7902000000",
+      "createdAt": "2026-06-08T09:52:57.291Z"
+    },
+    "e1489a69-a338-4cfa-87e6-89092c4f69be": {
+      "id": "e1489a69-a338-4cfa-87e6-89092c4f69be",
+      "firstName": "Twenty",
+      "lastName": "Smoke 1780912788347",
+      "email": "twenty-smoke+1780912788347@example.com",
+      "phone": "+44 7902000000",
+      "createdAt": "2026-06-08T09:59:49.084Z"
+    },
+    "417fe050-3837-4db0-913f-4f725c838812": {
+      "id": "417fe050-3837-4db0-913f-4f725c838812",
+      "firstName": "Twenty",
+      "lastName": "Smoke 1780943631762",
+      "email": "twenty-smoke+1780943631762@example.com",
+      "phone": "+44 7902000000",
+      "createdAt": "2026-06-08T18:33:56.257Z"
+    },
+    "b7dc8e38-ea57-42ee-b0a6-8e1b5a671dea": {
+      "id": "b7dc8e38-ea57-42ee-b0a6-8e1b5a671dea",
+      "firstName": "Twenty",
+      "lastName": "Smoke 1780948853757",
+      "email": "twenty-smoke+1780948853757@example.com",
+      "phone": "+44 7902000000",
+      "createdAt": "2026-06-08T20:00:56.208Z"
     }
   },
   "notes": {
@@ -145,6 +185,56 @@
       "chatId": "pathway_chat_complex_1779362134472",
       "message": "Complex realistic WhatsApp visitor-context smoke 1779362145336. Second marriage property protection, adult children, possible LPA/capacity concerns, care costs and tax planning. Safe to delete after QA.",
       "createdAt": "2026-05-21T11:15:45.482Z"
+    },
+    "f365fd58-fad0-4478-bd7b-ce88904b0362": {
+      "id": "f365fd58-fad0-4478-bd7b-ce88904b0362",
+      "title": "Assistant handoff",
+      "markdown": "Source: assistant_handoff\nPage: https://estate.nakanodigital.com/webhook-smoke\nChat: twenty_smoke_1780912226494\nTwenty webhook smoke 1780912226494. Safe to delete.",
+      "source": "assistant_handoff",
+      "pageUrl": "https://estate.nakanodigital.com/webhook-smoke",
+      "chatId": "twenty_smoke_1780912226494",
+      "message": "Twenty webhook smoke 1780912226494. Safe to delete.",
+      "createdAt": "2026-06-08T09:50:27.647Z"
+    },
+    "ec5672a9-ba90-43e0-9428-c784b9a6018e": {
+      "id": "ec5672a9-ba90-43e0-9428-c784b9a6018e",
+      "title": "Assistant handoff",
+      "markdown": "Source: assistant_handoff\nPage: https://estate.nakanodigital.com/webhook-smoke\nChat: twenty_smoke_1780912377002\nTwenty webhook smoke 1780912377002. Safe to delete.",
+      "source": "assistant_handoff",
+      "pageUrl": "https://estate.nakanodigital.com/webhook-smoke",
+      "chatId": "twenty_smoke_1780912377002",
+      "message": "Twenty webhook smoke 1780912377002. Safe to delete.",
+      "createdAt": "2026-06-08T09:52:57.864Z"
+    },
+    "1ed06bac-e649-4d65-ba2b-b1f7c1db87c4": {
+      "id": "1ed06bac-e649-4d65-ba2b-b1f7c1db87c4",
+      "title": "Assistant handoff",
+      "markdown": "Source: assistant_handoff\nPage: https://estate.nakanodigital.com/webhook-smoke\nChat: twenty_smoke_1780912788347\nTwenty webhook smoke 1780912788347. Safe to delete.",
+      "source": "assistant_handoff",
+      "pageUrl": "https://estate.nakanodigital.com/webhook-smoke",
+      "chatId": "twenty_smoke_1780912788347",
+      "message": "Twenty webhook smoke 1780912788347. Safe to delete.",
+      "createdAt": "2026-06-08T09:59:50.111Z"
+    },
+    "915b5140-ec3f-4ea5-9717-e91b268a2b1d": {
+      "id": "915b5140-ec3f-4ea5-9717-e91b268a2b1d",
+      "title": "Assistant handoff",
+      "markdown": "Source: assistant_handoff\nPage: http://127.0.0.1:3006/webhook-smoke\nChat: twenty_smoke_1780943631762\nTwenty webhook smoke 1780943631762. Safe to delete.",
+      "source": "assistant_handoff",
+      "pageUrl": "http://127.0.0.1:3006/webhook-smoke",
+      "chatId": "twenty_smoke_1780943631762",
+      "message": "Twenty webhook smoke 1780943631762. Safe to delete.",
+      "createdAt": "2026-06-08T18:34:08.774Z"
+    },
+    "d3d38aaa-0091-4f85-868e-51d856668cf7": {
+      "id": "d3d38aaa-0091-4f85-868e-51d856668cf7",
+      "title": "Assistant handoff",
+      "markdown": "Source: assistant_handoff\nPage: http://127.0.0.1:3006/webhook-smoke\nChat: twenty_smoke_1780948853757\nTwenty webhook smoke 1780948853757. Safe to delete.",
+      "source": "assistant_handoff",
+      "pageUrl": "http://127.0.0.1:3006/webhook-smoke",
+      "chatId": "twenty_smoke_1780948853757",
+      "message": "Twenty webhook smoke 1780948853757. Safe to delete.",
+      "createdAt": "2026-06-08T20:00:57.139Z"
     }
   },
   "noteTargets": {
@@ -195,6 +285,36 @@
       "noteId": "3b32a61e-eec6-4c0c-9b73-d60d090214c7",
       "personId": "32179d26-64ee-4ac4-8ff8-c02339c0a6f3",
       "createdAt": "2026-05-21T11:15:45.512Z"
+    },
+    "8e4143cc-7b2f-400e-a173-68eb59823ddc": {
+      "id": "8e4143cc-7b2f-400e-a173-68eb59823ddc",
+      "noteId": "f365fd58-fad0-4478-bd7b-ce88904b0362",
+      "personId": "cc90e897-2913-4444-ae66-051601df5dbe",
+      "createdAt": "2026-06-08T09:50:28.110Z"
+    },
+    "a494eae6-3bc8-4f36-b1fc-a2afe3279444": {
+      "id": "a494eae6-3bc8-4f36-b1fc-a2afe3279444",
+      "noteId": "ec5672a9-ba90-43e0-9428-c784b9a6018e",
+      "personId": "877671df-49e8-49e2-a0d4-1498d697dd52",
+      "createdAt": "2026-06-08T09:52:58.006Z"
+    },
+    "b81af586-5714-4a2f-b30f-ef33332cf60c": {
+      "id": "b81af586-5714-4a2f-b30f-ef33332cf60c",
+      "noteId": "1ed06bac-e649-4d65-ba2b-b1f7c1db87c4",
+      "personId": "e1489a69-a338-4cfa-87e6-89092c4f69be",
+      "createdAt": "2026-06-08T09:59:50.184Z"
+    },
+    "cf3ed27b-a04a-43e5-8ea2-81d454c52442": {
+      "id": "cf3ed27b-a04a-43e5-8ea2-81d454c52442",
+      "noteId": "915b5140-ec3f-4ea5-9717-e91b268a2b1d",
+      "personId": "417fe050-3837-4db0-913f-4f725c838812",
+      "createdAt": "2026-06-08T18:34:09.217Z"
+    },
+    "8fd707ff-19b1-43d0-bb4b-98bb04e5e305": {
+      "id": "8fd707ff-19b1-43d0-bb4b-98bb04e5e305",
+      "noteId": "d3d38aaa-0091-4f85-868e-51d856668cf7",
+      "personId": "b7dc8e38-ea57-42ee-b0a6-8e1b5a671dea",
+      "createdAt": "2026-06-08T20:00:57.699Z"
     }
   },
   "completedNoteTargetIds": {
@@ -205,6 +325,11 @@
     "45688881-fff4-4196-a8e5-288acbdd174c": true,
     "cdfbee1d-04b0-40ff-9ff5-655f0212b308": true,
     "c29d6738-b5b8-42ec-854f-916257dc074d": true,
-    "a6cf5f5e-54a1-4df8-a1b9-82a98cc1358a": true
+    "a6cf5f5e-54a1-4df8-a1b9-82a98cc1358a": true,
+    "8e4143cc-7b2f-400e-a173-68eb59823ddc": true,
+    "a494eae6-3bc8-4f36-b1fc-a2afe3279444": true,
+    "b81af586-5714-4a2f-b30f-ef33332cf60c": true,
+    "cf3ed27b-a04a-43e5-8ea2-81d454c52442": true,
+    "8fd707ff-19b1-43d0-bb4b-98bb04e5e305": true
   }
 }

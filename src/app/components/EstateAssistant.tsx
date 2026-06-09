@@ -7,15 +7,14 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   ArrowDown,
-  Calendar,
   Check,
   Copy,
+  History,
   HeartHandshake,
   Maximize2,
   MessageCircle,
   Minimize2,
   PenSquare,
-  Phone,
   RotateCcw,
   Send,
   Sparkles,
@@ -30,6 +29,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Field, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { OpenUIBookingRenderer } from "./booking/OpenUIBookingRenderer";
 import { Response } from "./ai/Response";
 import { getStoredChat } from "./chat-history/browserChatStorage";
 import { useEstateChatHistory } from "./chat-history/useEstateChatHistory";
@@ -57,6 +61,7 @@ const suggestions = [
   "Can you explain wills and LPAs in plain English?",
   "Show me where you explain trusts.",
   "How can trusts help protect family assets?",
+  "Can I book an initial chat this week?",
   "I would like someone to contact me about an initial chat.",
 ];
 
@@ -75,6 +80,43 @@ function AssistantText({ text, streaming }: { text: string; streaming: boolean }
       {text}
     </Response>
   );
+}
+
+function isBookingToolPart(part: EstateUIMessage["parts"][number]) {
+  return part.type === "tool-bookingLink" || part.type === "tool-getAvailableSlots" || part.type === "tool-createBooking";
+}
+
+function AssistantMessageParts({
+  message,
+  streaming,
+  onUserMessage,
+}: {
+  message: EstateUIMessage;
+  streaming: boolean;
+  onUserMessage: (message: string) => void;
+}) {
+  return message.parts.map((part, partIndex) => {
+    if (part.type === "text") {
+      return (
+        <AssistantText
+          key={`${message.id}-${partIndex}`}
+          text={part.text}
+          streaming={streaming}
+        />
+      );
+    }
+    if (isBookingToolPart(part)) {
+      return (
+        <OpenUIBookingRenderer
+          key={`${message.id}-${partIndex}`}
+          part={part}
+          isStreaming={streaming}
+          onUserMessage={onUserMessage}
+        />
+      );
+    }
+    return null;
+  });
 }
 
 export default function EstateAssistant() {
@@ -417,6 +459,7 @@ export default function EstateAssistant() {
   if (pathname?.startsWith("/chat") || pathname?.startsWith("/operator")) return null;
 
   return (
+    <TooltipProvider delayDuration={220}>
     <div className={styles.assistant} data-open={open}>
       <Dialog open={fullChatOpen} onOpenChange={setFullChatOpen}>
         <DialogContent
@@ -427,23 +470,45 @@ export default function EstateAssistant() {
           <section className={styles.fullShell} aria-label="Pathway maximised planning chat">
             <aside className={styles.fullRail} aria-label="Chat workspace controls">
               <div className={styles.fullRailTop}>
-                <button
-                  className={styles.railButton}
-                  type="button"
-                  onClick={chatHistory.startNewChat}
-                  aria-label="New chat"
-                >
-                  <PenSquare size={18} aria-hidden="true" />
-                </button>
-                <button
-                  className={styles.railButton}
-                  type="button"
-                  onClick={() => void chatHistory.deleteAllChats()}
-                  aria-label="Delete all chats"
-                  disabled={!chatHistory.chats.length || chatHistory.actionId === "all"}
-                >
-                  <Trash2 size={18} aria-hidden="true" />
-                </button>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      className={styles.railButton}
+                      type="button"
+                      onClick={chatHistory.startNewChat}
+                      aria-label="New chat"
+                    >
+                      <PenSquare size={18} aria-hidden="true" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">New chat</TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Link
+                      className={styles.railButton}
+                      href={`/chat/${encodeURIComponent(chatId)}`}
+                      aria-label="Open chat history"
+                    >
+                      <History size={18} aria-hidden="true" />
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">Open chat history</TooltipContent>
+                </Tooltip>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button
+                      className={styles.railButton}
+                      type="button"
+                      onClick={() => void chatHistory.deleteAllChats()}
+                      aria-label="Delete all chats"
+                      disabled={!chatHistory.chats.length || chatHistory.actionId === "all"}
+                    >
+                      <Trash2 size={18} aria-hidden="true" />
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent side="right">Delete all chats</TooltipContent>
+                </Tooltip>
               </div>
               <div className={styles.fullRailBottom}>
                 <span className={styles.guestDot} aria-hidden="true" />
@@ -506,9 +571,9 @@ export default function EstateAssistant() {
                     )}
 
                     {messages.map((message, messageIndex) => {
-                      const textParts = message.parts.filter((part) => part.type === "text");
-                      if (!textParts.length) return null;
                       const isLastMessage = messageIndex === messages.length - 1;
+                      const hasRenderableParts = message.role === "user" || message.parts.some((part) => part.type === "text" || isBookingToolPart(part));
+                      if (!hasRenderableParts) return null;
 
                       return (
                         <div className={message.role === "user" ? styles.fullMessageUser : styles.fullMessageAssistant} key={message.id}>
@@ -516,13 +581,11 @@ export default function EstateAssistant() {
                             {message.role === "user" ? (
                               <span>{partText(message)}</span>
                             ) : (
-                              textParts.map((part, partIndex) => (
-                                <AssistantText
-                                  key={`${message.id}-${partIndex}`}
-                                  text={part.text}
-                                  streaming={isLastMessage && status === "streaming"}
-                                />
-                              ))
+                              <AssistantMessageParts
+                                message={message}
+                                streaming={isLastMessage && status === "streaming"}
+                                onUserMessage={submitText}
+                              />
                             )}
                             <div className={styles.fullMessageActions} aria-label="Message actions">
                               <button
@@ -575,44 +638,44 @@ export default function EstateAssistant() {
                           <strong>Ask Pathway to contact you</strong>
                           <p>Share only the details you are comfortable sending. A name and either email or phone is enough.</p>
                         </div>
-                        <label>
-                          <span>Name</span>
-                          <input
+                        <Field className={styles.handoffField}>
+                          <FieldLabel className={styles.handoffLabel}>Name</FieldLabel>
+                          <Input
                             value={handoffForm.name}
                             onChange={(event) => setHandoffForm((current) => ({ ...current, name: event.target.value }))}
                             autoComplete="name"
                             required
                           />
-                        </label>
+                        </Field>
                         <div className={styles.handoffFields}>
-                          <label>
-                            <span>Email</span>
-                            <input
+                          <Field className={styles.handoffField}>
+                            <FieldLabel className={styles.handoffLabel}>Email</FieldLabel>
+                            <Input
                               value={handoffForm.email}
                               onChange={(event) => setHandoffForm((current) => ({ ...current, email: event.target.value }))}
                               autoComplete="email"
                               type="email"
                             />
-                          </label>
-                          <label>
-                            <span>Phone</span>
-                            <input
+                          </Field>
+                          <Field className={styles.handoffField}>
+                            <FieldLabel className={styles.handoffLabel}>Phone</FieldLabel>
+                            <Input
                               value={handoffForm.phone}
                               onChange={(event) => setHandoffForm((current) => ({ ...current, phone: event.target.value }))}
                               autoComplete="tel"
                               type="tel"
                             />
-                          </label>
+                          </Field>
                         </div>
-                        <label>
-                          <span>What should Pathway know?</span>
-                          <textarea
+                        <Field className={styles.handoffField}>
+                          <FieldLabel className={styles.handoffLabel}>What should Pathway know?</FieldLabel>
+                          <Textarea
                             value={handoffForm.message}
                             onChange={(event) => setHandoffForm((current) => ({ ...current, message: event.target.value }))}
                             rows={3}
                             placeholder={handoffMessage || "A short note is optional."}
                           />
-                        </label>
+                        </Field>
                         {handoffError && <p className={styles.handoffError}>{handoffError}</p>}
                         <button className={styles.handoffSubmit} type="submit" disabled={handoffMode === "sending"}>
                           {handoffMode === "sending" ? "Sending..." : "Send to Pathway"}
@@ -714,9 +777,9 @@ export default function EstateAssistant() {
             )}
 
             {messages.map((message, messageIndex) => {
-              const textParts = message.parts.filter((part) => part.type === "text");
-              if (!textParts.length) return null;
               const isLastMessage = messageIndex === messages.length - 1;
+              const hasRenderableParts = message.role === "user" || message.parts.some((part) => part.type === "text" || isBookingToolPart(part));
+              if (!hasRenderableParts) return null;
 
               return (
                 <div
@@ -726,13 +789,11 @@ export default function EstateAssistant() {
                   {message.role === "user" ? (
                     <span>{partText(message)}</span>
                   ) : (
-                    textParts.map((part, partIndex) => (
-                      <AssistantText
-                        key={`${message.id}-${partIndex}`}
-                        text={part.text}
-                        streaming={isLastMessage && status === "streaming"}
-                      />
-                    ))
+                    <AssistantMessageParts
+                      message={message}
+                      streaming={isLastMessage && status === "streaming"}
+                      onUserMessage={submitText}
+                    />
                   )}
                 </div>
               );
@@ -761,44 +822,44 @@ export default function EstateAssistant() {
                   <strong>Ask Pathway to contact you</strong>
                   <p>Share only the details you are comfortable sending. A name and either email or phone is enough.</p>
                 </div>
-                <label>
-                  <span>Name</span>
-                  <input
+                <Field className={styles.handoffField}>
+                  <FieldLabel className={styles.handoffLabel}>Name</FieldLabel>
+                  <Input
                     value={handoffForm.name}
                     onChange={(event) => setHandoffForm((current) => ({ ...current, name: event.target.value }))}
                     autoComplete="name"
                     required
                   />
-                </label>
+                </Field>
                 <div className={styles.handoffFields}>
-                  <label>
-                    <span>Email</span>
-                    <input
+                  <Field className={styles.handoffField}>
+                    <FieldLabel className={styles.handoffLabel}>Email</FieldLabel>
+                    <Input
                       value={handoffForm.email}
                       onChange={(event) => setHandoffForm((current) => ({ ...current, email: event.target.value }))}
                       autoComplete="email"
                       type="email"
                     />
-                  </label>
-                  <label>
-                    <span>Phone</span>
-                    <input
+                  </Field>
+                  <Field className={styles.handoffField}>
+                    <FieldLabel className={styles.handoffLabel}>Phone</FieldLabel>
+                    <Input
                       value={handoffForm.phone}
                       onChange={(event) => setHandoffForm((current) => ({ ...current, phone: event.target.value }))}
                       autoComplete="tel"
                       type="tel"
                     />
-                  </label>
+                  </Field>
                 </div>
-                <label>
-                  <span>What should Pathway know?</span>
-                  <textarea
+                <Field className={styles.handoffField}>
+                  <FieldLabel className={styles.handoffLabel}>What should Pathway know?</FieldLabel>
+                  <Textarea
                     value={handoffForm.message}
                     onChange={(event) => setHandoffForm((current) => ({ ...current, message: event.target.value }))}
                     rows={3}
                     placeholder={handoffMessage || "A short note is optional."}
                   />
-                </label>
+                </Field>
                 {handoffError && <p className={styles.handoffError}>{handoffError}</p>}
                 <button className={styles.handoffSubmit} type="submit" disabled={handoffMode === "sending"}>
                   {handoffMode === "sending" ? "Sending..." : "Send to Pathway"}
@@ -839,22 +900,19 @@ export default function EstateAssistant() {
             </button>
           </form>
 
-          <div className={styles.actions}>
-            <a href="tel:07902863999" className={styles.secondaryAction}>
-              <Phone size={16} aria-hidden="true" />
-              Call
-            </a>
-            <Link href="/contact" className={styles.primaryAction}>
-              <Calendar size={16} aria-hidden="true" />
-              Contact Pathway
-            </Link>
-          </div>
         </section>
       ) : null}
 
-      <button className={styles.launcher} type="button" onClick={() => setOpen(true)} aria-expanded={open} aria-label="Open planning assistant">
-        <MessageCircle size={20} aria-hidden="true" />
-      </button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button className={styles.launcher} type="button" onClick={() => setOpen(true)} aria-expanded={open} aria-label="Open planning assistant">
+            <MessageCircle size={20} aria-hidden="true" />
+            <span>Ask Pathway</span>
+          </button>
+        </TooltipTrigger>
+        <TooltipContent side="left">Ask Pathway</TooltipContent>
+      </Tooltip>
     </div>
+    </TooltipProvider>
   );
 }

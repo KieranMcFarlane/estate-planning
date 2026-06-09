@@ -1,4 +1,7 @@
 import SubpageTemplate from "../components/SubpageTemplate";
+import { metadataForRoute } from "../seo";
+
+export const metadata = metadataForRoute("/agricultural-land");
 
 export default function AgriculturalLandPage() {
   return (
@@ -8,6 +11,17 @@ export default function AgriculturalLandPage() {
       subtitle="Specialist planning for farms, land and rural estates."
       heroImage="/leamington_location.jpg"
       heroAlt="Green gardens and historic Leamington Spa architecture"
+      canonicalPath="/agricultural-land"
+      aiSummary={{
+        answer:
+          "Agricultural land and rural estates often need careful estate planning because family wishes, ownership structures, land, tax and succession can overlap. Pathway helps coordinate the estate planning conversation.",
+        questions: [
+          "Who should inherit or manage land, farming assets or rural property?",
+          "Are ownership structures, family expectations or succession plans already documented?",
+          "Should Wills, Trusts and tax considerations be reviewed together?",
+        ],
+        handoffPrompt: "If land or farm assets are involved, ask Pathway to contact you so the details can be understood properly.",
+      }}
       intro={[
         "Agricultural and rural estates often require specialist estate planning.",
         "Land, property and long-standing family assets can involve unique considerations, and it is important that planning is handled carefully and correctly.",

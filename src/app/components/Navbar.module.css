@@ -13,6 +13,26 @@
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02);
 }
 
+.headroom {
+    will-change: transform;
+    transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+}
+
+.headroomPinned,
+.headroomTop,
+.headroomFrozen {
+    transform: translateY(0);
+}
+
+.headroomUnpinned {
+    transform: translateY(-100%);
+}
+
+.headroomNotTop {
+    background: rgba(250, 248, 244, 0.96);
+    box-shadow: 0 8px 28px rgba(20, 23, 26, 0.08);
+}
+
 .container {
     display: flex;
     align-items: center;
@@ -31,7 +51,7 @@
 
 .logoImage {
     display: block;
-    width: clamp(150px, 15vw, 220px);
+    width: clamp(210px, 18vw, 300px);
     height: auto;
     object-fit: contain;
 }
@@ -153,6 +173,15 @@
     border-bottom: 1px solid var(--hairline, #e5e1d8);
 }
 
+.mobileResourceLink small {
+    display: block;
+    margin-top: 3px;
+    color: var(--stone, #6b6e68);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.35;
+}
+
 .mobileResourceLink:hover {
     color: var(--sage, #2f4d7a);
 }
@@ -217,6 +246,58 @@
     cursor: pointer;
     padding: var(--spacing-xs);
     color: var(--ink, #1a1d1a);
+}
+
+.mobileSheet {
+    width: min(390px, calc(100vw - 34px));
+    max-width: none;
+    border-left: 1px solid var(--hairline, #e5e1d8);
+    background: rgba(250, 248, 244, 0.98);
+    color: var(--ink, #1a1d1a);
+    padding: 24px 22px 112px;
+    overflow-y: auto;
+}
+
+.mobileSheetHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 36px;
+}
+
+.mobileSheetTitle {
+    margin: 0;
+    color: var(--sage, #2f4d7a);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.mobileSheetLogo {
+    width: 170px;
+    height: auto;
+}
+
+.mobileSheetLinks {
+    display: grid;
+    gap: 0;
+    margin-top: 22px;
+}
+
+.mobileSheetLinks > a:not(.mobileResourceLink) {
+    display: block;
+    padding: 14px 8px;
+    border-bottom: 1px solid var(--hairline, #e5e1d8);
+    color: var(--ink, #1a1d1a);
+    font-size: 17px;
+    font-weight: 650;
+    text-decoration: none;
+}
+
+.mobileSheetLinks a:hover {
+    color: var(--sage, #2f4d7a);
 }
 
 .mobileCta {
@@ -289,7 +370,7 @@
     }
 
     .logoImage {
-        width: 150px;
+        width: 190px;
     }
 
     .mobileToggle {
@@ -302,21 +383,6 @@
 
     .links {
         display: none;
-        width: 100%;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-        order: 3;
-    }
-
-    .links.mobileOpen {
-        display: flex;
-    }
-
-    .links a {
-        padding: 14px 8px;
-        border-bottom: 1px solid var(--hairline, #e5e1d8);
-        font-size: 18px;
     }
 }
 
@@ -348,6 +414,12 @@
 
     .floatingCtaDesktop {
         display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .headroom {
+        transition: none;
     }
 }
 

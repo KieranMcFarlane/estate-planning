@@ -29,7 +29,7 @@ export type ParlantChatResponse = {
 
 export function fallbackAnswer() {
   return [
-    "The Pathway chat is taking longer than expected to prepare a careful answer.",
+    "The Pathway AI chat cannot complete that answer right now.",
     "You can still call 07902 863999 or email info@pathwayestateplanning.co.uk.",
     "For safety, please do not rely on chat for legal, tax, financial, urgent, or personal advice.",
   ].join("\n\n");

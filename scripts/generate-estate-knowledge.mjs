@@ -200,12 +200,12 @@ function attributeValue(attrs, name) {
 function extractSemanticBlockNodes(route, html, pageTitle) {
   const shell = pageShell(html);
   const nodes = [];
-  const semanticPattern = /<(section|article|div|p|li|figure|a)\b([^>]*)data-semantic-id=["']([^"']+)["'][^>]*>/gi;
+  const semanticPattern = /<(section|article|div|p|li|figure|a)\b([^>]*)>/gi;
   const seen = new Set();
 
   for (const match of shell.matchAll(semanticPattern)) {
     const attrs = match[2] ?? "";
-    const semanticId = match[3];
+    const semanticId = attributeValue(attrs, "data-semantic-id");
     if (!semanticId || seen.has(semanticId)) continue;
     seen.add(semanticId);
 
@@ -223,9 +223,11 @@ function extractSemanticBlockNodes(route, html, pageTitle) {
     const fallbackTitle = text.length <= 90 ? text : slugTitle(semanticId);
     const title = explicitTitle ?? (heading ? stripHtml(heading[2]) : fallbackTitle);
     const url = route === "/" ? `/#${semanticId}` : `${route}#${semanticId}`;
+    const tags = uniqueStrings((attributeValue(attrs, "data-ai-tags") ?? "").split(/\s+/));
+    const isAiSummary = attributeValue(attrs, "data-ai-summary") === "true";
 
     nodes.push({
-      kind: "semantic-block",
+      kind: isAiSummary ? "ai-summary" : "semantic-block",
       route,
       url,
       title,
@@ -235,6 +237,7 @@ function extractSemanticBlockNodes(route, html, pageTitle) {
       sectionIds: [semanticId],
       keywords: tokenize(`${title} ${semanticId.replace(/[-_]/g, " ")} ${text}`).slice(0, 40),
       synonyms: [],
+      tags,
       priority: route === "/" ? 72 : 76,
       relatedRoutes: [route],
       parentTitle: pageTitle,
@@ -415,6 +418,16 @@ const siteGraph = pages.flatMap((page) => {
   return [pageNode, ...sections, ...semanticBlocks];
 });
 
+const aiSummaries = siteGraph
+  .filter((node) => node.kind === "ai-summary")
+  .map((node) => ({
+    route: node.route,
+    url: node.url,
+    title: node.title,
+    summary: node.summary,
+    tags: node.tags ?? [],
+  }));
+
 const glossary = [
   ["Will", "A legal document that sets out who should receive your estate and who should manage it after you die.", ["wills", "last will", "testament"]],
   ["Trust", "A legal arrangement where assets are held and managed by trustees for beneficiaries.", ["trusts", "asset protection"]],
@@ -435,6 +448,7 @@ const payload = {
   baseUrl,
   pages: pages.map(({ sections, semanticBlocks, ...page }) => page),
   siteGraph,
+  aiSummaries,
   glossary: glossary.map(([term, description, synonyms]) => ({ term, description, synonyms })),
   guardrails: [
     "Never provide definitive legal, tax, financial, probate, or care funding advice.",

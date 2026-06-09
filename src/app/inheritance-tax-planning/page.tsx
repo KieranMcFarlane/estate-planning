@@ -1,4 +1,7 @@
 import SubpageTemplate from "../components/SubpageTemplate";
+import { metadataForRoute } from "../seo";
+
+export const metadata = metadataForRoute("/inheritance-tax-planning");
 
 export default function IHTPage() {
   return (
@@ -8,6 +11,17 @@ export default function IHTPage() {
       subtitle="Protect more of what you have built for the people you love."
       heroImage="/generated/clear-path-hero.jpg"
       heroAlt="Warm garden path leading to a welcoming front door"
+      canonicalPath="/inheritance-tax-planning"
+      aiSummary={{
+        answer:
+          "Inheritance Tax may depend on estate value, allowances, reliefs, gifts and family circumstances. Pathway can help you understand the general position and explore sensible planning as part of a wider estate plan.",
+        questions: [
+          "Could my estate be exposed to inheritance tax based on property, savings or business assets?",
+          "Which allowances, exemptions or reliefs might need checking?",
+          "How should tax planning fit with my Will, Trusts and family wishes?",
+        ],
+        handoffPrompt: "Tax planning is personal, so ask Pathway to contact you before relying on any next step.",
+      }}
       intro={[
         "Inheritance Tax can feel confusing, frustrating, or even unfair, and many families do not realise how much it can affect an estate until it is too late.",
         "With calm planning and the right guidance, it may be possible to support mitigating tax and ensure more of your estate passes to the people and causes that matter to you.",

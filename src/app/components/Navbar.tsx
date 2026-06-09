@@ -1,12 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import Headroom from "headroom.js";
 import Link from "next/link";
 import Image from "next/image";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import Icon from "./base/Icon";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
+    const navRef = useRef<HTMLElement | null>(null);
+    const headroomRef = useRef<Headroom | null>(null);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [openMenu, setOpenMenu] = useState<"services" | "resources" | null>(null);
 
@@ -33,14 +37,57 @@ export default function Navbar() {
         setOpenMenu(null);
     };
 
+    useEffect(() => {
+        if (!navRef.current || !Headroom.cutsTheMustard) return;
+
+        const headroom = new Headroom(navRef.current, {
+            offset: {
+                up: 40,
+                down: 96,
+            },
+            tolerance: {
+                up: 8,
+                down: 4,
+            },
+            classes: {
+                initial: styles.headroom,
+                pinned: styles.headroomPinned,
+                unpinned: styles.headroomUnpinned,
+                top: styles.headroomTop,
+                notTop: styles.headroomNotTop,
+                frozen: styles.headroomFrozen,
+            },
+        });
+
+        headroom.init();
+        headroomRef.current = headroom;
+
+        return () => {
+            headroom.destroy();
+            headroomRef.current = null;
+        };
+    }, []);
+
+    useEffect(() => {
+        const headroom = headroomRef.current;
+        if (!headroom) return;
+
+        if (mobileMenuOpen || openMenu) {
+            headroom.pin();
+            headroom.freeze();
+        } else {
+            headroom.unfreeze();
+        }
+    }, [mobileMenuOpen, openMenu]);
+
     return (
-        <nav className={styles.navbar}>
+        <nav ref={navRef} className={styles.navbar}>
             <div className={`container ${styles.container}`}>
                 <Link href="/" className={styles.logo} aria-label="Pathway Estate Planning, home">
-                    <Image src="/pathway-logo.png" alt="Pathway Estate Planning Specialists" width={2680} height={880} className={styles.logoImage} priority />
+                    <Image src="/pathway-logo.png" alt="Pathway Estate Planning Specialists" width={2680} height={880} className={styles.logoImage} priority unoptimized />
                 </Link>
 
-                <div className={`${styles.links} ${mobileMenuOpen ? styles.mobileOpen : ''}`}>
+                <div className={styles.links}>
                     <Link href="/" onClick={close}>Home</Link>
 
                     <div className={`${styles.navItem} ${styles.desktopOnly}`}>
@@ -95,31 +142,6 @@ export default function Navbar() {
                         </div>
                     </div>
 
-                    <div className={styles.mobileOnly}>
-                        <p className={styles.mobileGroupTitle}>Services</p>
-                        {services.map((service) => (
-                            <Link
-                                key={service.href}
-                                href={service.href}
-                                onClick={close}
-                                className={styles.mobileResourceLink}
-                            >
-                                {service.label}
-                            </Link>
-                        ))}
-                        <p className={styles.mobileGroupTitle}>Resources</p>
-                        {resources.map((resource) => (
-                            <Link
-                                key={resource.href}
-                                href={resource.href}
-                                onClick={close}
-                                className={styles.mobileResourceLink}
-                            >
-                                {resource.label}
-                            </Link>
-                        ))}
-                    </div>
-
                     <Link href="/how-it-works" onClick={close}>How It Works</Link>
                     <Link href="/about" onClick={close}>About</Link>
                     <Link href="/contact" onClick={close}>Contact</Link>
@@ -136,14 +158,47 @@ export default function Navbar() {
                     </Link>
                 </div>
 
-                <button
-                    className={styles.mobileToggle}
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    aria-label="Toggle menu"
-                    aria-expanded={mobileMenuOpen}
-                >
-                    <Icon name={mobileMenuOpen ? 'close' : 'menu'} size="md" />
-                </button>
+                <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                    <SheetTrigger className={styles.mobileToggle} aria-label="Open menu">
+                        <Icon name="menu" size="md" />
+                    </SheetTrigger>
+                    <SheetContent className={styles.mobileSheet}>
+                        <SheetHeader className={styles.mobileSheetHeader}>
+                            <SheetTitle className={styles.mobileSheetTitle}>Menu</SheetTitle>
+                            <Image src="/pathway-logo.png" alt="" width={2680} height={880} className={styles.mobileSheetLogo} unoptimized />
+                        </SheetHeader>
+                        <div className={styles.mobileSheetLinks}>
+                            <Link href="/" onClick={close}>Home</Link>
+                            <p className={styles.mobileGroupTitle}>Services</p>
+                            {services.map((service) => (
+                                <Link
+                                    key={service.href}
+                                    href={service.href}
+                                    onClick={close}
+                                    className={styles.mobileResourceLink}
+                                >
+                                    {service.label}
+                                    <small>{service.body}</small>
+                                </Link>
+                            ))}
+                            <p className={styles.mobileGroupTitle}>Resources</p>
+                            {resources.map((resource) => (
+                                <Link
+                                    key={resource.href}
+                                    href={resource.href}
+                                    onClick={close}
+                                    className={styles.mobileResourceLink}
+                                >
+                                    {resource.label}
+                                    <small>{resource.body}</small>
+                                </Link>
+                            ))}
+                            <Link href="/how-it-works" onClick={close}>How It Works</Link>
+                            <Link href="/about" onClick={close}>About</Link>
+                            <Link href="/contact" onClick={close}>Contact</Link>
+                        </div>
+                    </SheetContent>
+                </Sheet>
             </div>
 
             {/* Mobile Sticky CTA */}

@@ -94,7 +94,7 @@ function isGreeting(text: string) {
 }
 
 function asksCapability(text: string) {
-  return /\b(what can you do|how can you help|what should i ask)\b/i.test(text);
+  return /\b(what can (?:you|hermes) (?:do|help)|how can (?:you|hermes) help|what should i ask)\b/i.test(text);
 }
 
 function isBookingOrLead(text: string) {
@@ -297,43 +297,47 @@ function pageContext(pages: KnowledgePage[]) {
 async function directAiSdkAnswer(userText: string, messages: EstateUIMessage[], pages: KnowledgePage[], navigation: ReturnType<typeof inferNavigation>) {
   if (!process.env.OPENAI_API_KEY) return draftAnswer(userText, navigation);
 
-  const navContext = JSON.stringify(navigation?.targets?.slice(0, 4) ?? []);
-  const result = await generateText({
-    model: openai(FAST_MODEL),
-    system: [
-      "You are the Pathway Estate Planning website assistant for England and Wales.",
-      "Use only the supplied Pathway website context and site graph targets.",
-      "Keep answers concise, warm, and plain-English.",
-      "Never provide definitive legal, tax, financial, probate, eligibility, care-funding, fee, timeframe, or outcome advice.",
-      "For personal recommendations or sensitive advice, say Pathway should speak with them directly.",
-      "For governed or personal questions, give only general context and explicitly say Pathway should understand the details before anyone relies on a recommendation.",
-      "Do not ask for sensitive personal details in chat.",
-      "Use Markdown with short paragraphs and only occasional bullets.",
-    ].join(" "),
-    messages: [
-      ...toModelMessages(messages),
-      {
-        role: "user",
-        content: [
-          `Latest user message: ${userText}`,
-          `Website context:\n${pageContext(pages) || "No matching page context."}`,
-          `Site graph targets:\n${navContext}`,
-          "Return only the answer text.",
-        ].join("\n\n"),
+  try {
+    const navContext = JSON.stringify(navigation?.targets?.slice(0, 4) ?? []);
+    const result = await generateText({
+      model: openai(FAST_MODEL),
+      system: [
+        "You are the Pathway Estate Planning website assistant for England and Wales.",
+        "Use only the supplied Pathway website context and site graph targets.",
+        "Keep answers concise, warm, and plain-English.",
+        "Never provide definitive legal, tax, financial, probate, eligibility, care-funding, fee, timeframe, or outcome advice.",
+        "For personal recommendations or sensitive advice, say Pathway should speak with them directly.",
+        "For governed or personal questions, give only general context and explicitly say Pathway should understand the details before anyone relies on a recommendation.",
+        "Do not ask for sensitive personal details in chat.",
+        "Use Markdown with short paragraphs and only occasional bullets.",
+      ].join(" "),
+      messages: [
+        ...toModelMessages(messages),
+        {
+          role: "user",
+          content: [
+            `Latest user message: ${userText}`,
+            `Website context:\n${pageContext(pages) || "No matching page context."}`,
+            `Site graph targets:\n${navContext}`,
+            "Return only the answer text.",
+          ].join("\n\n"),
+        },
+      ],
+      maxOutputTokens: 450,
+      providerOptions: {
+        openai: {
+          reasoningEffort: FAST_REASONING_EFFORT,
+        },
       },
-    ],
-    maxOutputTokens: 450,
-    providerOptions: {
-      openai: {
-        reasoningEffort: FAST_REASONING_EFFORT,
-      },
-    },
-  });
-  let answer = result.text.trim() || draftAnswer(userText, navigation);
-  if ((isSensitiveIntent(userText) || isHighRisk(userText)) && !/\b(Pathway|speak directly|personal advice)\b/i.test(answer)) {
-    answer += "\n\nThis is general information, not personal legal, tax, financial, probate, or care-funding advice. Pathway should understand the details before anyone relies on a recommendation.";
+    });
+    let answer = result.text.trim() || draftAnswer(userText, navigation);
+    if ((isSensitiveIntent(userText) || isHighRisk(userText)) && !/\b(Pathway|speak directly|personal advice)\b/i.test(answer)) {
+      answer += "\n\nThis is general information, not personal legal, tax, financial, probate, or care-funding advice. Pathway should understand the details before anyone relies on a recommendation.";
+    }
+    return answer;
+  } catch {
+    return draftAnswer(userText, navigation);
   }
-  return answer;
 }
 
 export async function answerEstateChatWithLiteRouter(input: {

@@ -1,4 +1,7 @@
 import SubpageTemplate from "../components/SubpageTemplate";
+import { metadataForRoute } from "../seo";
+
+export const metadata = metadataForRoute("/lpa");
 
 export default function LPAPage() {
   return (
@@ -8,6 +11,17 @@ export default function LPAPage() {
       subtitle="Peace of mind for life's what-if moments."
       heroImage="/generated/estate-consultation-hero.jpg"
       heroAlt="Estate planning adviser talking through documents"
+      canonicalPath="/lpa"
+      aiSummary={{
+        answer:
+          "A Lasting Power of Attorney lets you choose trusted people to help with financial, property, health or welfare decisions if you cannot make decisions yourself. Pathway guides the forms and choices clearly.",
+        questions: [
+          "Who would I trust to make decisions if I lost capacity?",
+          "Do I need Property and Financial Affairs, Health and Welfare, or both types of LPA?",
+          "Are there family circumstances that need careful wording or discussion?",
+        ],
+        handoffPrompt: "If you are planning for yourself or a parent, ask Pathway to contact you and explain the LPA options.",
+      }}
       intro={[
         "A Lasting Power of Attorney is one of the most important documents you can put in place, not because you expect something to go wrong, but because life can be unpredictable.",
         "An LPA allows you to choose someone you trust to make decisions on your behalf if you are unable to.",

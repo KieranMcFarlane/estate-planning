@@ -1,8 +1,8 @@
 import { appendFile, mkdir } from "node:fs/promises";
-import { dirname } from "node:path";
+import { dirname, join } from "node:path";
 
 export type EstateLeadInput = {
-  source: "contact_form" | "assistant_handoff";
+  source: "contact_form" | "assistant_handoff" | "cal_booking";
   name?: string;
   phone?: string;
   email?: string;
@@ -39,7 +39,7 @@ export type EstateLeadResult = {
   fallbackPath: string;
 };
 
-const DEFAULT_LEADS_PATH = "/home/ubuntu/repos/estate-planning/data/leads/estate-handoffs.jsonl";
+const DEFAULT_LEADS_PATH = join(process.cwd(), "data", "leads", "estate-handoffs.jsonl");
 
 function compact(value: string | undefined) {
   return value?.trim() ?? "";
@@ -111,7 +111,12 @@ async function createTwentyNote(input: EstateLeadInput, personId: string) {
       "content-type": "application/json",
     },
     body: JSON.stringify({
-      title: input.source === "contact_form" ? "Website enquiry" : "Assistant handoff",
+      title:
+        input.source === "contact_form"
+          ? "Website enquiry"
+          : input.source === "cal_booking"
+            ? "Cal.diy booking"
+            : "Assistant handoff",
       bodyV2: {
         markdown: [
           `Source: ${input.source}`,

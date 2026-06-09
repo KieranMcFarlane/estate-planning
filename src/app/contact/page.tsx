@@ -1,5 +1,12 @@
 import Image from "next/image";
+import { Field, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import JsonLd from "../components/JsonLd";
+import { breadcrumbJsonLd, businessJsonLd, metadataForRoute } from "../seo";
 import styles from "./page.module.css";
+
+export const metadata = metadataForRoute("/contact");
 
 type ContactPageProps = {
   searchParams?: Promise<{
@@ -72,26 +79,26 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               )}
 
               <form className={styles.form} action="/api/contact" method="post">
-                <div className={styles.field}>
-                  <label htmlFor="name">Name</label>
-                  <input id="name" name="name" type="text" placeholder="Your full name" />
-                </div>
-                <div className={styles.field}>
-                  <label htmlFor="phone">Phone</label>
-                  <input id="phone" name="phone" type="tel" placeholder="Best number to reach you" />
-                </div>
-                <div className={styles.field}>
-                  <label htmlFor="email">Email</label>
-                  <input id="email" name="email" type="email" placeholder="Your email address" />
-                </div>
-                <div className={styles.field}>
-                  <label htmlFor="company">Company optional</label>
-                  <input id="company" name="company" type="text" placeholder="Company name" />
-                </div>
-                <div className={styles.field}>
-                  <label htmlFor="message">Message</label>
-                  <textarea id="message" name="message" rows={5} placeholder="How can we help?" />
-                </div>
+                <Field className={styles.field}>
+                  <FieldLabel htmlFor="name">Name</FieldLabel>
+                  <Input id="name" name="name" type="text" placeholder="Your full name" />
+                </Field>
+                <Field className={styles.field}>
+                  <FieldLabel htmlFor="phone">Phone</FieldLabel>
+                  <Input id="phone" name="phone" type="tel" placeholder="Best number to reach you" />
+                </Field>
+                <Field className={styles.field}>
+                  <FieldLabel htmlFor="email">Email</FieldLabel>
+                  <Input id="email" name="email" type="email" placeholder="Your email address" />
+                </Field>
+                <Field className={styles.field}>
+                  <FieldLabel htmlFor="company">Company optional</FieldLabel>
+                  <Input id="company" name="company" type="text" placeholder="Company name" />
+                </Field>
+                <Field className={styles.field}>
+                  <FieldLabel htmlFor="message">Message</FieldLabel>
+                  <Textarea id="message" name="message" rows={5} placeholder="How can we help?" />
+                </Field>
                 <button className={styles.submitBtn} type="submit">Send your enquiry</button>
               </form>
             </section>
@@ -103,6 +110,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
           </div>
         </section>
       </main>
+      <JsonLd data={[businessJsonLd(), breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }])]} />
     </>
   );
 }

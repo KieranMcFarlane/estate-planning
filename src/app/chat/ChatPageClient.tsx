@@ -13,7 +13,11 @@ import {
   Send,
   Square,
 } from "lucide-react";
+import { Field, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Response } from "../components/ai/Response";
+import { OpenUIBookingRenderer } from "../components/booking/OpenUIBookingRenderer";
 import { ChatHistoryPanel } from "../components/chat-history/ChatHistoryPanel";
 import { getStoredChat } from "../components/chat-history/browserChatStorage";
 import { useEstateChatHistory } from "../components/chat-history/useEstateChatHistory";
@@ -40,6 +44,7 @@ const suggestions = [
   "I am not sure where to start.",
   "Explain Wills, Trusts and LPAs in plain English.",
   "How does care planning work?",
+  "Can I book an initial chat this week?",
   "Take me to the contact page.",
 ];
 
@@ -56,6 +61,43 @@ function ChatResponse({ text, streaming }: { text: string; streaming: boolean })
       {text}
     </Response>
   );
+}
+
+function isBookingToolPart(part: EstateUIMessage["parts"][number]) {
+  return part.type === "tool-bookingLink" || part.type === "tool-getAvailableSlots" || part.type === "tool-createBooking";
+}
+
+function AssistantMessageParts({
+  message,
+  streaming,
+  onUserMessage,
+}: {
+  message: EstateUIMessage;
+  streaming: boolean;
+  onUserMessage: (message: string) => void;
+}) {
+  return message.parts.map((part, partIndex) => {
+    if (part.type === "text") {
+      return (
+        <ChatResponse
+          key={`${message.id}-${partIndex}`}
+          text={part.text}
+          streaming={streaming}
+        />
+      );
+    }
+    if (isBookingToolPart(part)) {
+      return (
+        <OpenUIBookingRenderer
+          key={`${message.id}-${partIndex}`}
+          part={part}
+          isStreaming={streaming}
+          onUserMessage={onUserMessage}
+        />
+      );
+    }
+    return null;
+  });
 }
 
 export default function ChatPageClient({ initialChatId }: { initialChatId: string }) {
@@ -332,22 +374,20 @@ export default function ChatPageClient({ initialChatId }: { initialChatId: strin
             )}
 
             {messages.map((message, messageIndex) => {
-              const textParts = message.parts.filter((part) => part.type === "text");
-              if (!textParts.length) return null;
               const isLastMessage = messageIndex === messages.length - 1;
+              const hasRenderableParts = message.role === "user" || message.parts.some((part) => part.type === "text" || isBookingToolPart(part));
+              if (!hasRenderableParts) return null;
 
               return (
                 <div className={message.role === "user" ? styles.userMessage : styles.assistantMessage} key={message.id}>
                   {message.role === "user" ? (
                     <span>{messageText(message)}</span>
                   ) : (
-                    textParts.map((part, partIndex) => (
-                      <ChatResponse
-                        key={`${message.id}-${partIndex}`}
-                        text={part.text}
-                        streaming={isLastMessage && status === "streaming"}
-                      />
-                    ))
+                    <AssistantMessageParts
+                      message={message}
+                      streaming={isLastMessage && status === "streaming"}
+                      onUserMessage={submitText}
+                    />
                   )}
                 </div>
               );
@@ -372,24 +412,24 @@ export default function ChatPageClient({ initialChatId }: { initialChatId: strin
                   <strong>Ask Pathway to contact you</strong>
                   <p>Share only the details you are comfortable sending. A name and either email or phone is enough.</p>
                 </div>
-                <label>
-                  <span>Name</span>
-                  <input value={handoffForm.name} onChange={(event) => setHandoffForm((current) => ({ ...current, name: event.target.value }))} required />
-                </label>
+                <Field className={styles.handoffField}>
+                  <FieldLabel className={styles.handoffLabel}>Name</FieldLabel>
+                  <Input value={handoffForm.name} onChange={(event) => setHandoffForm((current) => ({ ...current, name: event.target.value }))} autoComplete="name" required />
+                </Field>
                 <div className={styles.handoffFields}>
-                  <label>
-                    <span>Email</span>
-                    <input value={handoffForm.email} onChange={(event) => setHandoffForm((current) => ({ ...current, email: event.target.value }))} type="email" />
-                  </label>
-                  <label>
-                    <span>Phone</span>
-                    <input value={handoffForm.phone} onChange={(event) => setHandoffForm((current) => ({ ...current, phone: event.target.value }))} type="tel" />
-                  </label>
+                  <Field className={styles.handoffField}>
+                    <FieldLabel className={styles.handoffLabel}>Email</FieldLabel>
+                    <Input value={handoffForm.email} onChange={(event) => setHandoffForm((current) => ({ ...current, email: event.target.value }))} autoComplete="email" type="email" />
+                  </Field>
+                  <Field className={styles.handoffField}>
+                    <FieldLabel className={styles.handoffLabel}>Phone</FieldLabel>
+                    <Input value={handoffForm.phone} onChange={(event) => setHandoffForm((current) => ({ ...current, phone: event.target.value }))} autoComplete="tel" type="tel" />
+                  </Field>
                 </div>
-                <label>
-                  <span>What should Pathway know?</span>
-                  <textarea value={handoffForm.message} onChange={(event) => setHandoffForm((current) => ({ ...current, message: event.target.value }))} rows={3} placeholder={handoffMessage || "A short note is optional."} />
-                </label>
+                <Field className={styles.handoffField}>
+                  <FieldLabel className={styles.handoffLabel}>What should Pathway know?</FieldLabel>
+                  <Textarea value={handoffForm.message} onChange={(event) => setHandoffForm((current) => ({ ...current, message: event.target.value }))} rows={3} placeholder={handoffMessage || "A short note is optional."} />
+                </Field>
                 {handoffError && <p className={styles.handoffError}>{handoffError}</p>}
                 <button type="submit" disabled={handoffMode === "sending"}>{handoffMode === "sending" ? "Sending..." : "Send to Pathway"}</button>
               </form>

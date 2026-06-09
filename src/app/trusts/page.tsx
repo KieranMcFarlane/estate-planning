@@ -1,4 +1,7 @@
 import SubpageTemplate from "../components/SubpageTemplate";
+import { metadataForRoute } from "../seo";
+
+export const metadata = metadataForRoute("/trusts");
 
 export default function TrustsPage() {
   return (
@@ -8,6 +11,17 @@ export default function TrustsPage() {
       subtitle="Extra protection and control, explained in plain English."
       heroImage="/generated/document-signing.jpg"
       heroAlt="Estate planning documents being reviewed"
+      canonicalPath="/trusts"
+      aiSummary={{
+        answer:
+          "A Trust can add structure to how assets are held or passed on, especially where children, vulnerable beneficiaries, blended families or future protection are involved. Pathway explains whether a Trust is suitable before recommending anything.",
+        questions: [
+          "Am I trying to protect inheritance for children, grandchildren or a vulnerable person?",
+          "Is there a second marriage, blended family or property protection concern?",
+          "Who would act as trustees and understand their responsibilities?",
+        ],
+        handoffPrompt: "Trust planning depends on personal circumstances, so the best next step is to ask Pathway to contact you.",
+      }}
       intro={[
         "Trusts can be a powerful part of estate planning, but they are often misunderstood.",
         "A Trust can help protect assets for your loved ones, add structure to how inheritance is passed on, and provide reassurance when family situations are more complex.",

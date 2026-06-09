@@ -1,0 +1,90 @@
+.bookingUi {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+}
+
+.panel {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  border: 1px solid rgba(31, 41, 55, 0.12);
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 12px;
+  color: #18212f;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.panelTitle {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.panelText {
+  margin: 0;
+  color: #4b5563;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.slotList {
+  display: grid;
+  gap: 8px;
+}
+
+.slotButton,
+.linkButton {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  border: 1px solid rgba(31, 41, 55, 0.14);
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #18212f;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 0.84rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.slotButton:hover,
+.linkButton:hover {
+  border-color: rgba(18, 72, 85, 0.4);
+  background: #eef8f7;
+}
+
+.slotMeta {
+  display: grid;
+  gap: 2px;
+}
+
+.slotLabel {
+  font-weight: 700;
+}
+
+.slotTime {
+  color: #667085;
+  font-size: 0.78rem;
+}
+
+.statusReady {
+  color: #116149;
+}
+
+.statusIssue {
+  color: #9f3a2e;
+}

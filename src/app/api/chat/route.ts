@@ -1,19 +1,23 @@
 import {
+  convertToModelMessages,
   createIdGenerator,
   createUIMessageStream,
   createUIMessageStreamResponse,
+  streamText,
+  tool,
   validateUIMessages,
 } from "ai";
+import { openai } from "@ai-sdk/openai";
 import { z } from "zod";
 import {
   MESSAGE_ID_PREFIX,
   type EstateUIMessage,
 } from "@/app/types/estate-chat";
 import {
-  chunkText,
-  fallbackAnswer,
-} from "../_lib/estate-chat";
-import { answerEstateChatWithLiteRouter } from "../_lib/estate-lite";
+  calBookingToolResult,
+  createCalBooking,
+  getCalAvailableSlots,
+} from "../_lib/cal";
 import {
   assertWithinRateLimit,
   databaseErrorResponse,
@@ -28,6 +32,24 @@ import {
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
+
+const CHAT_MODEL = process.env.AI_SDK_CHAT_MODEL ?? process.env.AI_SDK_FAST_MODEL ?? "gpt-5-nano-2025-08-07";
+const CHAT_REASONING_EFFORT = process.env.AI_SDK_CHAT_REASONING_EFFORT ?? process.env.AI_SDK_FAST_REASONING_EFFORT ?? "minimal";
+const PATHWAY_GUARDRAIL_PROMPT = [
+  "You are the Pathway Estate Planning website assistant for England and Wales.",
+  "Answer general estate-planning questions in clear, plain English.",
+  "Keep responses concise and helpful. Use short paragraphs and occasional bullets when useful.",
+  "You may discuss general topics such as Wills, Trusts, Lasting Powers of Attorney, inheritance tax planning, care planning, business protection, agricultural land, asset protection, gifting, probate, and finding information on the Pathway site.",
+  "Do not provide definitive legal, tax, financial, probate, care-funding, eligibility, fee, timeframe, or outcome advice.",
+  "Do not guarantee tax savings, legal outcomes, asset protection, eligibility, availability, or timeframes.",
+  "For personal recommendations, estate values, tax exposure, care fees, capacity, disputes, business assets, agricultural assets, or urgent matters, explain that Pathway needs to understand the details before anyone relies on a next step.",
+  "Do not ask for sensitive personal details in chat. If the visitor wants Pathway to contact them, ask only for a name and either an email address or phone number.",
+  "If the visitor asks to book, schedule, arrange, or make an appointment, use the Cal tools when helpful.",
+  "Before creating a booking, collect and repeat back the exact slot/start time, attendee name, attendee email, timezone, and optional phone/message. Only call createBooking after the visitor explicitly confirms those exact details.",
+  "If Cal API tools are not configured or fail, offer the booking link if available, or the Pathway phone/email.",
+  "If a question is outside estate planning or not something you can answer safely, say so and suggest contacting Pathway.",
+  "Pathway contact details: phone 07902 863999; email info@pathwayestateplanning.co.uk.",
+].join("\n\n");
 
 const idSchema = z.string().min(8).max(96).regex(/^[A-Za-z0-9_-]+$/);
 const textPartSchema = z.object({
@@ -60,15 +82,6 @@ function titleFromMessage(message: EstateUIMessage) {
     .join(" ")
     .trim();
   return text ? text.slice(0, 72) : "Pathway chat";
-}
-
-function latestUserText(messages: EstateUIMessage[]) {
-  const message = [...messages].reverse().find((item) => item.role === "user");
-  return message?.parts
-    .map((part) => (part.type === "text" ? part.text : ""))
-    .join(" ")
-    .trim()
-    .slice(0, 220);
 }
 
 export async function GET(request: Request) {
@@ -132,56 +145,55 @@ export async function POST(request: Request) {
         size: 16,
       }),
       async execute({ writer }) {
-        const textId = `${MESSAGE_ID_PREFIX}${Date.now()}`;
-        let text = fallbackAnswer();
-
-        try {
-          const result = await answerEstateChatWithLiteRouter({
-            id: body.id,
-            messages: uiMessages,
-            metadata: body.metadata,
-          });
-          text = result.text || fallbackAnswer();
-          writer.write({
-            type: "data-chat-metadata",
-            data: {
-              matchedRoutes: result.matchedRoutes ?? [],
-              handoff: result.handoff ?? null,
-              guardrails: result.guardrails ?? [],
-              model: result.model ?? null,
-              navigation: result.navigation ?? null,
+        const result = streamText({
+          model: openai(CHAT_MODEL),
+          system: PATHWAY_GUARDRAIL_PROMPT,
+          messages: await convertToModelMessages(uiMessages),
+          maxOutputTokens: 450,
+          tools: {
+            bookingLink: tool({
+              description: "Get the configured Cal.diy booking link for arranging an initial Pathway conversation.",
+              inputSchema: z.object({
+                reason: z.string().describe("Short reason the visitor wants to book."),
+              }),
+              execute: async () => calBookingToolResult(),
+            }),
+            getAvailableSlots: tool({
+              description: "Check live Cal.diy availability for an initial Pathway conversation.",
+              inputSchema: z.object({
+                start: z.string().describe("UTC ISO date or datetime for the beginning of the slot search range, e.g. 2026-06-05 or 2026-06-05T09:00:00Z."),
+                end: z.string().describe("UTC ISO date or datetime for the end of the slot search range, e.g. 2026-06-12 or 2026-06-12T18:00:00Z."),
+                timeZone: z.string().optional().describe("IANA timezone to display slots in, e.g. Europe/London."),
+                duration: z.number().int().positive().optional().describe("Optional meeting duration in minutes."),
+                limit: z.number().int().positive().max(12).optional().describe("Maximum number of slots to return."),
+              }),
+              execute: async ({ start, end, timeZone, duration, limit }) =>
+                getCalAvailableSlots({ start, end, timeZone, duration, limit }),
+            }),
+            createBooking: tool({
+              description: "Create a Cal.diy booking after the visitor has explicitly confirmed the exact slot and attendee details.",
+              inputSchema: z.object({
+                start: z.string().describe("UTC ISO datetime for the confirmed slot start, e.g. 2026-06-05T10:00:00Z."),
+                attendeeName: z.string().min(1).describe("Confirmed attendee name."),
+                attendeeEmail: z.string().email().describe("Confirmed attendee email address."),
+                attendeeTimeZone: z.string().optional().describe("IANA timezone for the attendee, e.g. Europe/London."),
+                attendeePhone: z.string().optional().describe("Optional attendee phone number."),
+                notes: z.string().optional().describe("Optional short message or booking context from the visitor."),
+                confirmed: z.boolean().describe("Must be true only after the visitor explicitly confirms the exact slot and contact details."),
+              }),
+              execute: async (input) => createCalBooking(input),
+            }),
+          },
+          providerOptions: {
+            openai: {
+              reasoningEffort: CHAT_REASONING_EFFORT,
             },
-            transient: true,
-          });
-          if (result.navigation?.targets?.length) {
-            writer.write({
-              type: "data-ui-action",
-              data: {
-                kind: "semantic-navigation",
-                auto: Boolean(result.navigation.auto),
-                targets: result.navigation.targets,
-                query: typeof result.navigation.query === "string" ? result.navigation.query : latestUserText(uiMessages),
-              },
-              transient: true,
-            });
-          }
-        } catch (error) {
-          writer.write({
-            type: "data-chat-metadata",
-            data: {
-              error: error instanceof Error ? error.message : "unknown_error",
-              fallback: true,
-            },
-            transient: true,
-          });
-        }
+          },
+        });
 
-        writer.write({ type: "text-start", id: textId });
-        for (const chunk of chunkText(text)) {
-          writer.write({ type: "text-delta", id: textId, delta: chunk });
-          await new Promise((resolve) => setTimeout(resolve, 14));
-        }
-        writer.write({ type: "text-end", id: textId });
+        writer.merge(result.toUIMessageStream({
+          onError: () => "The model could not complete the response. Please try again.",
+        }));
       },
       onFinish: async ({ messages }) => {
         await saveFinishedMessages({ sessionId: body.id, messages });

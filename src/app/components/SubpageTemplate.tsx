@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import JsonLd from "./JsonLd";
 import styles from "./SubpageTemplate.module.css";
+import { breadcrumbJsonLd, routeByPath, serviceJsonLd } from "../seo";
 
 type ContentBlock = {
   heading?: string;
@@ -22,6 +24,11 @@ type SubpageTemplateProps = {
   heroImage: string;
   heroAlt: string;
   intro?: string[];
+  aiSummary?: {
+    answer: string;
+    questions: string[];
+    handoffPrompt?: string;
+  };
   blocks: ContentBlock[];
   cta?: {
     eyebrow?: string;
@@ -30,6 +37,7 @@ type SubpageTemplateProps = {
     linkText?: string;
   };
   showHeroActions?: boolean;
+  canonicalPath?: string;
 };
 
 function slugify(value: string) {
@@ -53,6 +61,7 @@ export default function SubpageTemplate({
   heroImage,
   heroAlt,
   intro = [],
+  aiSummary,
   blocks,
   cta = {
     eyebrow: "Consultation",
@@ -61,7 +70,14 @@ export default function SubpageTemplate({
     linkText: "Book an initial chat",
   },
   showHeroActions = true,
+  canonicalPath,
 }: SubpageTemplateProps) {
+  const route = canonicalPath ? routeByPath(canonicalPath) : null;
+  const structuredData = [
+    ...(route?.serviceType ? [serviceJsonLd(route)] : []),
+    ...(canonicalPath ? [breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: title, path: canonicalPath }])] : []),
+  ];
+
   return (
     <>
       {/* eslint-disable-next-line @next/next/no-css-tags */}
@@ -98,6 +114,38 @@ export default function SubpageTemplate({
                   {paragraph}
                 </p>
               ))}
+            </section>
+          )}
+
+          {aiSummary && (
+            <section
+              className={styles.aiSummary}
+              id={semanticId(title, "ai-summary")}
+              data-semantic-id={semanticId(title, "ai-summary")}
+              data-ai-summary="true"
+              data-ai-tags={`service question handoff-intent ${slugify(title)}`}
+            >
+              <div className={styles.aiSummaryInner}>
+                <p className={styles.blockEyebrow}>Quick answer</p>
+                <h2>{title}: what to know first</h2>
+                <p>{aiSummary.answer}</p>
+                <ul>
+                  {aiSummary.questions.map((question, index) => (
+                    <li
+                      id={semanticId(title, "ai-question", index + 1, question)}
+                      data-semantic-id={semanticId(title, "ai-question", index + 1, question)}
+                      data-ai-tags={`question ${slugify(title)}`}
+                      key={question}
+                    >
+                      {question}
+                    </li>
+                  ))}
+                </ul>
+                <p className={styles.aiSummaryPrompt}>
+                  {aiSummary.handoffPrompt ??
+                    "If your circumstances are personal or complex, ask Pathway to contact you so they can understand the details before suggesting next steps."}
+                </p>
+              </div>
             </section>
           )}
 
@@ -171,6 +219,7 @@ export default function SubpageTemplate({
           </section>
         </div>
       </main>
+      {structuredData.length > 0 && <JsonLd data={structuredData} />}
     </>
   );
 }

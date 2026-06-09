@@ -21,7 +21,7 @@ const workstreams = [
   {
     title: "CRM workspace",
     body: "Estate lead records and notes are linked to the Twenty workspace.",
-    href: "https://brilliant-azure-shark.crm.nakanodigital.com",
+    href: "https://crm.nakanodigital.com",
     action: "Open CRM",
     icon: UsersRound,
   },
@@ -59,7 +59,7 @@ export default function EstateOperatorPage() {
         </div>
         <div className={styles.headerActions}>
           <Link href="/chat">Conversation</Link>
-          <a href="https://brilliant-azure-shark.crm.nakanodigital.com">Twenty</a>
+          <a href="https://crm.nakanodigital.com">Twenty</a>
         </div>
       </section>
 

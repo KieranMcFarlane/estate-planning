@@ -1,4 +1,7 @@
 import SubpageTemplate from "../components/SubpageTemplate";
+import { metadataForRoute } from "../seo";
+
+export const metadata = metadataForRoute("/care-planning");
 
 export default function CarePlanningPage() {
   return (
@@ -8,6 +11,17 @@ export default function CarePlanningPage() {
       subtitle="Practical, calm support for decisions that can feel difficult to face."
       heroImage="/care_planning.jpg"
       heroAlt="Care professional talking with an older person at home"
+      canonicalPath="/care-planning"
+      aiSummary={{
+        answer:
+          "Care planning helps families think ahead about later-life decisions, LPAs, care preferences, family roles and funding considerations. Pathway explains options calmly without fear-led promises.",
+        questions: [
+          "Who should make decisions if care or capacity becomes an issue?",
+          "Have care preferences, LPAs and family responsibilities been discussed?",
+          "Do funding or property concerns need specialist advice alongside estate planning?",
+        ],
+        handoffPrompt: "If care planning feels urgent or sensitive, ask Pathway to contact you for a calm initial conversation.",
+      }}
       intro={[
         "Planning for later life is not always easy to think about, but having a plan in place can bring real peace of mind.",
         "Care planning helps you understand the practical, financial and legal aspects of long-term care, whether you are planning for yourself or helping a loved one.",

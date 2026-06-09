@@ -464,12 +464,14 @@
   font-size: 13px;
 }
 
-.handoffForm label {
+.handoffForm label,
+.handoffField {
   display: grid;
   gap: 6px;
 }
 
-.handoffForm label span {
+.handoffForm label span,
+.handoffLabel {
   color: #38413b;
   font-size: 11px;
   font-weight: 900;

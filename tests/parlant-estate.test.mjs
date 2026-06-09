@@ -70,6 +70,9 @@ test("knowledgebase includes public routes and key glossary terms", async () => 
   }
 
   assert.ok(knowledge.siteGraph.some((node) => node.kind === "semantic-block"), "missing semantic block graph nodes");
+  assert.ok(knowledge.siteGraph.some((node) => node.kind === "ai-summary"), "missing AI summary graph nodes");
+  assert.ok(knowledge.aiSummaries.some((node) => node.route === "/wills"), "missing Wills AI summary");
+  assert.ok(knowledge.aiSummaries.some((node) => node.tags.includes("handoff-intent")), "missing handoff intent AI summary tags");
 
   for (const term of ["Will", "Trust", "Trustee", "Executor", "Beneficiary", "Lasting Power of Attorney", "Probate", "Inheritance Tax", "Rules of Intestacy", "Care Planning", "Mitigating Tax"]) {
     assert.ok(terms.has(term), `missing glossary term ${term}`);
