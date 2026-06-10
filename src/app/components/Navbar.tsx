@@ -159,8 +159,10 @@ export default function Navbar() {
                 </div>
 
                 <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-                    <SheetTrigger className={styles.mobileToggle} aria-label="Open menu">
-                        <Icon name="menu" size="md" />
+                    <SheetTrigger asChild>
+                        <button className={styles.mobileToggle} aria-label="Open menu" type="button">
+                            <Icon name="menu" size="md" />
+                        </button>
                     </SheetTrigger>
                     <SheetContent className={styles.mobileSheet}>
                         <SheetHeader className={styles.mobileSheetHeader}>
@@ -197,23 +199,18 @@ export default function Navbar() {
                             <Link href="/about" onClick={close}>About</Link>
                             <Link href="/contact" onClick={close}>Contact</Link>
                         </div>
+                        <div className={styles.mobileSheetActions}>
+                            <a href="tel:07902863999" className={styles.mobileSheetPhone} onClick={close}>
+                                <Icon name="phone" size="sm" />
+                                07902 863999
+                            </a>
+                            <Link href="/contact" className={styles.mobileSheetButton} onClick={close}>
+                                <Icon name="calendar" size="sm" />
+                                Book initial chat
+                            </Link>
+                        </div>
                     </SheetContent>
                 </Sheet>
-            </div>
-
-            {/* Mobile Sticky CTA */}
-            <div className={styles.mobileCta}>
-                <a href="tel:07902863999" className={styles.phoneBtn}>
-                        <Icon name="phone" size="sm" />
-                    <div>
-                        <span className={styles.phoneBtnLabel}>Call us</span>
-                        <span className={styles.phoneBtnNumber}>07902 863999</span>
-                    </div>
-                </a>
-                <Link href="/contact" className={styles.bookBtn}>
-                    <Icon name="calendar" size="sm" />
-                    Book a chat
-                </Link>
             </div>
         </nav>
     );

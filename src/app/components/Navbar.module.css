@@ -244,7 +244,12 @@
     background: none;
     border: none;
     cursor: pointer;
-    padding: var(--spacing-xs);
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 8px;
     color: var(--ink, #1a1d1a);
 }
 
@@ -300,54 +305,35 @@
     color: var(--sage, #2f4d7a);
 }
 
-.mobileCta {
-    display: none;
+.mobileSheetActions {
+    display: grid;
+    gap: 10px;
+    margin-top: 24px;
 }
 
-.phoneBtn,
-.bookBtn {
-    display: flex;
+.mobileSheetPhone,
+.mobileSheetButton {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-full);
-    font-weight: 600;
-    font-size: var(--text-sm);
+    gap: 8px;
+    min-height: 42px;
+    padding: 0 14px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
     text-decoration: none;
 }
 
-.phoneBtn {
-    background-color: var(--cream, #f2efe8);
-    color: var(--ink, #1a1d1a);
-    flex-direction: column;
-    gap: 0;
-    border-radius: 10px;
-}
-
-.phoneBtn div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    line-height: 1.2;
-}
-
-.phoneBtnLabel {
-    font-size: 0.65rem;
-    color: var(--stone, #6b6e68);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.phoneBtnNumber {
-    font-weight: 700;
+.mobileSheetPhone {
+    border: 1px solid var(--hairline, #e5e1d8);
     color: var(--sage, #2f4d7a);
+    background: var(--paper, #faf8f4);
 }
 
-.bookBtn {
-    background-color: var(--sage, #2f4d7a);
+.mobileSheetButton {
     color: #fff;
-    border-radius: 10px;
+    background: var(--sage, #2f4d7a);
 }
 
 @media (max-width: 1024px) {
@@ -374,7 +360,7 @@
     }
 
     .mobileToggle {
-        display: flex;
+        display: inline-flex;
     }
 
     .desktopCta {
@@ -387,31 +373,6 @@
 }
 
 @media (max-width: 768px) {
-    .mobileCta {
-        display: flex;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(250, 248, 244, 0.96);
-        backdrop-filter: blur(12px);
-        padding: var(--spacing-sm);
-        border-top: 1px solid var(--hairline, #e5e1d8);
-        box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
-        z-index: 99;
-        gap: var(--spacing-sm);
-    }
-
-    .phoneBtn,
-    .bookBtn {
-        flex: 1;
-    }
-
-    /* Add padding to body content to account for fixed navbar */
-    :global(main) {
-        padding-bottom: 60px;
-    }
-
     .floatingCtaDesktop {
         display: none;
     }

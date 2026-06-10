@@ -16,7 +16,6 @@ import {
   Pencil,
   Phone,
   PieChart,
-  Plus,
   Shield,
   Star,
   Tractor,
@@ -24,6 +23,12 @@ import {
   ArrowRight,
   X,
 } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const services = [
   { icon: FileText, title: "Wills", href: "/wills", body: "Make sure your wishes are clearly recorded and legally sound." },
@@ -308,7 +313,6 @@ function LocalTrust() {
 }
 
 function FAQ({ onBook }: { onBook: () => void }) {
-  const [open, setOpen] = useState(0);
   return (
     <section id="faq">
       <div className="container">
@@ -316,19 +320,24 @@ function FAQ({ onBook }: { onBook: () => void }) {
           <h4 style={{ marginBottom: 12 }}>Common questions</h4>
           <h2>Honest answers to what families ask first.</h2>
         </div>
-        <div className="faq__list">
-          {faqs.map((item, index) => (
-            <div className={`faq__item ${open === index ? "open" : ""}`} id={semanticId("faq", item.q)} data-semantic-id={semanticId("faq", item.q)} key={item.q}>
-              <button className="faq__btn" onClick={() => setOpen(open === index ? -1 : index)} aria-expanded={open === index}>
-                <span>{item.q}</span>
-                <span className="faq__icon"><Plus width="16" height="16" /></span>
-              </button>
-              <div className="faq__answer" role="region">
+        <Accordion type="single" collapsible defaultValue={faqs[0].q} className="faq__list">
+          {faqs.map((item) => (
+            <AccordionItem
+              className="faq__item"
+              id={semanticId("faq", item.q)}
+              data-semantic-id={semanticId("faq", item.q)}
+              key={item.q}
+              value={item.q}
+            >
+              <AccordionTrigger className="faq__btn">
+                {item.q}
+              </AccordionTrigger>
+              <AccordionContent className="faq__answer">
                 <p>{item.a}</p>
-              </div>
-            </div>
+              </AccordionContent>
+            </AccordionItem>
           ))}
-        </div>
+        </Accordion>
         <p className="faq__see-all">
           <a href="#contact" onClick={(event) => { event.preventDefault(); onBook(); }}>
             Ask us directly <ArrowRight width="14" height="14" />
