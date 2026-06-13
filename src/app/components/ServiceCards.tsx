@@ -18,7 +18,7 @@ export default function ServiceCards() {
         },
         {
             title: "Lasting Powers of Attorney",
-            description: "Choose who can make decisions for you if you're unable to.",
+            description: "Choose who can make decisions for you if you are unable to.",
             href: "/lpa",
             iconName: "users"
         }
@@ -29,7 +29,7 @@ export default function ServiceCards() {
             <div className={styles.header}>
                 <h2>Our core services</h2>
                 <p className={styles.intro}>
-                    Everything you need to protect your family's future
+                    Everything you need to protect your family&apos;s future
                 </p>
             </div>
             <div className={styles.grid}>

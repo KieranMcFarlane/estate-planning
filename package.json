@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "ux:check": "playwright test tests/visual-smoke.spec.ts",
+    "cms:bootstrap": "node scripts/bootstrap-directus-cms.mjs",
     "knowledge:generate": "node scripts/generate-estate-knowledge.mjs",
     "db:chat:migrate": "node scripts/migrate-estate-chat.mjs",
     "qa:agent-browser": "node scripts/agent-browser-pathway-qa.mjs",
@@ -19,6 +20,7 @@
   "dependencies": {
     "@ai-sdk/openai": "^3.0.67",
     "@ai-sdk/react": "^3.0.187",
+    "@directus/sdk": "^21.3.0",
     "@openuidev/react-headless": "^0.8.2",
     "@openuidev/react-lang": "^0.2.6",
     "@openuidev/react-ui": "^0.11.8",

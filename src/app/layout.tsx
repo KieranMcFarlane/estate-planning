@@ -5,6 +5,7 @@ import EstateAssistant from "./components/EstateAssistant";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import SemanticNavigationSpotlight from "./components/SemanticNavigationSpotlight";
+import { getCmsGlobalContent } from "./cms/directus";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, businessJsonLd, websiteJsonLd } from "./seo";
 import "./globals.css";
 
@@ -35,8 +36,8 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   keywords: [
-    "estate planning Leamington Spa",
-    "wills Leamington Spa",
+    "estate planning Royal Leamington Spa",
+    "wills Royal Leamington Spa",
     "trusts Warwickshire",
     "lasting power of attorney Warwickshire",
     "inheritance tax planning",
@@ -71,17 +72,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cms = await getCmsGlobalContent();
+
   return (
     <html lang="en" suppressHydrationWarning className={`${dmSans.variable} ${instrumentSerif.variable} ${sourceSerif.variable}`}>
       <body>
-        <Navbar />
+        <Navbar cms={cms} />
         {children}
-        <Footer />
+        <Footer cms={cms} />
         <SemanticNavigationSpotlight />
         <EstateAssistant />
         <JsonLd data={[businessJsonLd(), websiteJsonLd()]} />

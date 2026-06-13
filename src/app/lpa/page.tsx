@@ -1,7 +1,9 @@
 import SubpageTemplate from "../components/SubpageTemplate";
-import { metadataForRoute } from "../seo";
+import { metadataForCmsRoute } from "../cms/metadata";
 
-export const metadata = metadataForRoute("/lpa");
+export async function generateMetadata() {
+  return metadataForCmsRoute("/lpa");
+}
 
 export default function LPAPage() {
   return (
@@ -14,16 +16,16 @@ export default function LPAPage() {
       canonicalPath="/lpa"
       aiSummary={{
         answer:
-          "A Lasting Power of Attorney lets you choose trusted people to help with financial, property, health or welfare decisions if you cannot make decisions yourself. Pathway guides the forms and choices clearly.",
+          "A Lasting Power of Attorney (LPA) lets you choose trusted people to help with financial, property, health or welfare decisions if you cannot make decisions yourself. Pathway Estate Planning will guide you on how to complete the forms and make your choices clearly.",
         questions: [
           "Who would I trust to make decisions if I lost capacity?",
           "Do I need Property and Financial Affairs, Health and Welfare, or both types of LPA?",
           "Are there family circumstances that need careful wording or discussion?",
         ],
-        handoffPrompt: "If you are planning for yourself or a parent, ask Pathway to contact you and explain the LPA options.",
+        handoffPrompt: "If you are planning for yourself or a loved one, ask Pathway Estate Planning to contact you and explain the LPA options.",
       }}
       intro={[
-        "A Lasting Power of Attorney is one of the most important documents you can put in place, not because you expect something to go wrong, but because life can be unpredictable.",
+        "A Lasting Power of Attorney (LPA) is one of the most important documents you can put in place, not because you expect something to go wrong, but because life can be unpredictable.",
         "An LPA allows you to choose someone you trust to make decisions on your behalf if you are unable to.",
         "It is a simple step that can make things far easier for your family in the future.",
       ]}

@@ -6,8 +6,8 @@ export default function ExtendedServicesPage() {
       eyebrow="Connected advice"
       title="Extended Services"
       subtitle="Practical support beyond estate planning, brought in carefully when you need it."
-      heroImage="/generated/document-signing.jpg"
-      heroAlt="Important documents being reviewed and signed"
+      heroImage="/generated/leamington-office.jpg"
+      heroAlt="Professional consultation space for estate planning support"
       intro={[
         "Estate planning can involve more than legal documents, especially when property, finances, or probate come into the picture.",
         "That is why we work alongside trusted, regulated professionals so clients can access extra support in one place.",
@@ -24,6 +24,16 @@ export default function ExtendedServicesPage() {
           heading: "What we can help connect",
           variant: "grid",
           cards: [
+            {
+              title: "Consultancy",
+              body: "Clear, practical guidance when you need a specialist view before making a decision.",
+              items: [
+                "One-off planning reviews",
+                "Support for complex family situations",
+                "Second opinions on existing arrangements",
+                "Clear next-step recommendations",
+              ],
+            },
             {
               title: "Probate",
               body: "Managing the estate of someone who has passed away can feel complicated and emotionally draining.",
@@ -67,6 +77,12 @@ export default function ExtendedServicesPage() {
             {
               title: "Mortgages",
               body: "Trusted mortgage advisers can help with buying, remortgaging, investing, or supporting a family member.",
+              items: [
+                "Buying a home",
+                "Remortgaging options",
+                "Buy-to-let or investment property",
+                "Family support and affordability",
+              ],
             },
           ],
         },

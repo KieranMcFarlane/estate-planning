@@ -1,7 +1,9 @@
 import SubpageTemplate from "../components/SubpageTemplate";
-import { metadataForRoute } from "../seo";
+import { metadataForCmsRoute } from "../cms/metadata";
 
-export const metadata = metadataForRoute("/wills");
+export async function generateMetadata() {
+  return metadataForCmsRoute("/wills");
+}
 
 export default function WillsPage() {
   return (
@@ -14,13 +16,13 @@ export default function WillsPage() {
       canonicalPath="/wills"
       aiSummary={{
         answer:
-          "A Will records who should inherit, who should manage your estate, and who should care for children if needed. Pathway helps prepare Wills in plain English so your wishes are clear and easier for your family to follow.",
+          "A Will records who should inherit, who should manage your estate, and who should care for children if needed. Pathway Estate Planning helps prepare Wills in plain English so your wishes are clear and easier for your family to follow.",
         questions: [
           "Who should inherit my property, savings or personal possessions?",
           "Who should act as executor and who should be guardian for children?",
           "Has marriage, divorce, a house move, children or a blended family changed what my Will needs to cover?",
         ],
-        handoffPrompt: "If you are unsure what your Will needs to include, ask Pathway to contact you for an initial conversation.",
+        handoffPrompt: "If you are unsure what your Will needs to include, ask Pathway Estate Planning to contact you for an initial conversation.",
       }}
       intro={[
         "Writing a Will is one of the most important things you can do, and it is often much easier than people expect.",

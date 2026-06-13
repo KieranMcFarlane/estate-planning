@@ -1,7 +1,9 @@
 import SubpageTemplate from "../components/SubpageTemplate";
-import { metadataForRoute } from "../seo";
+import { metadataForCmsRoute } from "../cms/metadata";
 
-export const metadata = metadataForRoute("/business-protection");
+export async function generateMetadata() {
+  return metadataForCmsRoute("/business-protection");
+}
 
 export default function BusinessProtectionPage() {
   return (
@@ -14,13 +16,13 @@ export default function BusinessProtectionPage() {
       canonicalPath="/business-protection"
       aiSummary={{
         answer:
-          "Business protection connects estate planning with continuity, ownership and family protection. Pathway helps business owners align Wills and planning documents with what should happen if they die or lose capacity.",
+          "Business protection connects estate planning with continuity, ownership and family protection. Pathway Estate Planning helps business owners align Wills and planning documents with what should happen if they die or lose capacity.",
         questions: [
           "Who should control or inherit business interests if something happens?",
           "Would family members, partners, directors or employees face uncertainty?",
           "Does the estate plan align with shareholder, partnership or company arrangements?",
         ],
-        handoffPrompt: "Business planning can be complex, so ask Pathway to contact you and talk through the practical next steps.",
+        handoffPrompt: "Business planning can be complex, so ask Pathway Estate Planning to contact you and talk through the practical next steps.",
       }}
       intro={[
         "If you own a business, estate planning becomes even more important.",

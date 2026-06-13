@@ -40,7 +40,7 @@
     gap: 32px;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 18px 32px;
+    padding: 22px 32px 24px;
 }
 
 .logo {
@@ -51,7 +51,7 @@
 
 .logoImage {
     display: block;
-    width: clamp(210px, 18vw, 300px);
+    width: clamp(200px, 16vw, 270px);
     height: auto;
     object-fit: contain;
 }
@@ -348,7 +348,7 @@
     .container {
         flex-wrap: wrap;
         gap: 12px;
-        padding: 14px 20px;
+        padding: 16px 20px 18px;
     }
 
     .logo {
@@ -356,7 +356,7 @@
     }
 
     .logoImage {
-        width: 190px;
+        width: 180px;
     }
 
     .mobileToggle {

@@ -1,7 +1,9 @@
 import SubpageTemplate from "../components/SubpageTemplate";
-import { metadataForRoute } from "../seo";
+import { metadataForCmsRoute } from "../cms/metadata";
 
-export const metadata = metadataForRoute("/agricultural-land");
+export async function generateMetadata() {
+  return metadataForCmsRoute("/agricultural-land");
+}
 
 export default function AgriculturalLandPage() {
   return (
@@ -10,17 +12,17 @@ export default function AgriculturalLandPage() {
       title="Agricultural Land"
       subtitle="Specialist planning for farms, land and rural estates."
       heroImage="/leamington_location.jpg"
-      heroAlt="Green gardens and historic Leamington Spa architecture"
+      heroAlt="Green gardens and historic Royal Leamington Spa architecture"
       canonicalPath="/agricultural-land"
       aiSummary={{
         answer:
-          "Agricultural land and rural estates often need careful estate planning because family wishes, ownership structures, land, tax and succession can overlap. Pathway helps coordinate the estate planning conversation.",
+          "Agricultural land and rural estates often need careful estate planning because family wishes, ownership structures, land, tax and succession can overlap. Pathway Estate Planning helps coordinate the estate planning conversation.",
         questions: [
           "Who should inherit or manage land, farming assets or rural property?",
           "Are ownership structures, family expectations or succession plans already documented?",
           "Should Wills, Trusts and tax considerations be reviewed together?",
         ],
-        handoffPrompt: "If land or farm assets are involved, ask Pathway to contact you so the details can be understood properly.",
+        handoffPrompt: "If land or farm assets are involved, ask Pathway Estate Planning to contact you so the details can be understood properly.",
       }}
       intro={[
         "Agricultural and rural estates often require specialist estate planning.",

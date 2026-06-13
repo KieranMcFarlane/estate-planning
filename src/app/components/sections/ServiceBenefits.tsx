@@ -22,7 +22,7 @@ const defaultBenefits: Benefit[] = [
     {
         icon: 'home',
         title: 'Home Visits Available',
-        description: 'We come to you across Leamington Spa, Warwick, and surrounding areas. Particularly helpful for elderly clients or those with mobility issues.',
+        description: 'We come to you across Royal Leamington Spa, Warwick, and surrounding areas. Particularly helpful for elderly clients or those with mobility issues.',
         highlight: true
     },
     {

@@ -16,6 +16,7 @@ export default function HowItWorksPage() {
         {
           heading: "Your journey to peace of mind",
           variant: "grid",
+          columns: 4,
           cards: [
             {
               title: "01. Initial chat",
@@ -23,7 +24,7 @@ export default function HowItWorksPage() {
             },
             {
               title: "02. Your tailored plan",
-              body: "Based on what is right for you, we prepare professionally drafted Wills, Trusts, LPAs or wider planning documents.",
+              body: "We explain our advice in an invaluable comprehensive estate planning report precisely tailored to you and your circumstances.",
             },
             {
               title: "03. Review together",

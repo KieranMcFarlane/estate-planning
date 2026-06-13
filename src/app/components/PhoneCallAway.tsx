@@ -5,11 +5,11 @@ export default function PhoneCallAway() {
         <section className={styles.phoneSection}>
             <div className={`container ${styles.container}`}>
                 <div className={styles.content}>
-                    <h2 className={styles.heading}>We're only a phone call away</h2>
+                    <h2 className={styles.heading}>We&apos;re only a phone call away</h2>
                     <p className={styles.text}>
                         Questions about Wills, Trusts, or LPAs? Our friendly specialists are here to help.
-                        We've helped over <strong>1,000 families</strong> across the Midlands —
-                        and we're happy to talk through your situation, no obligation.
+                        We&apos;ve helped over <strong>1,000 families</strong> across the Midlands —
+                        and we&apos;re happy to talk through your situation, no obligation.
                     </p>
                     <div className={styles.phoneGroup}>
                         <span className={styles.phoneIcon}>📞</span>

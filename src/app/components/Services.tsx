@@ -43,7 +43,7 @@ export default function Services() {
                     <div className={styles.left}>
                         <h2 className={styles.heading}>What we can help with</h2>
                         <p className="mb-md">
-                            Serving Leamington Spa, Warwick, and the Midlands since 2006.
+                            Serving Royal Leamington Spa, Warwick, and the Midlands since 2006.
                             We specialise in estate planning services, including:
                         </p>
                         <ul className={styles.serviceList}>
@@ -64,7 +64,7 @@ export default function Services() {
                                 </li>
                             ))}
                         </ul>
-                        <p className={styles.note}>If any of this sounds familiar, we're here to help.</p>
+                        <p className={styles.note}>If any of this sounds familiar, we&apos;re here to help.</p>
                     </div>
                 </div>
             </div>

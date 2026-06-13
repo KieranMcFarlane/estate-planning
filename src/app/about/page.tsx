@@ -3,11 +3,11 @@ import SubpageTemplate from "../components/SubpageTemplate";
 export default function AboutPage() {
   return (
     <SubpageTemplate
-      eyebrow="About Pathway"
+      eyebrow="About Pathway Estate Planning"
       title="Estate planning that feels calm, clear and human"
-      subtitle="Trusted support for families across Leamington Spa, Warwickshire and the Midlands."
+      subtitle="Trusted support for families across Royal Leamington Spa, Warwickshire and the Midlands."
       heroImage="/leamington_location.jpg"
-      heroAlt="Green gardens and historic Leamington Spa architecture"
+      heroAlt="Green gardens and historic Royal Leamington Spa architecture"
       intro={[
         "Pathway Estate Planning helps individuals and families put clear, practical plans in place for the people and assets they care about most.",
         "Our work is built around careful listening, plain-English guidance and a process that feels manageable from the first conversation to the final document.",
@@ -27,10 +27,10 @@ export default function AboutPage() {
             },
             {
               title: "Local and approachable",
-              body: "We support families in Leamington Spa, Warwickshire and surrounding areas, with home visits available where helpful.",
+              body: "We support families in Royal Leamington Spa, Warwickshire and surrounding areas, with home visits available where helpful.",
             },
             {
-              title: "Properly experienced",
+              title: "Proficiently experienced",
               body: "We bring years of estate planning experience across Wills, Trusts, LPAs, care planning and tax considerations.",
             },
             {

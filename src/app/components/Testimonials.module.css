@@ -52,10 +52,30 @@
 }
 
 .text {
-    font-style: italic;
     color: var(--text-main);
     margin-bottom: 1rem;
     flex-grow: 1;
+    display: grid;
+    gap: 0.75rem;
+}
+
+.text p {
+    margin: 0;
+    line-height: 1.55;
+}
+
+.text strong {
+    display: block;
+    margin-bottom: 0.2rem;
+    color: var(--color-primary);
+    font-size: var(--text-xs);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.featuredText strong {
+    color: var(--color-tertiary-light);
 }
 
 .author {

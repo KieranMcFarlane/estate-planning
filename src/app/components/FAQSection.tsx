@@ -26,7 +26,7 @@ export default function FAQSection() {
         },
         {
             question: "Do you offer home visits?",
-            answer: "Yes. We can visit you at home across Leamington Spa, Warwick, and surrounding areas. Home visits are particularly helpful for elderly clients, those with mobility issues, or families who prefer to discuss sensitive matters in familiar surroundings. Evening and weekend appointments are also available."
+            answer: "Yes. We can visit you at home across Royal Leamington Spa, Warwick, and surrounding areas. Home visits are particularly helpful for elderly clients, those with mobility issues, or families who prefer to discuss sensitive matters in familiar surroundings. Evening and weekend appointments are also available."
         },
         {
             question: "What if I already have a Will?",

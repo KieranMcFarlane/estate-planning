@@ -7,7 +7,7 @@ export default function AboutUs() {
     const values = [
         {
             title: "Established 2006",
-            description: "Over 15 years serving families across Leamington Spa and the Midlands"
+            description: "Over 15 years serving families across Royal Leamington Spa and the Midlands"
         },
         {
             title: "1,000+ families helped",
@@ -36,28 +36,28 @@ export default function AboutUs() {
             <div className={styles.header}>
                 <h2>A friendly team you can trust</h2>
                 <p className={styles.intro}>
-                    Estate planning is one of those things many people <em>mean</em> to do — but it's easy to put off.
+                    Estate planning is one of those things many people <em>mean</em> to do — but it&apos;s easy to put off.
                     It can feel emotional, complicated, or simply difficult to start.
                 </p>
-                <p className={styles.emphasis}>That's completely normal.</p>
+                <p className={styles.emphasis}>That&apos;s completely normal.</p>
             </div>
 
             <div className={styles.content}>
                 <p>
-                    At <strong>Pathway Estate Planning</strong>, we're here to make it easier.
-                    Since <strong>2006</strong>, we've helped <strong>over 1,000 families</strong> across
-                    Leamington Spa, Warwick, and the Midlands protect what matters most —
+                    At <strong>Pathway Estate Planning</strong>, we&apos;re here to make it easier.
+                    Since <strong>2006</strong>, we&apos;ve helped <strong>over 1,000 families</strong> across
+                    Royal Leamington Spa, Warwick, and the Midlands protect what matters most —
                     with clear advice and a calm, supportive approach.
                 </p>
                 <p>
                     We take the time to listen properly, understand your situation, and guide you through
                     the right next steps in plain English. Whether you need a straightforward Will or more
-                    detailed planning, we'll help you feel confident in every decision.
+                    detailed planning, we&apos;ll help you feel confident in every decision.
                 </p>
                 <div className={styles.highlight}>
                     <p>
-                        <strong>Because this isn't just paperwork.</strong><br />
-                        It's about protecting the people you love — and making sure your wishes are followed.
+                        <strong>Because this isn&apos;t just paperwork.</strong><br />
+                        It&apos;s about protecting the people you love — and making sure your wishes are followed.
                     </p>
                 </div>
             </div>

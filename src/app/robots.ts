@@ -1,7 +1,8 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "./seo";
+import { getCmsGlobalContent } from "./cms/directus";
 
-export default function robots(): MetadataRoute.Robots {
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const { tenant } = await getCmsGlobalContent();
   return {
     rules: [
       {
@@ -10,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/operator"],
       },
     ],
-    sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
+    sitemap: `${tenant.siteUrl}/sitemap.xml`,
+    host: tenant.siteUrl,
   };
 }

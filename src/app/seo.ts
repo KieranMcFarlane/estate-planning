@@ -3,10 +3,17 @@ import type { Metadata, MetadataRoute } from "next";
 export const SITE_URL = "https://estate.nakanodigital.com";
 export const SITE_NAME = "Pathway Estate Planning";
 export const SITE_DESCRIPTION =
-  "Approachable estate planning in Leamington Spa and Warwickshire: wills, trusts, LPAs, care planning and inheritance tax planning.";
+  "Approachable estate planning in Royal Leamington Spa and Warwickshire: wills, trusts, LPAs, care planning and inheritance tax planning.";
 export const PHONE = "07902 863999";
 export const EMAIL = "info@pathwayestateplanning.co.uk";
-export const LOCATION = "Leamington Spa, Warwickshire";
+export const LOCATION = "Royal Leamington Spa, Warwickshire";
+export const OFFICE_ADDRESS = {
+  streetAddress: "83 Warwick Street",
+  addressLocality: "Royal Leamington Spa",
+  addressRegion: "Warwickshire",
+  postalCode: "CV32 4RR",
+  addressCountry: "GB",
+};
 
 export type SiteRoute = {
   path: string;
@@ -28,12 +35,12 @@ export const siteRoutes: SiteRoute[] = [
   },
   {
     path: "/wills",
-    title: "Wills in Leamington Spa | Pathway Estate Planning",
+    title: "Wills in Royal Leamington Spa | Pathway Estate Planning",
     description: "Plain-English Will writing support for families, homeowners, parents, unmarried partners and blended families.",
     priority: 0.95,
     changeFrequency: "monthly",
     serviceType: "Will writing",
-    aiSummary: "Pathway helps people prepare clear Wills so wishes, executors, guardians and beneficiaries are recorded properly.",
+    aiSummary: "Pathway Estate Planning helps people prepare clear Wills so wishes, executors, guardians and beneficiaries are recorded properly.",
   },
   {
     path: "/trusts",
@@ -42,16 +49,16 @@ export const siteRoutes: SiteRoute[] = [
     priority: 0.94,
     changeFrequency: "monthly",
     serviceType: "Trust planning",
-    aiSummary: "Pathway explains whether a Trust may help add structure and protection for family assets or complex inheritance wishes.",
+    aiSummary: "Pathway Estate Planning explains whether a Trust may help add structure and protection for family assets or complex inheritance wishes.",
   },
   {
     path: "/lpa",
     title: "Lasting Powers of Attorney | Pathway Estate Planning",
-    description: "Support with Property and Financial Affairs LPAs and Health and Welfare LPAs in Leamington Spa and Warwickshire.",
+    description: "Support with Property and Financial Affairs LPAs and Health and Welfare LPAs in Royal Leamington Spa and Warwickshire.",
     priority: 0.93,
     changeFrequency: "monthly",
     serviceType: "Lasting Powers of Attorney",
-    aiSummary: "Pathway helps people put LPAs in place so trusted attorneys can support decisions if capacity is lost.",
+    aiSummary: "Pathway Estate Planning helps people put LPAs in place so trusted attorneys can support decisions if capacity is lost.",
   },
   {
     path: "/inheritance-tax-planning",
@@ -60,7 +67,7 @@ export const siteRoutes: SiteRoute[] = [
     priority: 0.9,
     changeFrequency: "monthly",
     serviceType: "Inheritance tax planning",
-    aiSummary: "Pathway helps families understand inheritance tax exposure and appropriate planning options as part of a wider estate plan.",
+    aiSummary: "Pathway Estate Planning helps families understand inheritance tax exposure and appropriate planning options as part of a wider estate plan.",
   },
   {
     path: "/care-planning",
@@ -69,7 +76,7 @@ export const siteRoutes: SiteRoute[] = [
     priority: 0.86,
     changeFrequency: "monthly",
     serviceType: "Care planning",
-    aiSummary: "Pathway helps families discuss care planning calmly, including LPAs, care preferences, family roles and funding considerations.",
+    aiSummary: "Pathway Estate Planning helps families discuss care planning calmly, including LPAs, care preferences, family roles and funding considerations.",
   },
   {
     path: "/business-protection",
@@ -78,7 +85,7 @@ export const siteRoutes: SiteRoute[] = [
     priority: 0.82,
     changeFrequency: "monthly",
     serviceType: "Business protection",
-    aiSummary: "Pathway helps business owners align estate planning, business continuity and family protection.",
+    aiSummary: "Pathway Estate Planning helps business owners align estate planning, business continuity and family protection.",
   },
   {
     path: "/agricultural-land",
@@ -96,7 +103,7 @@ export const siteRoutes: SiteRoute[] = [
   { path: "/glossary", title: "Estate Planning Glossary | Pathway", description: "Plain-English definitions for common estate planning words.", priority: 0.68, changeFrequency: "monthly" },
   { path: "/faq", title: "Estate Planning FAQs | Pathway", description: "Answers to common questions about Wills, Trusts, LPAs, Probate and tax planning.", priority: 0.7, changeFrequency: "monthly" },
   { path: "/how-it-works", title: "How Estate Planning Works | Pathway", description: "A clear, calm process for putting estate planning documents in place.", priority: 0.72, changeFrequency: "monthly" },
-  { path: "/about", title: "About Pathway Estate Planning", description: "Local, plain-English estate planning support for families across Leamington Spa and Warwickshire.", priority: 0.7, changeFrequency: "monthly" },
+  { path: "/about", title: "About Pathway Estate Planning", description: "Local, plain-English estate planning support for families across Royal Leamington Spa and Warwickshire.", priority: 0.7, changeFrequency: "monthly" },
   { path: "/contact", title: "Contact Pathway Estate Planning", description: "Contact Pathway Estate Planning for a calm initial conversation.", priority: 0.9, changeFrequency: "monthly" },
   { path: "/privacy", title: "Privacy Policy | Pathway Estate Planning", description: "How Pathway Estate Planning handles privacy.", priority: 0.3, changeFrequency: "yearly" },
   { path: "/terms", title: "Terms of Service | Pathway Estate Planning", description: "Pathway Estate Planning terms of service.", priority: 0.3, changeFrequency: "yearly" },
@@ -155,6 +162,10 @@ export function businessJsonLd() {
     url: SITE_URL,
     telephone: PHONE,
     email: EMAIL,
+    address: {
+      "@type": "PostalAddress",
+      ...OFFICE_ADDRESS,
+    },
     areaServed: [
       { "@type": "City", name: "Royal Leamington Spa" },
       { "@type": "AdministrativeArea", name: "Warwickshire" },

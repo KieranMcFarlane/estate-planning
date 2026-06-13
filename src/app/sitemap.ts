@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
-import { absoluteUrl, siteRoutes } from "./seo";
+import { getCmsGlobalContent, getCmsRoutes } from "./cms/directus";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [{ tenant }, routes] = await Promise.all([getCmsGlobalContent(), getCmsRoutes()]);
   const now = new Date();
-  return siteRoutes.map((route) => ({
-    url: absoluteUrl(route.path),
+  return routes.map((route) => ({
+    url: new URL(route.path, tenant.siteUrl).toString(),
     lastModified: now,
     changeFrequency: route.changeFrequency ?? "monthly",
     priority: route.priority,

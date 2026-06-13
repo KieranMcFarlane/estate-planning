@@ -37,7 +37,7 @@ const defaultItems: SecurityItem[] = [
     {
         icon: 'home',
         title: 'Established Local Practice',
-        description: 'Serving Leamington Spa and the Midlands since 2006 — we\'re not going anywhere.'
+        description: 'Serving Royal Leamington Spa and the Midlands since 2006 — we\'re not going anywhere.'
     },
     {
         icon: 'check',

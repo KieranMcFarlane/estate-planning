@@ -17,6 +17,14 @@
     flex-direction: column;
 }
 
+.brandColumn {
+    background: var(--paper, #faf8f4);
+    color: var(--ink, #1a1d1a);
+    border-radius: 8px;
+    padding: 28px;
+    align-self: stretch;
+}
+
 .logo {
     display: inline-flex;
     align-items: center;
@@ -36,6 +44,10 @@
     margin: 16px 0 24px;
     line-height: 1.6;
     max-width: 28ch;
+}
+
+.brandColumn .tagline {
+    color: rgba(20, 23, 26, 0.72);
 }
 
 .contact {
@@ -59,6 +71,10 @@
     opacity: 0.8;
 }
 
+.brandColumn .contactLink {
+    color: rgba(20, 23, 26, 0.78);
+}
+
 .contactLink div {
     display: flex;
     flex-direction: column;
@@ -75,6 +91,10 @@
 .contactNumber {
     font-weight: 700;
     color: var(--paper, #faf8f4);
+}
+
+.brandColumn .contactNumber {
+    color: var(--ink, #1a1d1a);
 }
 
 .subheading {

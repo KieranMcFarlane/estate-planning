@@ -31,22 +31,64 @@ import {
 } from "@/components/ui/accordion";
 
 const services = [
-  { icon: FileText, title: "Wills", href: "/wills", body: "Make sure your wishes are clearly recorded and legally sound." },
+  { icon: FileText, title: "Wills", href: "/wills", body: "Make sure your wishes are clearly recorded and legally sound.", image: "/generated/service-wills.png" },
   { icon: Shield, title: "Trusts", href: "/trusts", body: "Protect assets for children, vulnerable family, or future generations." },
   { icon: Users, title: "Lasting Powers of Attorney", href: "/lpa", body: "Choose who makes decisions for you if you ever can't." },
-  { icon: PieChart, title: "Inheritance Tax Planning", href: "/inheritance-tax-planning", body: "Support with mitigating tax and leaving more to the people you love." },
+  { icon: PieChart, title: "Inheritance Tax Planning", href: "/inheritance-tax-planning", body: "Support with mitigating tax and leaving more to the people you love.", image: "/generated/service-inheritance-tax.png" },
   { icon: Heart, title: "Care Planning", href: "/care-planning", body: "Plan ahead, honestly, so you and your family understand your options." },
-  { icon: Briefcase, title: "Business Protection", href: "/business-protection", body: "Keep your business in safe hands, whatever happens." },
-  { icon: Tractor, title: "Agricultural Estate Planning", href: "/agricultural-land", body: "Pass land and farming assets to the next generation, properly." },
+  { icon: Briefcase, title: "Business Protection", href: "/business-protection", body: "Keep your business in safe hands, whatever happens.", image: "/generated/service-business-protection.png" },
+  { icon: Tractor, title: "Agricultural Estate Planning", href: "/agricultural-land", body: "Pass land and farming assets to the next generation, properly.", image: "/generated/service-agricultural-land.png" },
 ];
 
 const testimonials = [
-  { theme: "Confusion", quote: "They explained everything so clearly. We finally feel like things are in order - and that we understand them.", name: "Margaret", town: "Leamington Spa" },
-  { theme: "Trust", quote: "Patient, professional, and never once made us feel rushed or pressured. We knew exactly what we were paying for.", name: "David", town: "Warwick" },
-  { theme: "Family stress", quote: "Took a real weight off our shoulders. A difficult subject made manageable, with kindness throughout.", name: "The Hollis family", town: "Stratford-upon-Avon" },
-  { theme: "Cost", quote: "Honest about what we did and didn't need. We came away spending less than expected, with more confidence than we'd had in years.", name: "Patrick", town: "Kenilworth" },
-  { theme: "Care fees", quote: "Cut through the noise about care fee schemes and gave us a straight answer. Refreshing.", name: "Sarah & Tom", town: "Southam" },
-  { theme: "Complexity", quote: "We had a blended family and a farm. Felt completely out of our depth. They walked us through every part of it.", name: "The Whitmore family", town: "Warwickshire" },
+  {
+    theme: "Confusion",
+    problem: "We had put everything off because the paperwork felt too big and too legal.",
+    solution: "Pathway broke it into plain-English decisions and kept us moving calmly.",
+    result: "We finally know our wishes are recorded properly, and the family knows where it stands.",
+    name: "Margaret",
+    town: "Royal Leamington Spa",
+  },
+  {
+    theme: "Trust",
+    problem: "We were worried we would be rushed into documents we did not understand.",
+    solution: "Every option was explained, priced clearly, and checked against what we actually needed.",
+    result: "We signed with confidence and no surprises, knowing the plan fits our family.",
+    name: "David",
+    town: "Warwick",
+  },
+  {
+    theme: "Family stress",
+    problem: "A difficult family situation had made estate planning feel emotionally heavy.",
+    solution: "The conversation was handled gently, with each concern turned into a practical next step.",
+    result: "The pressure lifted, and everyone had a clearer view of what would happen next.",
+    name: "The Hollis family",
+    town: "Stratford-upon-Avon",
+  },
+  {
+    theme: "Cost",
+    problem: "We expected estate planning to be expensive and were unsure what was essential.",
+    solution: "Pathway separated what mattered now from what could wait, with clear costs before work began.",
+    result: "We spent less than expected and came away with exactly the protection we needed.",
+    name: "Patrick",
+    town: "Kenilworth",
+  },
+  {
+    theme: "Care fees",
+    problem: "Care fee advice online left us confused and worried about making the wrong move.",
+    solution: "They cut through the noise and explained the legitimate options in straightforward terms.",
+    result: "We stopped guessing and made a measured plan for later-life decisions.",
+    name: "Sarah & Tom",
+    town: "Southam",
+  },
+  {
+    theme: "Complexity",
+    problem: "A blended family and farming assets made our estate feel too complicated to tackle.",
+    solution: "Pathway mapped each risk, explained the choices, and joined the plan together.",
+    result: "The farm, the family, and the future now feel properly accounted for.",
+    name: "The Whitmore family",
+    town: "Warwickshire",
+  },
 ];
 
 const faqs = [
@@ -89,7 +131,7 @@ function Hero({ onBook }: { onBook: () => void }) {
     <section className="hero">
       <div className="container hero__copy">
         <h1>Estate planning that feels <em>calm, clear, and human.</em></h1>
-        <p className="hero__sub">Wills, trusts, lasting powers of attorney and later-life planning - explained simply and shaped around your family in Leamington Spa and across Warwickshire.</p>
+        <p className="hero__sub">Wills, trusts, lasting powers of attorney and later-life planning - explained simply and shaped around your family in Royal Leamington Spa and across Warwickshire.</p>
         <p className="hero__services">Wills | Trusts | LPAs | Inheritance tax planning</p>
         <div className="hero__ctas">
           <button className="btn btn--primary btn--lg" onClick={onBook}>
@@ -115,7 +157,7 @@ function TrustBar() {
   const items = [
     { icon: Shield, text: "Over 15 years of experience" },
     { icon: Award, text: "Fully qualified and insured" },
-    { icon: MapPin, text: "Local to Leamington Spa" },
+    { icon: MapPin, text: "Local to Royal Leamington Spa" },
     { icon: Home, text: "Home visits available" },
   ];
   return (
@@ -163,7 +205,7 @@ function ProblemSection() {
 function WhySection() {
   const items = [
     { icon: Users, title: "Genuinely personal", body: "You'll deal with the same person from your first chat to the final document. No call centres, no handovers." },
-    { icon: Shield, title: "Properly experienced", body: "Over 15 years helping families across Warwickshire - from straightforward wills to complex estates." },
+    { icon: Shield, title: "Proficiently experienced", body: "Over 15 years helping families across Warwickshire - from straightforward wills to complex estates." },
     { icon: MessageCircle, title: "Always clear", body: "We won't bury you in legal terms or surprise you with costs. If something isn't right for you, we'll say so." },
   ];
   return (
@@ -192,7 +234,11 @@ function Process() {
   const [inView, setInView] = useState(false);
   const steps = [
     { icon: MessageCircle, title: "An initial chat", body: "We talk through your situation. No pressure, no commitment, no jargon." },
-    { icon: FileText, title: "Your tailored plan", body: "We explain what we'd suggest and why - with clear, agreed costs before you decide." },
+    {
+      icon: FileText,
+      title: "Your tailored plan",
+      body: "We explain our advice in an invaluable comprehensive estate planning report precisely tailored to you and your circumstances.",
+    },
     { icon: Pencil, title: "Drafting and signing", body: "We prepare your documents in plain English and guide you through signing." },
     { icon: Heart, title: "Ongoing support", body: "Life changes. We're here when something needs updating or you just want to talk." },
   ];
@@ -240,12 +286,17 @@ function Services() {
       <div className="container">
         <div className="services__head">
           <h4 style={{ marginBottom: 12 }}>What we help with</h4>
-          <h2>The full range, handled by one person.</h2>
+          <h2>Your own estate planning specialist, dedicated to your case.</h2>
           <p>Each service is offered on its own or as part of a plan that ties them together.</p>
         </div>
         <div className="services__grid">
-          {services.map(({ icon: Icon, title, body, href }) => (
+          {services.map(({ icon: Icon, title, body, href, image }) => (
             <a className="service" href={href} id={semanticId("service", title)} data-semantic-id={semanticId("service", title)} key={title}>
+              {image ? (
+                <span className="service__image" aria-hidden="true">
+                  <Image src={image} alt="" fill sizes="(max-width: 640px) 50vw, (max-width: 1000px) 50vw, 25vw" />
+                </span>
+              ) : null}
               <span className="service__icon"><Icon width="30" height="30" /></span>
               <h3>{title}</h3>
               <p>{body}</p>
@@ -273,7 +324,11 @@ function Testimonials() {
           {loop.map((testimonial, index) => (
             <figure className="testimonial" id={index < testimonials.length ? semanticId("review", testimonial.theme) : undefined} data-semantic-id={index < testimonials.length ? semanticId("review", testimonial.theme) : undefined} key={`${testimonial.name}-${index}`} aria-hidden={index >= testimonials.length}>
               <span className="testimonial__theme">On {testimonial.theme.toLowerCase()}</span>
-              <blockquote className="testimonial__quote">{testimonial.quote}</blockquote>
+              <blockquote className="testimonial__story">
+                <span><strong>Problem</strong>{testimonial.problem}</span>
+                <span><strong>Our solution</strong>{testimonial.solution}</span>
+                <span><strong>Real result</strong>{testimonial.result}</span>
+              </blockquote>
               <div className="testimonial__stars" aria-label="5 out of 5 stars">
                 {Array.from({ length: 5 }).map((_, star) => <Star key={star} width="14" height="14" fill="currentColor" />)}
               </div>
@@ -287,14 +342,14 @@ function Testimonials() {
 }
 
 function LocalTrust() {
-  const towns = ["Leamington Spa", "Warwick", "Kenilworth", "Stratford-upon-Avon", "Southam", "Rugby"];
+  const towns = ["Royal Leamington Spa", "Warwick", "Kenilworth", "Stratford-upon-Avon", "Southam", "Rugby"];
   return (
     <section id="where-we-work">
       <div className="container">
         <div className="local">
           <div className="local__copy">
             <h4 style={{ marginBottom: 16 }}>Where we work</h4>
-            <h2>Based in Leamington Spa.<br />Visiting families across Warwickshire.</h2>
+            <h2>Based in Royal Leamington Spa.<br />Visiting families across Warwickshire.</h2>
             <p style={{ marginTop: 20 }}>We meet at our office, in clients&apos; homes, or wherever feels most comfortable. Many families prefer a kitchen-table conversation to a formal meeting room.</p>
             <p>If travel or mobility is an issue, we&apos;ll come to you.</p>
             <div style={{ marginTop: 24, display: "flex", gap: 12, flexWrap: "wrap" }}>
@@ -304,7 +359,7 @@ function LocalTrust() {
             </div>
           </div>
           <div className="local__visual">
-            <Image src="/leamington_location.jpg" alt="Jephson Gardens in Leamington Spa" fill sizes="(max-width: 880px) 100vw, 45vw" />
+            <Image src="/leamington_location.jpg" alt="Jephson Gardens in Royal Leamington Spa" fill sizes="(max-width: 880px) 100vw, 45vw" />
           </div>
         </div>
       </div>

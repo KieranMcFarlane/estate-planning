@@ -3,7 +3,7 @@ import styles from './WhyChooseUs.module.css';
 export default function WhyChooseUs() {
     const benefits = [
         {
-            title: "We've helped hundreds feel confident",
+            title: "We have helped hundreds feel confident",
             desc: "From nervous first-timers to complex family situations, we guide everyone with patience and care"
         },
         {
@@ -33,7 +33,7 @@ export default function WhyChooseUs() {
             <div className="container">
                 <h2 className={`text-center mb-md`}>Why families choose Pathway</h2>
                 <p className={`text-center mb-lg ${styles.intro}`}>
-                    We believe estate planning should feel personal, not intimidating. When you speak with us, you'll never feel rushed or judged — just supported.
+                    We believe estate planning should feel personal, not intimidating. When you speak with us, you&apos;ll never feel rushed or judged — just supported.
                 </p>
 
                 <div className={styles.grid}>
@@ -49,7 +49,7 @@ export default function WhyChooseUs() {
                 </div>
 
                 <div className={`text-center ${styles.highlight}`}>
-                    <strong>Most of all:</strong> we'll treat your situation with care and respect — because we know this is a sensitive topic.
+                    <strong>Most of all:</strong> we&apos;ll treat your situation with care and respect — because we know this is a sensitive topic.
                 </div>
             </div>
         </section>

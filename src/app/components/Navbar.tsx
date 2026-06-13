@@ -7,14 +7,40 @@ import Image from "next/image";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import Icon from "./base/Icon";
 import styles from "./Navbar.module.css";
+import type { CmsGlobalContent, CmsNavigationItem } from "../cms/types";
 
-export default function Navbar() {
+type NavbarProps = {
+    cms?: CmsGlobalContent;
+};
+
+function itemsFor(navigation: CmsNavigationItem[] | undefined, menu: CmsNavigationItem["menu"]) {
+    return (navigation ?? []).filter((item) => item.menu === menu).sort((a, b) => a.sort - b.sort);
+}
+
+function isDownloadLink(href: string) {
+    return href.endsWith(".pdf");
+}
+
+function withGlossaryDownload<T extends { href: string; label: string; body?: string }>(items: T[]) {
+    return items.map((item) => (
+        item.href === "/glossary" || item.label.toLowerCase().includes("glossary")
+            ? {
+                ...item,
+                href: "/downloads/glossary-of-terms.pdf",
+                label: "Glossary of Terms",
+                body: item.body ?? "Downloadable plain-English legal explanations.",
+            }
+            : item
+    ));
+}
+
+export default function Navbar({ cms }: NavbarProps) {
     const navRef = useRef<HTMLElement | null>(null);
     const headroomRef = useRef<Headroom | null>(null);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [openMenu, setOpenMenu] = useState<"services" | "resources" | null>(null);
 
-    const services = [
+    const fallbackServices = [
         { href: "/wills", label: "Wills", body: "Clear wishes, properly recorded." },
         { href: "/trusts", label: "Trusts", body: "Protect assets for the right people." },
         { href: "/lpa", label: "Lasting Powers of Attorney", body: "Choose who can act for you." },
@@ -24,13 +50,20 @@ export default function Navbar() {
         { href: "/agricultural-land", label: "Agricultural Land", body: "Planning for farms and land." },
     ];
 
-    const resources = [
+    const fallbackResources = [
         { href: "/estate-planning", label: "All Services", body: "A full overview of estate planning." },
         { href: "/extended-services", label: "Extended Services", body: "Probate, advice and related support." },
         { href: "/helpful-info", label: "Helpful Information", body: "A practical planning checklist." },
-        { href: "/glossary", label: "Glossary of Terms", body: "Plain-English legal explanations." },
+        { href: "/downloads/glossary-of-terms.pdf", label: "Glossary of Terms", body: "Downloadable plain-English legal explanations." },
         { href: "/faq", label: "FAQ", body: "Answers to common questions." },
     ];
+    const primary = itemsFor(cms?.navigation, "primary");
+    const services = itemsFor(cms?.navigation, "services").length ? itemsFor(cms?.navigation, "services") : fallbackServices;
+    const rawResources = itemsFor(cms?.navigation, "resources");
+    const resourcesBase: Array<{ href: string; label: string; body?: string }> = rawResources.length ? rawResources : fallbackResources;
+    const resources = withGlossaryDownload(resourcesBase);
+    const phone = cms?.tenant.phone ?? "07902 863999";
+    const logo = cms?.tenant.logo ?? { src: "/pathway-logo_1.png", alt: "Pathway Estate Planning Specialists" };
 
     const close = () => {
         setMobileMenuOpen(false);
@@ -83,12 +116,14 @@ export default function Navbar() {
     return (
         <nav ref={navRef} className={styles.navbar}>
             <div className={`container ${styles.container}`}>
-                <Link href="/" className={styles.logo} aria-label="Pathway Estate Planning, home">
-                    <Image src="/pathway-logo.png" alt="Pathway Estate Planning Specialists" width={2680} height={880} className={styles.logoImage} priority unoptimized />
+                <Link href="/" className={styles.logo} aria-label={`${cms?.tenant.name ?? "Pathway Estate Planning"}, home`}>
+                    <Image src={logo.src} alt={logo.alt} width={2680} height={880} className={styles.logoImage} priority unoptimized />
                 </Link>
 
                 <div className={styles.links}>
-                    <Link href="/" onClick={close}>Home</Link>
+                    {(primary.length ? primary : [{ href: "/", label: "Home", sort: 10 }]).map((item) => (
+                        <Link href={item.href} onClick={close} key={item.href}>{item.label}</Link>
+                    ))}
 
                     <div className={`${styles.navItem} ${styles.desktopOnly}`}>
                         <button
@@ -131,6 +166,7 @@ export default function Navbar() {
                             {resources.map((resource) => (
                                 <Link
                                     href={resource.href}
+                                    download={isDownloadLink(resource.href) ? "" : undefined}
                                     onClick={close}
                                     className={styles.dropdownItem}
                                     key={resource.href}
@@ -142,13 +178,10 @@ export default function Navbar() {
                         </div>
                     </div>
 
-                    <Link href="/how-it-works" onClick={close}>How It Works</Link>
-                    <Link href="/about" onClick={close}>About</Link>
-                    <Link href="/contact" onClick={close}>Contact</Link>
                 </div>
 
                 <div className={styles.desktopCta}>
-                    <a href="tel:07902863999" className={styles.phoneLink}>
+                    <a href={`tel:${phone.replace(/\s+/g, "")}`} className={styles.phoneLink}>
                         <Icon name="phone" size="sm" />
                         <span>Call us</span>
                     </a>
@@ -167,10 +200,12 @@ export default function Navbar() {
                     <SheetContent className={styles.mobileSheet}>
                         <SheetHeader className={styles.mobileSheetHeader}>
                             <SheetTitle className={styles.mobileSheetTitle}>Menu</SheetTitle>
-                            <Image src="/pathway-logo.png" alt="" width={2680} height={880} className={styles.mobileSheetLogo} unoptimized />
+                            <Image src={logo.src} alt="" width={2680} height={880} className={styles.mobileSheetLogo} unoptimized />
                         </SheetHeader>
                         <div className={styles.mobileSheetLinks}>
-                            <Link href="/" onClick={close}>Home</Link>
+                            {(primary.length ? primary : [{ href: "/", label: "Home", sort: 10 }]).map((item) => (
+                                <Link href={item.href} onClick={close} key={item.href}>{item.label}</Link>
+                            ))}
                             <p className={styles.mobileGroupTitle}>Services</p>
                             {services.map((service) => (
                                 <Link
@@ -188,6 +223,7 @@ export default function Navbar() {
                                 <Link
                                     key={resource.href}
                                     href={resource.href}
+                                    download={isDownloadLink(resource.href) ? "" : undefined}
                                     onClick={close}
                                     className={styles.mobileResourceLink}
                                 >
@@ -195,14 +231,11 @@ export default function Navbar() {
                                     <small>{resource.body}</small>
                                 </Link>
                             ))}
-                            <Link href="/how-it-works" onClick={close}>How It Works</Link>
-                            <Link href="/about" onClick={close}>About</Link>
-                            <Link href="/contact" onClick={close}>Contact</Link>
                         </div>
                         <div className={styles.mobileSheetActions}>
-                            <a href="tel:07902863999" className={styles.mobileSheetPhone} onClick={close}>
+                            <a href={`tel:${phone.replace(/\s+/g, "")}`} className={styles.mobileSheetPhone} onClick={close}>
                                 <Icon name="phone" size="sm" />
-                                07902 863999
+                                {phone}
                             </a>
                             <Link href="/contact" className={styles.mobileSheetButton} onClick={close}>
                                 <Icon name="calendar" size="sm" />

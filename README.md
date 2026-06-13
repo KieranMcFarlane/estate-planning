@@ -16,6 +16,25 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Directus CMS
+
+This app uses an existing self-hosted Directus instance as the CMS for one tenant. Configure:
+
+```bash
+DIRECTUS_URL=https://cms.example.com
+DIRECTUS_TOKEN=directus-static-token
+DIRECTUS_TENANT_ID=estate-planning
+DIRECTUS_CACHE_SECONDS=300
+```
+
+Bootstrap the Directus collections and starter tenant/page/navigation records:
+
+```bash
+npm run cms:bootstrap
+```
+
+The bootstrap is idempotent. It creates `tenants`, `site_pages`, `page_sections`, and `navigation_items` if missing, then upserts the current tenant starter content. If Directus is unavailable or records are incomplete, the frontend falls back to local content.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

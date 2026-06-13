@@ -1,8 +1,11 @@
 import SubpageTemplate from "../components/SubpageTemplate";
 import JsonLd from "../components/JsonLd";
-import { absoluteUrl, breadcrumbJsonLd, metadataForRoute } from "../seo";
+import { metadataForCmsRoute } from "../cms/metadata";
+import { absoluteUrl, breadcrumbJsonLd } from "../seo";
 
-export const metadata = metadataForRoute("/faq");
+export async function generateMetadata() {
+  return metadataForCmsRoute("/faq");
+}
 
 export default function FAQPage() {
   const faqItems = [

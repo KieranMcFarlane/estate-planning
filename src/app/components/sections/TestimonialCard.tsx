@@ -27,7 +27,7 @@ export default function TestimonialCard({
           />
         ))}
       </div>
-      <p className={styles.quote}>"{quote}"</p>
+      <p className={styles.quote}>&quot;{quote}&quot;</p>
       <div className={styles.author}>
         <span className={styles.name}>{author}</span>
         {location && <span className={styles.location}>{location}</span>}

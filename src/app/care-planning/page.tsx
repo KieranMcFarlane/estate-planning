@@ -1,7 +1,9 @@
 import SubpageTemplate from "../components/SubpageTemplate";
-import { metadataForRoute } from "../seo";
+import { metadataForCmsRoute } from "../cms/metadata";
 
-export const metadata = metadataForRoute("/care-planning");
+export async function generateMetadata() {
+  return metadataForCmsRoute("/care-planning");
+}
 
 export default function CarePlanningPage() {
   return (
@@ -14,13 +16,13 @@ export default function CarePlanningPage() {
       canonicalPath="/care-planning"
       aiSummary={{
         answer:
-          "Care planning helps families think ahead about later-life decisions, LPAs, care preferences, family roles and funding considerations. Pathway explains options calmly without fear-led promises.",
+          "Care planning helps families think ahead about later-life decisions, LPAs, care preferences, family roles and funding considerations. Pathway Estate Planning explains options calmly without fear-led promises.",
         questions: [
           "Who should make decisions if care or capacity becomes an issue?",
           "Have care preferences, LPAs and family responsibilities been discussed?",
           "Do funding or property concerns need specialist advice alongside estate planning?",
         ],
-        handoffPrompt: "If care planning feels urgent or sensitive, ask Pathway to contact you for a calm initial conversation.",
+        handoffPrompt: "If care planning feels urgent or sensitive, ask Pathway Estate Planning to contact you for a calm initial conversation.",
       }}
       intro={[
         "Planning for later life is not always easy to think about, but having a plan in place can bring real peace of mind.",
@@ -49,7 +51,7 @@ export default function CarePlanningPage() {
               body: "We explain the practical considerations around care funding and where specialist financial advice may be useful.",
             },
             {
-              title: "Powers of Attorney",
+              title: "Lasting Powers of Attorney",
               body: "We help you understand how LPAs can support future decision-making if you can no longer make decisions yourself.",
             },
             {

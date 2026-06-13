@@ -12,6 +12,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "autoconverse_demo/**",
+    "services/parlant-estate/.venv/**",
     "next-env.d.ts",
   ]),
 ]);

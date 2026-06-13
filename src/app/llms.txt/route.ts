@@ -1,18 +1,19 @@
-import { EMAIL, LOCATION, PHONE, SITE_DESCRIPTION, SITE_NAME, SITE_URL, siteRoutes } from "../seo";
+import { getCmsGlobalContent, getCmsRoutes } from "../cms/directus";
 
 export const runtime = "nodejs";
 
-export function GET() {
-  const serviceRoutes = siteRoutes.filter((route) => route.serviceType);
+export async function GET() {
+  const [{ tenant }, routes] = await Promise.all([getCmsGlobalContent(), getCmsRoutes()]);
+  const serviceRoutes = routes.filter((route) => route.serviceType);
   const content = [
-    `# ${SITE_NAME}`,
+    `# ${tenant.name}`,
     "",
-    SITE_DESCRIPTION,
+    tenant.description,
     "",
-    `Location: ${LOCATION}`,
-    `Phone: ${PHONE}`,
-    `Email: ${EMAIL}`,
-    `Website: ${SITE_URL}`,
+    `Location: ${tenant.location}`,
+    `Phone: ${tenant.phone}`,
+    `Email: ${tenant.email}`,
+    `Website: ${tenant.siteUrl}`,
     "",
     "## Important Guidance",
     "",
@@ -22,13 +23,13 @@ export function GET() {
     "",
     "## Core Services",
     "",
-    ...serviceRoutes.map((route) => `- [${route.serviceType}](${SITE_URL}${route.path}): ${route.aiSummary ?? route.description}`),
+    ...serviceRoutes.map((route) => `- [${route.serviceType}](${tenant.siteUrl}${route.path}): ${route.aiSummary ?? route.description}`),
     "",
     "## Useful Pages",
     "",
-    ...siteRoutes
+    ...routes
       .filter((route) => !route.serviceType && !["/privacy", "/terms", "/cookies", "/complaints"].includes(route.path))
-      .map((route) => `- [${route.title}](${SITE_URL}${route.path}): ${route.description}`),
+      .map((route) => `- [${route.title}](${tenant.siteUrl}${route.path}): ${route.description}`),
     "",
   ].join("\n");
 

@@ -6,11 +6,18 @@ export default function GlossaryPage() {
       eyebrow="Plain-English glossary"
       title="Glossary of Terms"
       subtitle="Understand common estate planning words with confidence."
-      heroImage="/generated/estate-consultation-hero.jpg"
-      heroAlt="Estate planning documents on a table"
+      heroImage="/generated/document-signing.jpg"
+      heroAlt="Estate planning glossary and documents being reviewed"
       intro={[
         "Estate planning can involve language that feels unfamiliar, but understanding the basics makes the whole process easier.",
         "This glossary explains common terms related to Wills, Trusts, Lasting Powers of Attorney, Probate and Inheritance Tax Planning.",
+      ]}
+      downloads={[
+        {
+          href: "/downloads/glossary-of-terms.pdf",
+          label: "Download the Glossary of Terms",
+          body: "A PDF copy of the plain-English glossary for common estate planning words.",
+        },
       ]}
       blocks={[
         {

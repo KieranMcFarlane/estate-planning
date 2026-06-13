@@ -1,7 +1,9 @@
 import SubpageTemplate from "../components/SubpageTemplate";
-import { metadataForRoute } from "../seo";
+import { metadataForCmsRoute } from "../cms/metadata";
 
-export const metadata = metadataForRoute("/trusts");
+export async function generateMetadata() {
+  return metadataForCmsRoute("/trusts");
+}
 
 export default function TrustsPage() {
   return (
@@ -14,13 +16,13 @@ export default function TrustsPage() {
       canonicalPath="/trusts"
       aiSummary={{
         answer:
-          "A Trust can add structure to how assets are held or passed on, especially where children, vulnerable beneficiaries, blended families or future protection are involved. Pathway explains whether a Trust is suitable before recommending anything.",
+          "A Trust can add structure to how assets are held or passed on, especially where children, vulnerable beneficiaries, blended families or future protection are involved. Pathway Estate Planning explains whether a Trust is suitable before recommending anything.",
         questions: [
           "Am I trying to protect inheritance for children, grandchildren or a vulnerable person?",
           "Is there a second marriage, blended family or property protection concern?",
           "Who would act as trustees and understand their responsibilities?",
         ],
-        handoffPrompt: "Trust planning depends on personal circumstances, so the best next step is to ask Pathway to contact you.",
+        handoffPrompt: "Trust planning depends on personal circumstances, so the next best step is to ask Pathway Estate Planning to contact you.",
       }}
       intro={[
         "Trusts can be a powerful part of estate planning, but they are often misunderstood.",
@@ -32,7 +34,7 @@ export default function TrustsPage() {
           heading: "Why people choose Trust planning",
           variant: "cream",
           paragraphs: [
-            "Trust planning is not for everyone, and we will always be honest about what is and is not suitable for your situation.",
+            "Trust planning is not for everyone and we will always ensure that we provide honest advice for what is deemed suitable or not for you and your situation.",
           ],
           items: [
             "Protect inheritance for children or grandchildren",

@@ -4,9 +4,9 @@ export default function TrustBadges() {
     return (
         <section className={styles.trustBadges}>
             <div className={`container ${styles.container}`}>
-                <h2 className={styles.heading}>The UK's trusted estate planning specialists</h2>
+                <h2 className={styles.heading}>The UK&apos;s trusted estate planning specialists</h2>
                 <p className={styles.subtext}>
-                    Helping families across Leamington Spa and the Midlands since 2006.
+                    Helping families across Royal Leamington Spa and the Midlands since 2006.
                 </p>
 
                 <div className={styles.badges}>

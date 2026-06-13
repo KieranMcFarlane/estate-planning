@@ -27,7 +27,7 @@ export default function HowItWorks() {
                 <div className="text-center mb-lg">
                     <h2 className={styles.heading}>A simple process, at your pace</h2>
                     <p className={styles.intro}>
-                        You don't need to know exactly what you need before you speak to us. We'll guide you step by step.
+                        You don&apos;t need to know exactly what you need before you speak to us. We&apos;ll guide you step by step.
                     </p>
                 </div>
 
