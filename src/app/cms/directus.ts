@@ -15,7 +15,7 @@ type DirectusSchema = {
 type DirectusFileRef = string | { id?: string; filename_disk?: string; title?: string; description?: string } | null | undefined;
 
 type DirectusTenant = {
-  id: string;
+  id: string | number;
   slug?: string | null;
   name?: string | null;
   status?: string | null;
@@ -30,7 +30,7 @@ type DirectusTenant = {
 };
 
 type DirectusPage = {
-  id: string;
+  id: string | number;
   tenant?: string | DirectusTenant | null;
   path?: string | null;
   status?: string | null;
@@ -54,9 +54,9 @@ type DirectusPage = {
 };
 
 type DirectusSection = {
-  id: string;
+  id: string | number;
   tenant?: string | DirectusTenant | null;
-  page?: string | DirectusPage | null;
+  page?: string | number | DirectusPage | null;
   sort?: number | string | null;
   section_type?: string | null;
   eyebrow?: string | null;
@@ -70,7 +70,7 @@ type DirectusSection = {
 };
 
 type DirectusNavigationItem = {
-  id: string;
+  id: string | number;
   tenant?: string | DirectusTenant | null;
   menu?: CmsNavigationItem["menu"] | null;
   href?: string | null;
@@ -148,7 +148,7 @@ function mapTenant(row?: DirectusTenant | null): CmsTenant {
   const logo = assetUrl(row.logo);
   const footerLogo = assetUrl(row.footer_logo);
   return {
-    id: clean(row.id) || tenantId,
+    id: clean(String(row.id)) || tenantId,
     slug: clean(row.slug) || tenantId,
     name: clean(row.name) || fallbackGlobalContent.tenant.name,
     siteUrl: clean(row.site_url) || fallbackGlobalContent.tenant.siteUrl,

@@ -8,6 +8,7 @@ export default function TermsPage() {
       subtitle="The basis on which we provide information and estate planning services."
       heroImage="/generated/document-signing.jpg"
       heroAlt="Estate planning documents being reviewed"
+      canonicalPath="/terms"
       intro={[
         "The information on this website is provided as a general guide and should not be treated as legal, tax or financial advice for your specific circumstances.",
         "When you become a client, we will explain the scope of work, costs and next steps clearly before work begins.",

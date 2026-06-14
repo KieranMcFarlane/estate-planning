@@ -1,3 +1,21 @@
+import { pageContent } from "./directus-page-content.mjs";
+import { existsSync, readFileSync } from "node:fs";
+
+function loadDotEnv(path = ".env") {
+  if (!existsSync(path)) return;
+  for (const line of readFileSync(path, "utf8").split(/\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const index = trimmed.indexOf("=");
+    if (index === -1) continue;
+    const key = trimmed.slice(0, index).trim();
+    const value = trimmed.slice(index + 1).trim().replace(/^['"]|['"]$/g, "");
+    process.env[key] ??= value;
+  }
+}
+
+loadDotEnv();
+
 const DIRECTUS_URL = process.env.DIRECTUS_URL?.replace(/\/+$/, "");
 const DIRECTUS_TOKEN = process.env.DIRECTUS_TOKEN;
 const TENANT_ID = process.env.DIRECTUS_TENANT_ID || "estate-planning";
@@ -116,7 +134,7 @@ const fields = {
     field("footer_tagline", "text"),
   ],
   site_pages: [
-    field("id", "uuid", { primary: true }),
+    field("id", "integer", { primary: true }),
     field("tenant", "string", { required: true }),
     field("path", "string", { required: true }),
     field("status", "string"),
@@ -141,7 +159,7 @@ const fields = {
   page_sections: [
     field("id", "uuid", { primary: true }),
     field("tenant", "string", { required: true }),
-    field("page", "uuid", { required: true }),
+    field("page", "integer", { required: true }),
     field("sort", "integer"),
     field("section_type", "string"),
     field("eyebrow", "string"),
@@ -177,7 +195,7 @@ function field(name, type, options = {}) {
       name,
       is_nullable: !options.required && !options.primary,
       is_primary_key: Boolean(options.primary),
-      has_auto_increment: false,
+      has_auto_increment: Boolean(options.primary && type === "integer"),
       max_length: type === "string" ? 255 : undefined,
     },
   };
@@ -235,6 +253,30 @@ async function ensureCollection(definition) {
   console.log(`created collection ${definition.collection}`);
 }
 
+async function collectionCount(collection) {
+  const result = await request(`/items/${collection}?aggregate[count]=*`);
+  return Number(result?.data?.[0]?.count ?? 0);
+}
+
+async function fieldType(collection, fieldName) {
+  try {
+    const result = await request(`/fields/${collection}/${fieldName}`);
+    return result?.data?.type || null;
+  } catch {
+    return null;
+  }
+}
+
+async function resetEmptyPageSectionsIfNeeded() {
+  if (!(await exists("/collections/page_sections"))) return;
+  const count = await collectionCount("page_sections");
+  const pageType = await fieldType("page_sections", "page");
+  if (count === 0 && pageType && pageType !== "integer") {
+    await request("/collections/page_sections", { method: "DELETE" });
+    console.log("recreated empty page_sections collection with integer page references");
+  }
+}
+
 async function ensureField(collection, definition) {
   if (await exists(`/fields/${collection}/${definition.field}`)) return;
   await request(`/fields/${collection}`, {
@@ -267,6 +309,8 @@ async function upsertByFilter(collection, filter, payload) {
 }
 
 async function main() {
+  await resetEmptyPageSectionsIfNeeded();
+
   for (const collection of collections) await ensureCollection(collection);
   for (const [collection, definitions] of Object.entries(fields)) {
     for (const definition of definitions) await ensureField(collection, definition);
@@ -274,8 +318,11 @@ async function main() {
 
   await upsertByFilter("tenants", { slug: { _eq: TENANT_ID } }, tenant);
 
+  const pageIds = new Map();
+
   for (const [index, [path, page_type, seo_title, description, priority, change_frequency, service_type]] of pages.entries()) {
-    await upsertByFilter(
+    const seed = pageContent[path] || {};
+    const pageId = await upsertByFilter(
       "site_pages",
       { tenant: { _eq: TENANT_ID }, path: { _eq: path } },
       {
@@ -283,9 +330,9 @@ async function main() {
         path,
         status: "published",
         page_type,
-        eyebrow: service_type ? "Estate planning services" : tenant.name,
-        title: path === "/" ? tenant.name : seo_title.replace(/\s\|\sPathway.*$/, ""),
-        subtitle: description,
+        eyebrow: seed.eyebrow ?? (service_type ? "Estate planning services" : tenant.name),
+        title: seed.title ?? (path === "/" ? tenant.name : seo_title.replace(/\s\|\sPathway.*$/, "")),
+        subtitle: seed.subtitle ?? description,
         description,
         hero_alt: "Warm garden path leading to a welcoming front door",
         canonical_path: path,
@@ -294,9 +341,13 @@ async function main() {
         change_frequency,
         service_type: service_type || null,
         sort: (index + 1) * 10,
-        show_hero_actions: true,
+        show_hero_actions: seed.showHeroActions ?? true,
+        intro: seed.intro ?? [],
+        ai_summary: seed.aiSummary ?? null,
+        cta: seed.cta ?? null,
       },
     );
+    pageIds.set(path, pageId);
   }
 
   for (const [menu, href, label, body, sort] of navigation) {
@@ -305,6 +356,33 @@ async function main() {
       { tenant: { _eq: TENANT_ID }, menu: { _eq: menu }, href: { _eq: href } },
       { tenant: TENANT_ID, menu, href, label, body, sort },
     );
+  }
+
+  for (const [path, seed] of Object.entries(pageContent)) {
+    const pageId = pageIds.get(path);
+    if (!pageId || !Array.isArray(seed.blocks)) continue;
+    for (const [index, section] of seed.blocks.entries()) {
+      const { columns, ...rest } = section;
+      const sort = (index + 1) * 10;
+      await upsertByFilter(
+        "page_sections",
+        { tenant: { _eq: TENANT_ID }, page: { _eq: pageId }, sort: { _eq: sort } },
+        {
+          tenant: TENANT_ID,
+          page: pageId,
+          sort,
+          section_type: rest.variant || "plain",
+          eyebrow: rest.eyebrow ?? null,
+          heading: rest.heading ?? null,
+          body: null,
+          paragraphs: rest.paragraphs ?? [],
+          items: rest.items ?? [],
+          cards: rest.cards ?? null,
+          payload: columns ? { columns } : null,
+          variant: rest.variant ?? "plain",
+        },
+      );
+    }
   }
 
   console.log(`Directus CMS bootstrap complete for tenant ${TENANT_ID}`);

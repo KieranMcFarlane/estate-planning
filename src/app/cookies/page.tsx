@@ -8,6 +8,7 @@ export default function CookiesPage() {
       subtitle="A simple note about cookies and similar technologies."
       heroImage="/generated/clear-path-hero.jpg"
       heroAlt="Warm garden path leading to a welcoming front door"
+      canonicalPath="/cookies"
       intro={[
         "Cookies are small files that websites can use to remember information or understand how a site is being used.",
         "This website is designed to be simple and informational. If analytics or similar tools are used, they should help us improve the experience rather than identify you unnecessarily.",

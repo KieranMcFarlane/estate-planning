@@ -8,6 +8,7 @@ export default function PrivacyPage() {
       subtitle="How Pathway Estate Planning handles personal information."
       heroImage="/generated/clear-path-hero.jpg"
       heroAlt="Warm garden path leading to a welcoming front door"
+      canonicalPath="/privacy"
       intro={[
         "We only ask for personal information when it helps us respond to your enquiry, provide estate planning services, or meet our professional obligations.",
         "This page gives a plain-English overview of how we treat your details with care.",

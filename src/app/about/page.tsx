@@ -8,6 +8,7 @@ export default function AboutPage() {
       subtitle="Trusted support for families across Royal Leamington Spa, Warwickshire and the Midlands."
       heroImage="/leamington_location.jpg"
       heroAlt="Green gardens and historic Royal Leamington Spa architecture"
+      canonicalPath="/about"
       intro={[
         "Pathway Estate Planning helps individuals and families put clear, practical plans in place for the people and assets they care about most.",
         "Our work is built around careful listening, plain-English guidance and a process that feels manageable from the first conversation to the final document.",

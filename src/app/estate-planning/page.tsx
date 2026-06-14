@@ -8,6 +8,7 @@ export default function EstatePlanningPage() {
       subtitle="Protect your wishes, support your loved ones, and feel prepared."
       heroImage="/generated/clear-path-hero.jpg"
       heroAlt="Warm garden path leading to a welcoming front door"
+      canonicalPath="/estate-planning"
       intro={[
         "Many people delay estate planning because it feels daunting, or because they are not sure where to start.",
         "But putting the right plan in place can make a world of difference, for you and for the people you care about.",

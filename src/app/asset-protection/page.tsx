@@ -8,6 +8,7 @@ export default function AssetProtectionPage() {
       subtitle="A thoughtful way to protect your estate and your family's future."
       heroImage="/generated/estate-consultation-hero.jpg"
       heroAlt="Estate planning adviser talking through documents"
+      canonicalPath="/asset-protection"
       intro={[
         "Asset protection planning is about ensuring your estate goes where you want it to, and helping reduce the chance of it being lost through avoidable risks, delays or poor planning.",
         "Gifting can also play a role in estate planning, but it needs to be handled carefully and with the right advice.",

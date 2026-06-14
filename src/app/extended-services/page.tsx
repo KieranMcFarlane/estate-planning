@@ -8,6 +8,7 @@ export default function ExtendedServicesPage() {
       subtitle="Practical support beyond estate planning, brought in carefully when you need it."
       heroImage="/generated/leamington-office.jpg"
       heroAlt="Professional consultation space for estate planning support"
+      canonicalPath="/extended-services"
       intro={[
         "Estate planning can involve more than legal documents, especially when property, finances, or probate come into the picture.",
         "That is why we work alongside trusted, regulated professionals so clients can access extra support in one place.",

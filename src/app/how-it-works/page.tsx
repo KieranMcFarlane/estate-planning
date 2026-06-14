@@ -8,6 +8,7 @@ export default function HowItWorksPage() {
       subtitle="A clear, calm process paced around your needs."
       heroImage="/generated/clear-path-hero.jpg"
       heroAlt="Warm garden path leading to a welcoming front door"
+      canonicalPath="/how-it-works"
       intro={[
         "Estate planning can feel like a big subject, so we break it into simple, manageable steps.",
         "Every family is different. We listen first, explain your options clearly, and help you move forward without pressure or jargon.",

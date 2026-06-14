@@ -8,6 +8,7 @@ export default function HelpfulInfoPage() {
       subtitle="A simple way to see whether the important pieces are in place."
       heroImage="/pathway-source/mission-compass.jpg"
       heroAlt="Compass representing clear direction"
+      canonicalPath="/helpful-info"
       intro={[
         "Estate planning is not just one document. It is a set of important pieces that work together.",
         "Use this checklist to understand whether anything may be missing, and where a conversation could help.",

@@ -24,6 +24,7 @@ export default function FAQPage() {
       subtitle="Clear answers to the questions families often ask first."
       heroImage="/generated/clear-path-hero.jpg"
       heroAlt="Warm garden path leading to a welcoming front door"
+      canonicalPath="/faq"
       intro={[
         "Estate planning can feel full of unfamiliar words and decisions, but most questions have straightforward answers once they are explained properly.",
         "Here are some of the things families often ask us about Wills, Trusts, Probate, LPAs and tax planning.",
