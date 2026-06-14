@@ -29,8 +29,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import type { CmsContentBlock, CmsPage } from "../cms/types";
 
-const services = [
+const defaultServices = [
   { icon: FileText, title: "Wills", href: "/wills", body: "Make sure your wishes are clearly recorded and legally sound.", image: "/generated/service-wills.png" },
   { icon: Shield, title: "Trusts", href: "/trusts", body: "Protect assets for children, vulnerable family, or future generations." },
   { icon: Users, title: "Lasting Powers of Attorney", href: "/lpa", body: "Choose who makes decisions for you if you ever can't." },
@@ -40,7 +41,7 @@ const services = [
   { icon: Tractor, title: "Agricultural Estate Planning", href: "/agricultural-land", body: "Pass land and farming assets to the next generation, properly.", image: "/generated/service-agricultural-land.png" },
 ];
 
-const testimonials = [
+const defaultTestimonials = [
   {
     theme: "Confusion",
     problem: "We had put everything off because the paperwork felt too big and too legal.",
@@ -91,7 +92,7 @@ const testimonials = [
   },
 ];
 
-const faqs = [
+const defaultFaqs = [
   {
     q: "Do I really need a will if I'm married?",
     a: "Yes. A common misconception is that everything passes to your spouse automatically. In England and Wales, the intestacy rules can divide your estate in ways that surprise families. A simple will makes your wishes clear.",
@@ -118,6 +119,44 @@ const faqs = [
   },
 ];
 
+type PathwaysExportHomeProps = {
+  page?: CmsPage | null;
+};
+
+type HomeTestimonial = (typeof defaultTestimonials)[number];
+type HomeFaq = (typeof defaultFaqs)[number];
+
+const serviceMeta = new Map(defaultServices.map((service) => [service.title, service]));
+
+function textOr(value: string | undefined, fallback: string) {
+  return value && value.trim() ? value : fallback;
+}
+
+function blockFor(page: CmsPage | null | undefined, key: string) {
+  const normalized = key.toLowerCase();
+  return page?.blocks.find((block) => {
+    const heading = block.heading?.toLowerCase() ?? "";
+    const eyebrow = block.eyebrow?.toLowerCase() ?? "";
+    return heading.includes(normalized) || eyebrow.includes(normalized);
+  });
+}
+
+function cardsOr<T extends { title: string; body: string }>(block: CmsContentBlock | undefined, fallback: T[]) {
+  return block?.cards?.length ? block.cards : fallback;
+}
+
+function itemsOr(block: CmsContentBlock | undefined, fallback: string[]) {
+  return block?.items?.length ? block.items : fallback;
+}
+
+function paragraphsOr(block: CmsContentBlock | undefined, fallback: string[]) {
+  return block?.paragraphs?.length ? block.paragraphs : fallback;
+}
+
+function paragraphAt(block: CmsContentBlock | undefined, index: number, fallback: string[]) {
+  return paragraphsOr(block, fallback)[index] ?? fallback[index] ?? "";
+}
+
 function semanticId(prefix: string, value: string) {
   return `${prefix}-${value
     .toLowerCase()
@@ -126,13 +165,23 @@ function semanticId(prefix: string, value: string) {
     .replace(/^-+|-+$/g, "")}`;
 }
 
-function Hero({ onBook }: { onBook: () => void }) {
+function Hero({ onBook, page }: { onBook: () => void; page?: CmsPage | null }) {
+  const title = textOr(page?.title, "Estate planning that feels calm, clear, and human.");
+  const subtitle = textOr(
+    page?.subtitle,
+    "Wills, trusts, lasting powers of attorney and later-life planning - explained simply and shaped around your family in Royal Leamington Spa and across Warwickshire.",
+  );
+  const serviceLine = page?.intro?.[0] ?? "Wills | Trusts | LPAs | Inheritance tax planning";
+  const assurance = page?.intro?.[1] ?? "No obligation. No jargon. Home visits available across Warwickshire.";
+  const heroImage = page?.heroImage ?? "/generated/clear-path-hero.jpg";
+  const heroAlt = page?.heroAlt ?? "Warm garden path leading to a welcoming front door";
+  const titleParts = title.match(/^(.*?)(calm, clear, and human\.?)$/i);
   return (
     <section className="hero">
       <div className="container hero__copy">
-        <h1>Estate planning that feels <em>calm, clear, and human.</em></h1>
-        <p className="hero__sub">Wills, trusts, lasting powers of attorney and later-life planning - explained simply and shaped around your family in Royal Leamington Spa and across Warwickshire.</p>
-        <p className="hero__services">Wills | Trusts | LPAs | Inheritance tax planning</p>
+        <h1>{titleParts ? <>{titleParts[1]}<em>{titleParts[2]}</em></> : title}</h1>
+        <p className="hero__sub">{subtitle}</p>
+        <p className="hero__services">{serviceLine}</p>
         <div className="hero__ctas">
           <button className="btn btn--primary btn--lg" onClick={onBook}>
             <Calendar className="btn__icon" /> Start with an initial chat
@@ -143,23 +192,28 @@ function Hero({ onBook }: { onBook: () => void }) {
         </div>
         <div className="hero__assure">
           <Check width="18" height="18" />
-          <span>No obligation. No jargon. Home visits available across Warwickshire.</span>
+          <span>{assurance}</span>
         </div>
       </div>
       <div className="hero__visual">
-        <Image src="/generated/clear-path-hero.jpg" alt="Warm garden path leading to a welcoming front door" fill sizes="100vw" priority />
+        <Image src={heroImage} alt={heroAlt} fill sizes="100vw" priority />
       </div>
     </section>
   );
 }
 
-function TrustBar() {
-  const items = [
+function TrustBar({ block }: { block?: CmsContentBlock }) {
+  const fallbackItems = [
     { icon: Shield, text: "Over 15 years of experience" },
     { icon: Award, text: "Fully qualified and insured" },
     { icon: MapPin, text: "Local to Royal Leamington Spa" },
     { icon: Home, text: "Home visits available" },
   ];
+  const icons = [Shield, Award, MapPin, Home];
+  const items = itemsOr(block, fallbackItems.map((item) => item.text)).map((item, index) => ({
+    icon: icons[index] ?? Shield,
+    text: item,
+  }));
   return (
     <div className="trustbar">
       <div className="trustbar__inner">
@@ -174,46 +228,58 @@ function TrustBar() {
   );
 }
 
-function ProblemSection() {
-  const problems = [
+function ProblemSection({ block }: { block?: CmsContentBlock }) {
+  const fallbackProblems = [
     "Long delays before family can access money or property",
     "Decisions made by courts rather than by you",
     "Tax planning opportunities that could have reduced unnecessary exposure",
     "Disputes between relatives about what you would have wanted",
     "Care costs that quietly erode everything you've built",
   ];
+  const paragraphs = paragraphsOr(block, [
+    "When nothing is in place, the people you love are the ones who deal with the consequences - often at the hardest possible time.",
+    "Without clear planning, families can face:",
+    "A clear plan, made in advance, protects the people you care about from all of it.",
+  ]);
+  const problems = itemsOr(block, fallbackProblems);
   return (
     <section className="problem-section" id="cost-of-doing-nothing">
       <div className="container">
         <div className="problem">
-          <h4>The cost of doing nothing</h4>
-          <h2>Without a plan, your family is left to guess.</h2>
-          <p className="problem__lede">When nothing is in place, the people you love are the ones who deal with the consequences - often at the hardest possible time.</p>
-          <p className="problem__intro">Without clear planning, families can face:</p>
+          <h4>{block?.eyebrow ?? "The cost of doing nothing"}</h4>
+          <h2>{block?.heading ?? "Without a plan, your family is left to guess."}</h2>
+          <p className="problem__lede">{paragraphs[0]}</p>
+          <p className="problem__intro">{paragraphs[1]}</p>
           <ul className="problem__list">
             {problems.map((problem) => (
               <li id={semanticId("problem", problem)} data-semantic-id={semanticId("problem", problem)} key={problem}><span className="check"><Check width="12" height="12" /></span><span>{problem}</span></li>
             ))}
           </ul>
-          <p className="problem__close">A clear plan, made in advance, protects the people you care about from all of it.</p>
+          <p className="problem__close">{paragraphs[2]}</p>
         </div>
       </div>
     </section>
   );
 }
 
-function WhySection() {
-  const items = [
+function WhySection({ block }: { block?: CmsContentBlock }) {
+  const fallbackItems = [
     { icon: Users, title: "Genuinely personal", body: "You'll deal with the same person from your first chat to the final document. No call centres, no handovers." },
     { icon: Shield, title: "Proficiently experienced", body: "Over 15 years helping families across Warwickshire - from straightforward wills to complex estates." },
     { icon: MessageCircle, title: "Always clear", body: "We won't bury you in legal terms or surprise you with costs. If something isn't right for you, we'll say so." },
   ];
+  const icons = [Users, Shield, MessageCircle];
+  const items = cardsOr(block, fallbackItems).map((item, index) => ({
+    icon: icons[index] ?? Users,
+    title: item.title,
+    body: item.body,
+  }));
   return (
     <section className="why-section section--cream" id="why-families-choose-us">
       <div className="container">
         <div className="why__head">
-          <h4>Why families choose us</h4>
-          <h2>The reassurance of one person, start to finish.</h2>
+          <h4>{block?.eyebrow ?? "Why families choose us"}</h4>
+          <h2>{block?.heading ?? "The reassurance of one person, start to finish."}</h2>
         </div>
         <div className="why__grid">
           {items.map(({ icon: Icon, title, body }) => (
@@ -229,10 +295,10 @@ function WhySection() {
   );
 }
 
-function Process() {
+function Process({ block }: { block?: CmsContentBlock }) {
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
-  const steps = [
+  const fallbackSteps = [
     { icon: MessageCircle, title: "An initial chat", body: "We talk through your situation. No pressure, no commitment, no jargon." },
     {
       icon: FileText,
@@ -242,6 +308,13 @@ function Process() {
     { icon: Pencil, title: "Drafting and signing", body: "We prepare your documents in plain English and guide you through signing." },
     { icon: Heart, title: "Ongoing support", body: "Life changes. We're here when something needs updating or you just want to talk." },
   ];
+  const icons = [MessageCircle, FileText, Pencil, Heart];
+  const steps = cardsOr(block, fallbackSteps).map((step, index) => ({
+    icon: icons[index] ?? MessageCircle,
+    title: step.title,
+    body: step.body,
+  }));
+  const intro = paragraphsOr(block, ["The same calm, unhurried process whether you're writing a first will or planning across generations."])[0];
 
   useEffect(() => {
     if (!ref.current) return;
@@ -259,9 +332,9 @@ function Process() {
     <section className={`process ${inView ? "in-view" : ""}`} id="process" ref={ref}>
       <div className="container">
         <div className="process__head">
-          <h4 style={{ marginBottom: 12 }}>How it works</h4>
-          <h2>Four simple steps.</h2>
-          <p>The same calm, unhurried process whether you&apos;re writing a first will or planning across generations.</p>
+          <h4 style={{ marginBottom: 12 }}>{block?.eyebrow ?? "How it works"}</h4>
+          <h2>{block?.heading ?? "Four simple steps."}</h2>
+          <p>{intro}</p>
         </div>
         <div className="process__grid">
           {steps.map(({ icon: Icon, title, body }, index) => (
@@ -280,14 +353,25 @@ function Process() {
   );
 }
 
-function Services() {
+function Services({ block }: { block?: CmsContentBlock }) {
+  const cmsServices = cardsOr(block, defaultServices);
+  const services = cmsServices.map((service) => {
+    const meta = serviceMeta.get(service.title);
+    return {
+      icon: meta?.icon ?? FileText,
+      href: meta?.href ?? "#contact",
+      image: meta?.image,
+      title: service.title,
+      body: service.body,
+    };
+  });
   return (
     <section id="services">
       <div className="container">
         <div className="services__head">
-          <h4 style={{ marginBottom: 12 }}>What we help with</h4>
-          <h2>Your own estate planning specialist, dedicated to your case.</h2>
-          <p>Each service is offered on its own or as part of a plan that ties them together.</p>
+          <h4 style={{ marginBottom: 12 }}>{block?.eyebrow ?? "What we help with"}</h4>
+          <h2>{block?.heading ?? "Your own estate planning specialist, dedicated to your case."}</h2>
+          <p>{paragraphsOr(block, ["Each service is offered on its own or as part of a plan that ties them together."])[0]}</p>
         </div>
         <div className="services__grid">
           {services.map(({ icon: Icon, title, body, href, image }) => (
@@ -309,14 +393,29 @@ function Services() {
   );
 }
 
-function Testimonials() {
+function Testimonials({ block }: { block?: CmsContentBlock }) {
+  const source = block?.cards?.length
+    ? block.cards.map((card): HomeTestimonial => {
+        const [problem, solution, result] = card.items ?? [];
+        const [name = card.body, town = ""] = card.body.split(",").map((item) => item.trim());
+        return {
+          theme: card.title,
+          problem: problem ?? "",
+          solution: solution ?? "",
+          result: result ?? "",
+          name,
+          town,
+        };
+      })
+    : defaultTestimonials;
+  const testimonials = source.filter((testimonial) => testimonial.problem && testimonial.solution && testimonial.result);
   const loop = [...testimonials, ...testimonials];
   return (
     <section id="reviews">
       <div className="container">
         <div className="testimonials__head">
-          <h4 style={{ marginBottom: 12 }}>What our clients say</h4>
-          <h2>Quiet confidence, in their own words.</h2>
+          <h4 style={{ marginBottom: 12 }}>{block?.eyebrow ?? "What our clients say"}</h4>
+          <h2>{block?.heading ?? "Quiet confidence, in their own words."}</h2>
         </div>
       </div>
       <div className="testimonials__viewport" tabIndex={0} aria-label="Client testimonials carousel - hover to pause">
@@ -341,17 +440,21 @@ function Testimonials() {
   );
 }
 
-function LocalTrust() {
-  const towns = ["Royal Leamington Spa", "Warwick", "Kenilworth", "Stratford-upon-Avon", "Southam", "Rugby"];
+function LocalTrust({ block }: { block?: CmsContentBlock }) {
+  const towns = itemsOr(block, ["Royal Leamington Spa", "Warwick", "Kenilworth", "Stratford-upon-Avon", "Southam", "Rugby"]);
+  const paragraphs = paragraphsOr(block, [
+    "We meet at our office, in clients' homes, or wherever feels most comfortable. Many families prefer a kitchen-table conversation to a formal meeting room.",
+    "If travel or mobility is an issue, we'll come to you.",
+  ]);
   return (
     <section id="where-we-work">
       <div className="container">
         <div className="local">
           <div className="local__copy">
-            <h4 style={{ marginBottom: 16 }}>Where we work</h4>
-            <h2>Based in Royal Leamington Spa.<br />Visiting families across Warwickshire.</h2>
-            <p style={{ marginTop: 20 }}>We meet at our office, in clients&apos; homes, or wherever feels most comfortable. Many families prefer a kitchen-table conversation to a formal meeting room.</p>
-            <p>If travel or mobility is an issue, we&apos;ll come to you.</p>
+            <h4 style={{ marginBottom: 16 }}>{block?.eyebrow ?? "Where we work"}</h4>
+            <h2>{block?.heading ?? "Based in Royal Leamington Spa. Visiting families across Warwickshire."}</h2>
+            <p style={{ marginTop: 20 }}>{paragraphs[0]}</p>
+            <p>{paragraphs[1]}</p>
             <div style={{ marginTop: 24, display: "flex", gap: 12, flexWrap: "wrap" }}>
               {towns.map((town) => (
                 <span key={town} style={{ fontSize: 13, padding: "8px 14px", borderRadius: 999, border: "1px solid var(--hairline)", color: "var(--stone)" }}>{town}</span>
@@ -367,13 +470,17 @@ function LocalTrust() {
   );
 }
 
-function FAQ({ onBook }: { onBook: () => void }) {
+function FAQ({ onBook, block }: { onBook: () => void; block?: CmsContentBlock }) {
+  const faqs = cardsOr(block, defaultFaqs.map((faq) => ({ title: faq.q, body: faq.a }))).map((faq): HomeFaq => ({
+    q: faq.title,
+    a: faq.body,
+  }));
   return (
     <section id="faq">
       <div className="container">
         <div className="faq__head">
-          <h4 style={{ marginBottom: 12 }}>Common questions</h4>
-          <h2>Honest answers to what families ask first.</h2>
+          <h4 style={{ marginBottom: 12 }}>{block?.eyebrow ?? "Common questions"}</h4>
+          <h2>{block?.heading ?? "Honest answers to what families ask first."}</h2>
         </div>
         <Accordion type="single" collapsible defaultValue={faqs[0].q} className="faq__list">
           {faqs.map((item) => (
@@ -403,16 +510,20 @@ function FAQ({ onBook }: { onBook: () => void }) {
   );
 }
 
-function Newsletter() {
+function Newsletter({ block }: { block?: CmsContentBlock }) {
   const [email, setEmail] = useState("");
   const [done, setDone] = useState(false);
+  const paragraphs = paragraphsOr(block, [
+    "Practical notes on wills, trusts, tax planning and care - plus occasional celebrity estate-planning stories and useful lessons.",
+    "We never share your details.",
+  ]);
   return (
     <section className="newsletter" id="newsletter">
       <div className="newsletter__inner">
         <div>
-          <h4 style={{ marginBottom: 12 }}>Stay in touch</h4>
-          <h2>Plain-English guides, <em style={{ fontFamily: "var(--serif)", fontStyle: "italic", color: "var(--sage)" }}>with a lighter touch.</em></h2>
-          <p style={{ marginTop: 12, maxWidth: "42ch" }}>Practical notes on wills, trusts, tax planning and care - plus occasional celebrity estate-planning stories and useful lessons.</p>
+          <h4 style={{ marginBottom: 12 }}>{block?.eyebrow ?? "Stay in touch"}</h4>
+          <h2>{block?.heading ?? "Plain-English guides,"} <em style={{ fontFamily: "var(--serif)", fontStyle: "italic", color: "var(--sage)" }}>with a lighter touch.</em></h2>
+          <p style={{ marginTop: 12, maxWidth: "42ch" }}>{paragraphs[0]}</p>
         </div>
         <form className="newsletter__form-wrap" onSubmit={(event) => { event.preventDefault(); setDone(true); }}>
           {done ? (
@@ -423,7 +534,7 @@ function Newsletter() {
                 <input type="email" required placeholder="Your email address" value={email} onChange={(event) => setEmail(event.target.value)} aria-label="Email address" />
                 <button type="submit" className="btn btn--primary">Sign up</button>
               </div>
-              <p className="newsletter__note">We never share your details.</p>
+              <p className="newsletter__note">{paragraphs[1]}</p>
             </>
           )}
         </form>
@@ -432,18 +543,23 @@ function Newsletter() {
   );
 }
 
-function FinalCTA({ onBook }: { onBook: () => void }) {
+function FinalCTA({ onBook, block }: { onBook: () => void; block?: CmsContentBlock }) {
+  const fallbackParagraphs = [
+    "Most people leave their first conversation feeling lighter - clearer about what they need, and reassured that it's more straightforward than they expected.",
+    "Happy to talk things through on the phone first - Mon-Fri, 9-5.",
+  ];
+
   return (
     <section className="finalcta" id="contact">
       <div className="container">
-        <h4 style={{ color: "var(--sage)", marginBottom: 18 }}>Take the first step</h4>
-        <h2>Start with an initial, no-obligation chat.</h2>
-        <p>Most people leave their first conversation feeling lighter - clearer about what they need, and reassured that it&apos;s more straightforward than they expected.</p>
+        <h4 style={{ color: "var(--sage)", marginBottom: 18 }}>{block?.eyebrow ?? "Take the first step"}</h4>
+        <h2>{block?.heading ?? "Start with an initial, no-obligation chat."}</h2>
+        <p>{paragraphAt(block, 0, fallbackParagraphs)}</p>
         <div className="finalcta__ctas">
           <button className="btn btn--primary btn--lg" onClick={onBook}><Calendar className="btn__icon" /> Book your initial chat</button>
           <a className="btn btn--ghost btn--lg" href="tel:07902863999"><Phone className="btn__icon" /> Call 07902 863999</a>
         </div>
-        <p className="finalcta__phone">Happy to talk things through on the phone first - Mon-Fri, 9-5.</p>
+        <p className="finalcta__phone">{paragraphAt(block, 1, fallbackParagraphs)}</p>
       </div>
     </section>
   );
@@ -520,9 +636,20 @@ function BookingModal({ open, onClose }: { open: boolean; onClose: () => void })
   );
 }
 
-export default function PathwaysExportHome() {
+export default function PathwaysExportHome({ page }: PathwaysExportHomeProps) {
   const [bookOpen, setBookOpen] = useState(false);
   const onBook = () => setBookOpen(true);
+  const trustBlock = blockFor(page, "trust badges");
+  const problemBlock = blockFor(page, "without a plan") ?? blockFor(page, "cost of doing nothing");
+  const whyBlock = blockFor(page, "reassurance") ?? blockFor(page, "why families");
+  const processBlock = blockFor(page, "four simple") ?? blockFor(page, "how it works");
+  const servicesBlock = blockFor(page, "estate planning specialist") ?? blockFor(page, "what we help");
+  const softCtaBlock = blockFor(page, "not sure what you need");
+  const testimonialsBlock = blockFor(page, "quiet confidence") ?? blockFor(page, "clients say");
+  const localBlock = blockFor(page, "based in royal") ?? blockFor(page, "where we work");
+  const faqBlock = blockFor(page, "honest answers") ?? blockFor(page, "common questions");
+  const newsletterBlock = blockFor(page, "plain-english guides") ?? blockFor(page, "stay in touch");
+  const finalCtaBlock = blockFor(page, "initial, no-obligation") ?? blockFor(page, "take the first step");
 
   return (
     <>
@@ -530,22 +657,27 @@ export default function PathwaysExportHome() {
       <link rel="stylesheet" href="/pathways-export/styles.css" />
       <a href="#main" className="sr-only">Skip to content</a>
       <main id="main">
-        <Hero onBook={onBook} />
-        <TrustBar />
-        <ProblemSection />
-        <WhySection />
-        <Process />
-        <Services />
+        <Hero onBook={onBook} page={page} />
+        <TrustBar block={trustBlock} />
+        <ProblemSection block={problemBlock} />
+        <WhySection block={whyBlock} />
+        <Process block={processBlock} />
+        <Services block={servicesBlock} />
         <div className="softcta">
           <div className="container">
-            <p>Not sure what you need?<a href="#contact" onClick={(event) => { event.preventDefault(); onBook(); }}>Start with an initial chat. <ArrowRight width="14" height="14" /></a></p>
+            <p>
+              {softCtaBlock?.heading ?? "Not sure what you need?"}
+              <a href="#contact" onClick={(event) => { event.preventDefault(); onBook(); }}>
+                {paragraphAt(softCtaBlock, 0, ["Start with an initial chat."])} <ArrowRight width="14" height="14" />
+              </a>
+            </p>
           </div>
         </div>
-        <Testimonials />
-        <LocalTrust />
-        <FAQ onBook={onBook} />
-        <Newsletter />
-        <FinalCTA onBook={onBook} />
+        <Testimonials block={testimonialsBlock} />
+        <LocalTrust block={localBlock} />
+        <FAQ onBook={onBook} block={faqBlock} />
+        <Newsletter block={newsletterBlock} />
+        <FinalCTA onBook={onBook} block={finalCtaBlock} />
       </main>
       <BookingModal open={bookOpen} onClose={() => setBookOpen(false)} />
     </>

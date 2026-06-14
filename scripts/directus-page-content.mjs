@@ -1,4 +1,203 @@
 export const pageContent = {
+  "/": {
+    eyebrow: "Estate planning services",
+    title: "Estate planning that feels calm, clear, and human.",
+    subtitle:
+      "Wills, trusts, lasting powers of attorney and later-life planning - explained simply and shaped around your family in Royal Leamington Spa and across Warwickshire.",
+    intro: [
+      "Wills | Trusts | LPAs | Inheritance tax planning",
+      "No obligation. No jargon. Home visits available across Warwickshire.",
+    ],
+    blocks: [
+      {
+        eyebrow: "Trust badges",
+        heading: "Trust badges",
+        items: [
+          "Over 15 years of experience",
+          "Fully qualified and insured",
+          "Local to Royal Leamington Spa",
+          "Home visits available",
+        ],
+      },
+      {
+        eyebrow: "The cost of doing nothing",
+        heading: "Without a plan, your family is left to guess.",
+        paragraphs: [
+          "When nothing is in place, the people you love are the ones who deal with the consequences - often at the hardest possible time.",
+          "Without clear planning, families can face:",
+          "A clear plan, made in advance, protects the people you care about from all of it.",
+        ],
+        items: [
+          "Long delays before family can access money or property",
+          "Decisions made by courts rather than by you",
+          "Tax planning opportunities that could have reduced unnecessary exposure",
+          "Disputes between relatives about what you would have wanted",
+          "Care costs that quietly erode everything you've built",
+        ],
+      },
+      {
+        eyebrow: "Why families choose us",
+        heading: "The reassurance of one person, start to finish.",
+        variant: "grid",
+        cards: [
+          { title: "Genuinely personal", body: "You'll deal with the same person from your first chat to the final document. No call centres, no handovers." },
+          { title: "Proficiently experienced", body: "Over 15 years helping families across Warwickshire - from straightforward wills to complex estates." },
+          { title: "Always clear", body: "We won't bury you in legal terms or surprise you with costs. If something isn't right for you, we'll say so." },
+        ],
+      },
+      {
+        eyebrow: "How it works",
+        heading: "Four simple steps.",
+        variant: "grid",
+        columns: 4,
+        paragraphs: ["The same calm, unhurried process whether you're writing a first will or planning across generations."],
+        cards: [
+          { title: "An initial chat", body: "We talk through your situation. No pressure, no commitment, no jargon." },
+          { title: "Your tailored plan", body: "We explain our advice in an invaluable comprehensive estate planning report precisely tailored to you and your circumstances." },
+          { title: "Drafting and signing", body: "We prepare your documents in plain English and guide you through signing." },
+          { title: "Ongoing support", body: "Life changes. We're here when something needs updating or you just want to talk." },
+        ],
+      },
+      {
+        eyebrow: "What we help with",
+        heading: "Your own estate planning specialist, dedicated to your case.",
+        variant: "grid",
+        paragraphs: ["Each service is offered on its own or as part of a plan that ties them together."],
+        cards: [
+          { title: "Wills", body: "Make sure your wishes are clearly recorded and legally sound." },
+          { title: "Trusts", body: "Protect assets for children, vulnerable family, or future generations." },
+          { title: "Lasting Powers of Attorney", body: "Choose who makes decisions for you if you ever can't." },
+          { title: "Inheritance Tax Planning", body: "Support with mitigating tax and leaving more to the people you love." },
+          { title: "Care Planning", body: "Plan ahead, honestly, so you and your family understand your options." },
+          { title: "Business Protection", body: "Keep your business in safe hands, whatever happens." },
+          { title: "Agricultural Estate Planning", body: "Pass land and farming assets to the next generation, properly." },
+        ],
+      },
+      {
+        heading: "Not sure what you need?",
+        paragraphs: ["Start with an initial chat."],
+      },
+      {
+        eyebrow: "What our clients say",
+        heading: "Quiet confidence, in their own words.",
+        cards: [
+          {
+            title: "Confusion",
+            body: "Margaret, Royal Leamington Spa",
+            items: [
+              "We had put everything off because the paperwork felt too big and too legal.",
+              "Pathway Estate Planning broke it into plain-English decisions and kept us moving calmly.",
+              "We finally know our wishes are recorded properly, and the family knows where it stands.",
+            ],
+          },
+          {
+            title: "Trust",
+            body: "David, Warwick",
+            items: [
+              "We were worried we would be rushed into documents we did not understand.",
+              "Every option was explained, priced clearly, and checked against what we actually needed.",
+              "We signed with confidence and no surprises, knowing the plan fits our family.",
+            ],
+          },
+          {
+            title: "Family stress",
+            body: "The Hollis family, Stratford-upon-Avon",
+            items: [
+              "A difficult family situation had made estate planning feel emotionally heavy.",
+              "The conversation was handled gently, with each concern turned into a practical next step.",
+              "The pressure lifted, and everyone had a clearer view of what would happen next.",
+            ],
+          },
+          {
+            title: "Cost",
+            body: "Patrick, Kenilworth",
+            items: [
+              "We expected estate planning to be expensive and were unsure what was essential.",
+              "Pathway Estate Planning separated what mattered now from what could wait, with clear costs before work began.",
+              "We spent less than expected and came away with exactly the protection we needed.",
+            ],
+          },
+          {
+            title: "Care fees",
+            body: "Sarah & Tom, Southam",
+            items: [
+              "Care fee advice online left us confused and worried about making the wrong move.",
+              "They cut through the noise and explained the legitimate options in straightforward terms.",
+              "We stopped guessing and made a measured plan for later-life decisions.",
+            ],
+          },
+          {
+            title: "Complexity",
+            body: "The Whitmore family, Warwickshire",
+            items: [
+              "A blended family and farming assets made our estate feel too complicated to tackle.",
+              "Pathway Estate Planning mapped each risk, explained the choices, and joined the plan together.",
+              "The farm, the family, and the future now feel properly accounted for.",
+            ],
+          },
+        ],
+      },
+      {
+        eyebrow: "Where we work",
+        heading: "Based in Royal Leamington Spa. Visiting families across Warwickshire.",
+        paragraphs: [
+          "We meet at our office, in clients' homes, or wherever feels most comfortable. Many families prefer a kitchen-table conversation to a formal meeting room.",
+          "If travel or mobility is an issue, we'll come to you.",
+        ],
+        items: ["Royal Leamington Spa", "Warwick", "Kenilworth", "Stratford-upon-Avon", "Southam", "Rugby"],
+      },
+      {
+        eyebrow: "Common questions",
+        heading: "Honest answers to what families ask first.",
+        cards: [
+          {
+            title: "Do I really need a will if I'm married?",
+            body: "Yes. A common misconception is that everything passes to your spouse automatically. In England and Wales, the intestacy rules can divide your estate in ways that surprise families. A simple will makes your wishes clear.",
+          },
+          {
+            title: "How much does estate planning cost?",
+            body: "We agree clear costs with you before any work begins. More involved planning is scoped after an initial, no-obligation conversation.",
+          },
+          {
+            title: "What's the difference between a will and a trust?",
+            body: "A will sets out your wishes when you die. A trust is a structure that holds assets to protect them for someone, manage how inheritance is passed on, or support tax planning.",
+          },
+          {
+            title: "How does care planning work?",
+            body: "We help you understand how care is paid for, what local authorities can and can't take into account, and the legitimate planning options available.",
+          },
+          {
+            title: "How long does the whole process take?",
+            body: "It depends on what you need and how complex your circumstances are. We explain the process clearly at the start and keep you updated throughout.",
+          },
+          {
+            title: "What happens at the initial chat?",
+            body: "We listen first, understand what's prompted you to think about planning, and help you leave with a clearer view of your options.",
+          },
+        ],
+      },
+      {
+        eyebrow: "Stay in touch",
+        heading: "Plain-English guides,",
+        paragraphs: [
+          "Practical notes on wills, trusts, tax planning and care - plus occasional celebrity estate-planning stories and useful lessons.",
+          "We never share your details.",
+        ],
+      },
+      {
+        eyebrow: "Take the first step",
+        heading: "Start with an initial, no-obligation chat.",
+        paragraphs: [
+          "Most people leave their first conversation feeling lighter - clearer about what they need, and reassured that it's more straightforward than they expected.",
+          "Happy to talk things through on the phone first - Mon-Fri, 9-5.",
+        ],
+      },
+    ],
+    cta: {
+      title: "Start with an initial, no-obligation chat.",
+      body: "Most people leave their first conversation feeling lighter and clearer about what they need.",
+    },
+  },
   "/wills": {
     eyebrow: "Estate planning services",
     title: "Wills",
