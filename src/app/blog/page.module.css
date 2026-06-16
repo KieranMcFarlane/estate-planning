@@ -1,0 +1,141 @@
+.page {
+  width: min(1040px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 56px 0 80px;
+}
+
+.articlePage {
+  max-width: 860px;
+}
+
+.hero {
+  display: grid;
+  gap: 16px;
+  padding: 22px 0 34px;
+}
+
+.backLink {
+  width: fit-content;
+  color: var(--color-primary, #305f4f);
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--color-primary, #305f4f);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 780px;
+  margin: 0;
+  color: var(--color-text, #1c241f);
+  font-size: clamp(2.4rem, 6vw, 4.7rem);
+  line-height: 0.98;
+  letter-spacing: 0;
+}
+
+.hero p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--color-muted, #5d675f);
+  font-size: 1.12rem;
+  line-height: 1.65;
+}
+
+.list {
+  display: grid;
+  gap: 16px;
+}
+
+.card,
+.cta {
+  border: 1px solid var(--color-border, #d8d5c8);
+  border-radius: 8px;
+  background: var(--color-surface, #fffef9);
+  padding: 24px;
+}
+
+.card time {
+  color: var(--color-muted, #5d675f);
+  font-size: 0.86rem;
+  font-weight: 750;
+}
+
+.card h2,
+.cta h2 {
+  margin: 8px 0;
+  color: var(--color-text, #1c241f);
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  letter-spacing: 0;
+}
+
+.card h2 a,
+.cta a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card p,
+.cta p {
+  max-width: 780px;
+  color: var(--color-muted, #5d675f);
+  line-height: 1.65;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tags span {
+  border: 1px solid var(--color-border, #d8d5c8);
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: var(--color-cream, #f5f0e4);
+  color: var(--color-primary, #305f4f);
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.article {
+  border-top: 1px solid var(--color-border, #d8d5c8);
+  padding: 18px 0 26px;
+}
+
+.article p {
+  color: var(--color-text, #1c241f);
+  font-size: 1.12rem;
+  line-height: 1.78;
+}
+
+.cta {
+  display: grid;
+  gap: 10px;
+}
+
+.cta a {
+  width: fit-content;
+  border-radius: 999px;
+  background: var(--color-primary, #305f4f);
+  color: #fff;
+  padding: 12px 16px;
+  font-weight: 800;
+}
+
+@media (max-width: 720px) {
+  .page {
+    padding-top: 32px;
+  }
+
+  .card,
+  .cta {
+    padding: 18px;
+  }
+}

@@ -10,6 +10,7 @@ type DirectusSchema = {
   site_pages: DirectusPage[];
   page_sections: DirectusSection[];
   navigation_items: DirectusNavigationItem[];
+  blog_posts: DirectusBlogPost[];
 };
 
 type DirectusFileRef = string | { id?: string; filename_disk?: string; title?: string; description?: string } | null | undefined;
@@ -77,6 +78,32 @@ type DirectusNavigationItem = {
   label?: string | null;
   body?: string | null;
   sort?: number | string | null;
+};
+
+type DirectusBlogPost = {
+  id: string | number;
+  tenant?: string | DirectusTenant | null;
+  status?: string | null;
+  slug?: string | null;
+  title?: string | null;
+  excerpt?: string | null;
+  body?: string | null;
+  author?: string | null;
+  tags?: string[] | string | null;
+  published_at?: string | null;
+  source?: string | null;
+};
+
+export type CmsBlogPost = {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  body: string;
+  author: string;
+  tags: string[];
+  publishedAt: string;
+  source: string;
 };
 
 const tenantId = process.env.DIRECTUS_TENANT_ID?.trim() || "estate-planning";
@@ -237,6 +264,23 @@ function mapNavigation(row: DirectusNavigationItem): CmsNavigationItem | null {
   };
 }
 
+function mapBlogPost(row: DirectusBlogPost): CmsBlogPost | null {
+  const slug = clean(row.slug);
+  const title = clean(row.title);
+  if (!slug || !title) return null;
+  return {
+    id: String(row.id),
+    slug,
+    title,
+    excerpt: clean(row.excerpt),
+    body: clean(row.body),
+    author: clean(row.author) || "Pathway Estate Planning",
+    tags: arrayFrom(row.tags),
+    publishedAt: clean(row.published_at),
+    source: clean(row.source),
+  };
+}
+
 async function readDirectusTenant() {
   const rows = await directus().request(
     readItems("tenants", {
@@ -337,6 +381,52 @@ export const getCmsPage = cache(async (path: string, fallbackOverride?: CmsPage 
     return mapPage(page, sections, fallback);
   } catch {
     return fallback;
+  }
+});
+
+export const getCmsBlogPosts = cache(async (): Promise<CmsBlogPost[]> => {
+  if (!hasDirectusConfig()) return [];
+  try {
+    const posts = await directus().request(
+      readItems("blog_posts", {
+        filter: {
+          ...tenantIdFilter(),
+          status: {
+            _eq: "published",
+          },
+        },
+        sort: ["-published_at"],
+        fields: ["*"],
+        limit: -1,
+      }),
+    );
+    return posts.map(mapBlogPost).filter((post): post is CmsBlogPost => Boolean(post));
+  } catch {
+    return [];
+  }
+});
+
+export const getCmsBlogPost = cache(async (slug: string): Promise<CmsBlogPost | null> => {
+  if (!hasDirectusConfig()) return null;
+  try {
+    const posts = await directus().request(
+      readItems("blog_posts", {
+        filter: {
+          ...tenantIdFilter(),
+          slug: {
+            _eq: slug,
+          },
+          status: {
+            _eq: "published",
+          },
+        },
+        fields: ["*"],
+        limit: 1,
+      }),
+    );
+    return mapBlogPost(posts[0]);
+  } catch {
+    return null;
   }
 });
 
