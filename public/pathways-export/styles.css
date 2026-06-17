@@ -363,7 +363,7 @@ section { padding: var(--s-7) 0; }
   .hero {
     min-height: 860px;
     padding: 80px 32px 48px;
-    align-items: flex-start;
+    align-items: center;
   }
   .hero::before {
     background:
@@ -668,6 +668,14 @@ section { padding: var(--s-7) 0; }
 .softcta a:hover { text-decoration: underline; }
 
 /* Testimonials */
+#reviews {
+  overflow-x: hidden;
+}
+
+@supports (overflow: clip) {
+  #reviews { overflow-x: clip; }
+}
+
 .testimonials__head { text-align: center; margin-bottom: 48px; }
 .testimonials__viewport {
   position: relative;
