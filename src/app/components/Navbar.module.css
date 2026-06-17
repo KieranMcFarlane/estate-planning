@@ -285,11 +285,6 @@
     text-transform: uppercase;
 }
 
-.mobileSheetLogo {
-    width: 150px;
-    height: auto;
-}
-
 .mobileSheetLinks {
     display: grid;
     gap: 0;

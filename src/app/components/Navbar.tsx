@@ -221,7 +221,6 @@ export default function Navbar({ cms }: NavbarProps) {
                     <SheetContent className={styles.mobileSheet}>
                         <SheetHeader className={styles.mobileSheetHeader}>
                             <SheetTitle className={styles.mobileSheetTitle}>Menu</SheetTitle>
-                            <Image src={logo.src} alt="" width={2680} height={880} className={styles.mobileSheetLogo} unoptimized />
                         </SheetHeader>
                         <div className={styles.mobileSheetLinks}>
                             {homeItem ? (
