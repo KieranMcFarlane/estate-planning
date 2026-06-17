@@ -266,29 +266,10 @@
     overflow-y: auto;
 }
 
-.mobileSheetHeader {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding-right: 36px;
-}
-
-.mobileSheetTitle.mobileSheetTitle {
-    margin: 0;
-    color: var(--sage, #2f4d7a);
-    font-family: var(--sans);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    line-height: 1.2;
-    text-transform: uppercase;
-}
-
 .mobileSheetLinks {
     display: grid;
     gap: 0;
-    margin-top: 22px;
+    margin-top: 42px;
 }
 
 .mobilePrimaryLink {

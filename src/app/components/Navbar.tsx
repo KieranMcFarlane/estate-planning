@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Headroom from "headroom.js";
 import Link from "next/link";
 import Image from "next/image";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
     Accordion,
     AccordionContent,
@@ -219,9 +219,6 @@ export default function Navbar({ cms }: NavbarProps) {
                         </button>
                     </SheetTrigger>
                     <SheetContent className={styles.mobileSheet}>
-                        <SheetHeader className={styles.mobileSheetHeader}>
-                            <SheetTitle className={styles.mobileSheetTitle}>Menu</SheetTitle>
-                        </SheetHeader>
                         <div className={styles.mobileSheetLinks}>
                             {homeItem ? (
                                 <Link href={homeItem.href} onClick={close} className={styles.mobilePrimaryLink}>{homeItem.label}</Link>
