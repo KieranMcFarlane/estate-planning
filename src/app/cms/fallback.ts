@@ -3,6 +3,8 @@ import type { CmsGlobalContent, CmsNavigationItem, CmsPage, CmsRoute, CmsTenant 
 
 const defaultHero = "/generated/clear-path-hero.jpg";
 const defaultHeroAlt = "Warm garden path leading to a welcoming front door";
+const homeHero = "/generated/service-wills.png";
+const homeHeroAlt = "Will writing documents on a desk";
 
 export const fallbackTenant: CmsTenant = {
   id: "estate-planning",
@@ -82,8 +84,8 @@ export function fallbackPageFromRoute(path: string): CmsPage | null {
     title: path === "/" ? SITE_NAME : route.title.replace(/\s\|\sPathway.*$/, ""),
     subtitle: route.description,
     description: route.description,
-    heroImage: defaultHero,
-    heroAlt: defaultHeroAlt,
+    heroImage: path === "/" ? homeHero : defaultHero,
+    heroAlt: path === "/" ? homeHeroAlt : defaultHeroAlt,
     intro: [],
     blocks: [],
     canonicalPath: path,

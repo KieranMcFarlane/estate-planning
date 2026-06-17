@@ -361,9 +361,9 @@ section { padding: var(--s-7) 0; }
 }
 @media (max-width: 960px) {
   .hero {
-    min-height: 860px;
+    min-height: 720px;
     padding: 80px 32px 48px;
-    align-items: center;
+    align-items: flex-start;
   }
   .hero::before {
     background:

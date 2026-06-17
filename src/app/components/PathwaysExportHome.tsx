@@ -131,6 +131,20 @@ function textOr(value: string | undefined, fallback: string) {
   return value && value.trim() ? value : fallback;
 }
 
+function singleImageSrc(value: unknown, fallback: string): string {
+  if (typeof value === "string") {
+    const [first] = value.split(",").map((item) => item.trim()).filter(Boolean);
+    return first || fallback;
+  }
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const selected: string = singleImageSrc(item, "");
+      if (selected) return selected;
+    }
+  }
+  return fallback;
+}
+
 function blockFor(page: CmsPage | null | undefined, key: string) {
   const normalized = key.toLowerCase();
   return page?.blocks.find((block) => {
@@ -173,8 +187,8 @@ function Hero({ onBook, page }: { onBook: () => void; page?: CmsPage | null }) {
   );
   const serviceLine = page?.intro?.[0] ?? "Wills | Trusts | LPAs | Inheritance tax planning";
   const assurance = page?.intro?.[1] ?? "No obligation. No jargon. Home visits available across Warwickshire.";
-  const heroImage = page?.heroImage ?? "/generated/clear-path-hero.jpg";
-  const heroAlt = page?.heroAlt ?? "Warm garden path leading to a welcoming front door";
+  const heroImage = singleImageSrc(page?.heroImage, "/generated/service-wills.png");
+  const heroAlt = page?.heroAlt ?? "Will writing documents on a desk";
   const titleParts = title.match(/^(.*?)(calm, clear, and human\.?)$/i);
   return (
     <section className="hero">
