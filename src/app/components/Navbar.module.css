@@ -264,6 +264,7 @@
     font-size: 16px;
     padding: 24px 22px 112px;
     overflow-y: auto;
+    z-index: 1300;
 }
 
 .mobileSheetLinks {
