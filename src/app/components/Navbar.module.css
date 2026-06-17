@@ -3,7 +3,7 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid transparent;
-    padding: 0;
+    padding: 0.4rem 0;
     position: fixed;
     top: 0;
     left: 0;
@@ -164,22 +164,23 @@
 }
 
 .mobileResourceLink {
-    display: block;
-    padding: 12px 8px;
+    display: grid;
+    gap: 3px;
+    padding: 12px 0;
     color: var(--ink, #1a1d1a);
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 650;
+    font-size: 15px;
+    line-height: 1.25;
     text-decoration: none;
-    border-bottom: 1px solid var(--hairline, #e5e1d8);
+    border-bottom: 1px solid rgba(47, 77, 122, 0.14);
 }
 
 .mobileResourceLink small {
     display: block;
-    margin-top: 3px;
-    color: var(--stone, #6b6e68);
-    font-size: 13px;
+    color: rgba(31, 53, 89, 0.68);
+    font-size: 12px;
     font-weight: 400;
-    line-height: 1.35;
+    line-height: 1.4;
 }
 
 .mobileResourceLink:hover {
@@ -253,12 +254,14 @@
     color: var(--ink, #1a1d1a);
 }
 
-.mobileSheet {
+.mobileSheet.mobileSheet {
     width: min(390px, calc(100vw - 34px));
     max-width: none;
     border-left: 1px solid var(--hairline, #e5e1d8);
-    background: rgba(250, 248, 244, 0.98);
+    background: rgba(250, 248, 244, 0.99);
     color: var(--ink, #1a1d1a);
+    font-family: var(--sans);
+    font-size: 16px;
     padding: 24px 22px 112px;
     overflow-y: auto;
 }
@@ -271,17 +274,19 @@
     padding-right: 36px;
 }
 
-.mobileSheetTitle {
+.mobileSheetTitle.mobileSheetTitle {
     margin: 0;
     color: var(--sage, #2f4d7a);
+    font-family: var(--sans);
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: 0.14em;
+    line-height: 1.2;
     text-transform: uppercase;
 }
 
 .mobileSheetLogo {
-    width: 170px;
+    width: 150px;
     height: auto;
 }
 
@@ -291,18 +296,73 @@
     margin-top: 22px;
 }
 
-.mobileSheetLinks > a:not(.mobileResourceLink) {
+.mobilePrimaryLink {
     display: block;
-    padding: 14px 8px;
-    border-bottom: 1px solid var(--hairline, #e5e1d8);
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(47, 77, 122, 0.16);
     color: var(--ink, #1a1d1a);
-    font-size: 17px;
+    font-family: var(--sans);
+    font-size: 16px;
     font-weight: 650;
+    line-height: 1.25;
     text-decoration: none;
 }
 
 .mobileSheetLinks a:hover {
     color: var(--sage, #2f4d7a);
+}
+
+.mobileAccordion {
+    margin-top: 14px;
+}
+
+.mobileAccordionItem {
+    border-bottom: 1px solid rgba(47, 77, 122, 0.18);
+}
+
+.mobileAccordionTrigger.mobileAccordionTrigger {
+    padding: 14px 0;
+    color: var(--ink, #1a1d1a);
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 650;
+    letter-spacing: 0;
+    line-height: 1.25;
+    text-transform: none;
+    text-decoration: none;
+}
+
+.mobileAccordionTrigger:hover {
+    color: var(--sage, #2f4d7a);
+    text-decoration: none;
+}
+
+.mobileAccordionTrigger svg {
+    width: 16px;
+    height: 16px;
+    color: rgba(31, 53, 89, 0.72);
+}
+
+.mobileAccordionContent {
+    padding: 0 0 10px;
+}
+
+.mobileNestedList {
+    display: grid;
+    padding-left: 12px;
+}
+
+.mobileNestedList .mobileResourceLink {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.mobileNestedList .mobileResourceLink small {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.4;
 }
 
 .mobileSheetActions {

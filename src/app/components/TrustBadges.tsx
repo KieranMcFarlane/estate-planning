@@ -19,8 +19,8 @@ export default function TrustBadges() {
                         <div className={styles.badgeText}>Years experience</div>
                     </div>
                     <div className={styles.badge}>
-                        <div className={styles.rating}>★★★★★</div>
-                        <div className={styles.badgeText}>5-star Google rating</div>
+                        <div className={styles.icon}>✓</div>
+                        <div className={styles.badgeText}>Client stories available</div>
                     </div>
                     <div className={styles.badge}>
                         <div className={styles.icon}>✓</div>

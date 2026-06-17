@@ -61,8 +61,8 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-dm-sans)", "sans-serif"],
-        serif: ["var(--font-instrument-serif)", "serif"],
+        sans: ["var(--font-inter)", "Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        serif: ["var(--font-source-serif-4)", "Source Serif 4", "Georgia", "serif"],
       },
       keyframes: {
         "accordion-down": {

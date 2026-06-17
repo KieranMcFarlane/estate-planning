@@ -11,8 +11,8 @@ export default function BusinessProtectionPage() {
       eyebrow="Specialist planning"
       title="Business Protection"
       subtitle="Protect your business and the people who rely on it."
-      heroImage="/generated/document-signing.jpg"
-      heroAlt="Business and estate planning documents being signed"
+      heroImage="/generated/service-business-protection.png"
+      heroAlt="Business protection planning documents on a desk"
       canonicalPath="/business-protection"
       aiSummary={{
         answer:

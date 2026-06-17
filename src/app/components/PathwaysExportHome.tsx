@@ -17,7 +17,6 @@ import {
   Phone,
   PieChart,
   Shield,
-  Star,
   Tractor,
   Users,
   ArrowRight,
@@ -32,13 +31,13 @@ import {
 import type { CmsContentBlock, CmsPage } from "../cms/types";
 
 const defaultServices = [
-  { icon: FileText, title: "Wills", href: "/wills", body: "Make sure your wishes are clearly recorded and legally sound.", image: "/generated/service-wills.png" },
+  { icon: FileText, title: "Wills", href: "/wills", body: "Make sure your wishes are clearly recorded and legally sound." },
   { icon: Shield, title: "Trusts", href: "/trusts", body: "Protect assets for children, vulnerable family, or future generations." },
   { icon: Users, title: "Lasting Powers of Attorney", href: "/lpa", body: "Choose who makes decisions for you if you ever can't." },
-  { icon: PieChart, title: "Inheritance Tax Planning", href: "/inheritance-tax-planning", body: "Support with mitigating tax and leaving more to the people you love.", image: "/generated/service-inheritance-tax.png" },
+  { icon: PieChart, title: "Inheritance Tax Planning", href: "/inheritance-tax-planning", body: "Support with mitigating tax and leaving more to the people you love." },
   { icon: Heart, title: "Care Planning", href: "/care-planning", body: "Plan ahead, honestly, so you and your family understand your options." },
-  { icon: Briefcase, title: "Business Protection", href: "/business-protection", body: "Keep your business in safe hands, whatever happens.", image: "/generated/service-business-protection.png" },
-  { icon: Tractor, title: "Agricultural Estate Planning", href: "/agricultural-land", body: "Pass land and farming assets to the next generation, properly.", image: "/generated/service-agricultural-land.png" },
+  { icon: Briefcase, title: "Business Protection", href: "/business-protection", body: "Keep your business in safe hands, whatever happens." },
+  { icon: Tractor, title: "Agricultural Estate Planning", href: "/agricultural-land", body: "Pass land and farming assets to the next generation, properly." },
 ];
 
 const defaultTestimonials = [
@@ -135,9 +134,10 @@ function textOr(value: string | undefined, fallback: string) {
 function blockFor(page: CmsPage | null | undefined, key: string) {
   const normalized = key.toLowerCase();
   return page?.blocks.find((block) => {
+    const blockKey = block.key?.toLowerCase() ?? "";
     const heading = block.heading?.toLowerCase() ?? "";
     const eyebrow = block.eyebrow?.toLowerCase() ?? "";
-    return heading.includes(normalized) || eyebrow.includes(normalized);
+    return blockKey === normalized || heading.includes(normalized) || eyebrow.includes(normalized);
   });
 }
 
@@ -360,7 +360,6 @@ function Services({ block }: { block?: CmsContentBlock }) {
     return {
       icon: meta?.icon ?? FileText,
       href: meta?.href ?? "#contact",
-      image: meta?.image,
       title: service.title,
       body: service.body,
     };
@@ -374,13 +373,8 @@ function Services({ block }: { block?: CmsContentBlock }) {
           <p>{paragraphsOr(block, ["Each service is offered on its own or as part of a plan that ties them together."])[0]}</p>
         </div>
         <div className="services__grid">
-          {services.map(({ icon: Icon, title, body, href, image }) => (
+          {services.map(({ icon: Icon, title, body, href }) => (
             <a className="service" href={href} id={semanticId("service", title)} data-semantic-id={semanticId("service", title)} key={title}>
-              {image ? (
-                <span className="service__image" aria-hidden="true">
-                  <Image src={image} alt="" fill sizes="(max-width: 640px) 50vw, (max-width: 1000px) 50vw, 25vw" />
-                </span>
-              ) : null}
               <span className="service__icon"><Icon width="30" height="30" /></span>
               <h3>{title}</h3>
               <p>{body}</p>
@@ -428,9 +422,6 @@ function Testimonials({ block }: { block?: CmsContentBlock }) {
                 <span><strong>Our solution</strong>{testimonial.solution}</span>
                 <span><strong>Real result</strong>{testimonial.result}</span>
               </blockquote>
-              <div className="testimonial__stars" aria-label="5 out of 5 stars">
-                {Array.from({ length: 5 }).map((_, star) => <Star key={star} width="14" height="14" fill="currentColor" />)}
-              </div>
               <figcaption className="testimonial__attr">{testimonial.name}, {testimonial.town}</figcaption>
             </figure>
           ))}
@@ -639,17 +630,17 @@ function BookingModal({ open, onClose }: { open: boolean; onClose: () => void })
 export default function PathwaysExportHome({ page }: PathwaysExportHomeProps) {
   const [bookOpen, setBookOpen] = useState(false);
   const onBook = () => setBookOpen(true);
-  const trustBlock = blockFor(page, "trust badges");
-  const problemBlock = blockFor(page, "without a plan") ?? blockFor(page, "cost of doing nothing");
-  const whyBlock = blockFor(page, "reassurance") ?? blockFor(page, "why families");
-  const processBlock = blockFor(page, "four simple") ?? blockFor(page, "how it works");
-  const servicesBlock = blockFor(page, "estate planning specialist") ?? blockFor(page, "what we help");
-  const softCtaBlock = blockFor(page, "not sure what you need");
-  const testimonialsBlock = blockFor(page, "quiet confidence") ?? blockFor(page, "clients say");
-  const localBlock = blockFor(page, "based in royal") ?? blockFor(page, "where we work");
-  const faqBlock = blockFor(page, "honest answers") ?? blockFor(page, "common questions");
-  const newsletterBlock = blockFor(page, "plain-english guides") ?? blockFor(page, "stay in touch");
-  const finalCtaBlock = blockFor(page, "initial, no-obligation") ?? blockFor(page, "take the first step");
+  const trustBlock = blockFor(page, "trust-badges") ?? blockFor(page, "trust badges");
+  const problemBlock = blockFor(page, "cost-of-doing-nothing") ?? blockFor(page, "without a plan") ?? blockFor(page, "cost of doing nothing");
+  const whyBlock = blockFor(page, "why-families-choose-us") ?? blockFor(page, "reassurance") ?? blockFor(page, "why families");
+  const processBlock = blockFor(page, "how-it-works") ?? blockFor(page, "four simple") ?? blockFor(page, "how it works");
+  const servicesBlock = blockFor(page, "services-overview") ?? blockFor(page, "estate planning specialist") ?? blockFor(page, "what we help");
+  const softCtaBlock = blockFor(page, "soft-cta") ?? blockFor(page, "not sure what you need");
+  const testimonialsBlock = blockFor(page, "testimonials") ?? blockFor(page, "quiet confidence") ?? blockFor(page, "clients say");
+  const localBlock = blockFor(page, "where-we-work") ?? blockFor(page, "based in royal") ?? blockFor(page, "where we work");
+  const faqBlock = blockFor(page, "faq") ?? blockFor(page, "honest answers") ?? blockFor(page, "common questions");
+  const newsletterBlock = blockFor(page, "newsletter") ?? blockFor(page, "plain-english guides") ?? blockFor(page, "stay in touch");
+  const finalCtaBlock = blockFor(page, "final-cta") ?? blockFor(page, "initial, no-obligation") ?? blockFor(page, "take the first step");
 
   return (
     <>

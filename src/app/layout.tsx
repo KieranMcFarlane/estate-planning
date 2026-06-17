@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Instrument_Serif, Source_Serif_4 } from "next/font/google";
+import { Inter, Source_Serif_4 } from "next/font/google";
 import JsonLd from "./components/JsonLd";
 import EstateAssistant from "./components/EstateAssistant";
 import Footer from "./components/Footer";
@@ -9,16 +9,9 @@ import { getCmsGlobalContent } from "./cms/directus";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, businessJsonLd, websiteJsonLd } from "./seo";
 import "./globals.css";
 
-const dmSans = DM_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
-  display: "swap",
-});
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-instrument-serif",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -80,7 +73,7 @@ export default async function RootLayout({
   const cms = await getCmsGlobalContent();
 
   return (
-    <html lang="en" suppressHydrationWarning className={`${dmSans.variable} ${instrumentSerif.variable} ${sourceSerif.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} ${sourceSerif.variable}`}>
       <body>
         <Navbar cms={cms} />
         {children}

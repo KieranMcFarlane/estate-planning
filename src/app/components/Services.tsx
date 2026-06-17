@@ -34,8 +34,8 @@ export default function Services() {
                         <span className={styles.statLabel}>Years experience</span>
                     </div>
                     <div className={styles.stat}>
-                        <span className={styles.statNumber}>5★</span>
-                        <span className={styles.statLabel}>Google rating</span>
+                        <span className={styles.statNumber}>2006</span>
+                        <span className={styles.statLabel}>Established</span>
                     </div>
                 </div>
 

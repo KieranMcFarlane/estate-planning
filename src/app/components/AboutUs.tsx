@@ -14,8 +14,8 @@ export default function AboutUs() {
             description: "From first-time Will writers to complex estate planning"
         },
         {
-            title: "5-star rated",
-            description: "Consistently excellent reviews on Google from satisfied clients"
+            title: "Client stories",
+            description: "Plain-English examples of how families felt clearer, calmer, and better protected"
         },
         {
             title: "Clear, jargon-free guidance",

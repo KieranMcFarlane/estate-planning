@@ -47,7 +47,7 @@
 .heroContent h1 {
   margin: 0 0 24px;
   max-width: max-content;
-  font-family: var(--serif, var(--font-instrument-serif), Georgia, serif);
+  font-family: var(--serif, var(--font-source-serif-4), Georgia, serif);
   font-size: clamp(40px, 5vw, 56px);
   font-weight: 400;
   line-height: 1.08;
@@ -124,7 +124,7 @@
 .intro {
   max-width: 820px;
   padding: 84px 0 42px;
-  font-family: var(--serif, var(--font-instrument-serif), Georgia, serif);
+  font-family: var(--serif, var(--font-source-serif-4), Georgia, serif);
   font-size: clamp(22px, 2vw, 28px);
   font-weight: 300;
   line-height: 1.45;
@@ -192,7 +192,7 @@
   max-width: 760px;
   margin: 0 0 16px;
   color: var(--ink, #1a1d1a);
-  font-family: var(--serif, var(--font-instrument-serif), Georgia, serif);
+  font-family: var(--serif, var(--font-source-serif-4), Georgia, serif);
   font-size: clamp(28px, 3vw, 38px);
   font-weight: 400;
   line-height: 1.12;
@@ -270,7 +270,7 @@
 }
 
 .block h2 {
-  font-family: var(--serif, var(--font-instrument-serif), Georgia, serif);
+  font-family: var(--serif, var(--font-source-serif-4), Georgia, serif);
 }
 
 .consultation h2 {
@@ -356,7 +356,7 @@
 
 .card h3 {
   margin: 0 0 10px;
-  font-family: var(--serif, var(--font-instrument-serif), Georgia, serif);
+  font-family: var(--serif, var(--font-source-serif-4), Georgia, serif);
   font-size: 24px;
   font-weight: 500;
   color: var(--ink, #1a1d1a);

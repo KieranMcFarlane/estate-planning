@@ -11,8 +11,8 @@ export default function AgriculturalLandPage() {
       eyebrow="Specialist planning"
       title="Agricultural Land"
       subtitle="Specialist planning for farms, land and rural estates."
-      heroImage="/leamington_location.jpg"
-      heroAlt="Green gardens and historic Royal Leamington Spa architecture"
+      heroImage="/generated/service-agricultural-land.png"
+      heroAlt="Agricultural land and rural estate planning"
       canonicalPath="/agricultural-land"
       aiSummary={{
         answer:

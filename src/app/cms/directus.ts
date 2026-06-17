@@ -107,8 +107,8 @@ export type CmsBlogPost = {
 };
 
 const tenantId = process.env.DIRECTUS_TENANT_ID?.trim() || "estate-planning";
-const directusUrl = process.env.DIRECTUS_URL?.trim().replace(/\/+$/, "") ?? "";
-const directusToken = process.env.DIRECTUS_TOKEN?.trim() ?? "";
+const directusUrl = (process.env.DIRECTUS_URL?.trim() || process.env.ESTATE_DIRECTUS_URL?.trim() || "").replace(/\/+$/, "");
+const directusToken = process.env.DIRECTUS_TOKEN?.trim() || process.env.ESTATE_DIRECTUS_ADMIN_TOKEN?.trim() || "";
 const cacheSeconds = Number(process.env.DIRECTUS_CACHE_SECONDS ?? "300");
 
 function hasDirectusConfig() {
@@ -211,6 +211,7 @@ function mapSection(row: DirectusSection): CmsContentBlock {
   const cards = objectFrom<CmsContentBlock["cards"]>(row.cards);
   return {
     ...payload,
+    key: clean(payload.key) || clean(row.section_type) || undefined,
     eyebrow: clean(row.eyebrow) || payload.eyebrow,
     heading: clean(row.heading) || payload.heading,
     paragraphs: paragraphs.length ? paragraphs : clean(row.body) ? [clean(row.body)] : payload.paragraphs,
@@ -222,7 +223,8 @@ function mapSection(row: DirectusSection): CmsContentBlock {
 
 function mapPage(row: DirectusPage, sections: DirectusSection[], fallback?: CmsPage | null): CmsPage {
   const path = clean(row.path) || fallback?.path || "/";
-  const heroImage = assetUrl(row.hero_image) || fallback?.heroImage || "/generated/clear-path-hero.jpg";
+  const directusHeroImage = assetUrl(row.hero_image);
+  const heroImage = directusHeroImage || fallback?.heroImage || "/generated/clear-path-hero.jpg";
   const title = clean(row.title) || fallback?.title || path;
   const aiSummary = objectFrom<CmsPage["aiSummary"]>(row.ai_summary) ?? fallback?.aiSummary;
   const cta = objectFrom<CmsPage["cta"]>(row.cta) ?? fallback?.cta;
@@ -236,7 +238,7 @@ function mapPage(row: DirectusPage, sections: DirectusSection[], fallback?: CmsP
     subtitle: clean(row.subtitle) || fallback?.subtitle || "",
     description: clean(row.description) || fallback?.description || "",
     heroImage,
-    heroAlt: clean(row.hero_alt) || fileAlt(row.hero_image, fallback?.heroAlt || title),
+    heroAlt: directusHeroImage ? clean(row.hero_alt) || fileAlt(row.hero_image, fallback?.heroAlt || title) : fallback?.heroAlt || clean(row.hero_alt) || title,
     intro: arrayFrom(row.intro).length ? arrayFrom(row.intro) : fallback?.intro ?? [],
     aiSummary,
     blocks: sections.length ? sections.sort((a, b) => numberOr(a.sort, 0) - numberOr(b.sort, 0)).map(mapSection) : fallback?.blocks ?? [],

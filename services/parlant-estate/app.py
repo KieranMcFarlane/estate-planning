@@ -195,10 +195,10 @@ NAV_TARGETS: list[dict[str, Any]] = [
         "keywords": ["services", "what help", "full range", "cards", "service list"],
     },
     {
-        "title": "Client reviews",
+        "title": "Client stories",
         "url": "/#reviews",
-        "summary": "Homepage testimonials and client feedback.",
-        "keywords": ["review", "reviews", "testimonial", "testimonials", "what clients say", "feedback"],
+        "summary": "Homepage client stories and outcome examples.",
+        "keywords": ["review", "reviews", "testimonial", "testimonials", "client stories", "what clients say", "feedback"],
     },
     {
         "title": "Where Pathway works",

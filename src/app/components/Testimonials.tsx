@@ -1,7 +1,7 @@
 import styles from './Testimonials.module.css';
 
 export default function Testimonials() {
-    const reviews = [
+    const stories = [
         {
             problem: "We kept putting our Will off because we did not know where to start.",
             solution: "Pathway explained each decision clearly and kept the process calm.",
@@ -34,12 +34,11 @@ export default function Testimonials() {
             <div className="container">
                 <h2 className={`text-center mb-lg ${styles.heading}`}>What our clients say</h2>
                 <div className={styles.grid}>
-                    {reviews.map((review, index) => (
+                    {stories.map((review, index) => (
                         <div
                             key={index}
                             className={`${styles.card} ${review.featured ? styles.featured : ''}`}
                         >
-                            <div className={styles.stars}>★★★★★</div>
                             <div className={`${styles.text} ${review.featured ? styles.featuredText : ''}`}>
                                 <p><strong>Problem</strong>{review.problem}</p>
                                 <p><strong>Our solution</strong>{review.solution}</p>
@@ -52,7 +51,7 @@ export default function Testimonials() {
                     ))}
                 </div>
                 <div className={`text-center ${styles.trust}`}>
-                    <p>Rated <strong>5 Stars</strong> by over 1,000 families across the Midlands</p>
+                    <p>Trusted by <strong>over 1,000 families</strong> across the Midlands</p>
                 </div>
                 <div className={styles.trustBadges}>
                     <div className={styles.badge}>
@@ -64,8 +63,8 @@ export default function Testimonials() {
                         <span className={styles.badgeLabel}>Years Experience</span>
                     </div>
                     <div className={styles.badge}>
-                        <span className={styles.badgeNumber}>5.0</span>
-                        <span className={styles.badgeLabel}>Star Rating</span>
+                        <span className={styles.badgeNumber}>2006</span>
+                        <span className={styles.badgeLabel}>Established</span>
                     </div>
                 </div>
             </div>

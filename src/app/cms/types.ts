@@ -18,6 +18,7 @@ export type CmsContentCard = {
 };
 
 export type CmsContentBlock = {
+  key?: string;
   heading?: string;
   eyebrow?: string;
   paragraphs?: string[];

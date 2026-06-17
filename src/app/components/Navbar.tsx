@@ -5,6 +5,12 @@ import Headroom from "headroom.js";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion";
 import Icon from "./base/Icon";
 import styles from "./Navbar.module.css";
 import type { CmsGlobalContent, CmsNavigationItem } from "../cms/types";
@@ -117,7 +123,16 @@ export default function Navbar({ cms }: NavbarProps) {
         <nav ref={navRef} className={styles.navbar}>
             <div className={`container ${styles.container}`}>
                 <Link href="/" className={styles.logo} aria-label={`${cms?.tenant.name ?? "Pathway Estate Planning"}, home`}>
-                    <Image src={logo.src} alt={logo.alt} width={2680} height={880} className={styles.logoImage} priority unoptimized />
+                    <Image
+                        src={logo.src}
+                        alt={logo.alt}
+                        width={2680}
+                        height={880}
+                        className={styles.logoImage}
+                        style={{ maxWidth: "188px" }}
+                        priority
+                        unoptimized
+                    />
                 </Link>
 
                 <div className={styles.links}>
@@ -204,33 +219,51 @@ export default function Navbar({ cms }: NavbarProps) {
                         </SheetHeader>
                         <div className={styles.mobileSheetLinks}>
                             {(primary.length ? primary : [{ href: "/", label: "Home", sort: 10 }]).map((item) => (
-                                <Link href={item.href} onClick={close} key={item.href}>{item.label}</Link>
+                                <Link href={item.href} onClick={close} key={item.href} className={styles.mobilePrimaryLink}>{item.label}</Link>
                             ))}
-                            <p className={styles.mobileGroupTitle}>Services</p>
-                            {services.map((service) => (
-                                <Link
-                                    key={service.href}
-                                    href={service.href}
-                                    onClick={close}
-                                    className={styles.mobileResourceLink}
-                                >
-                                    {service.label}
-                                    <small>{service.body}</small>
-                                </Link>
-                            ))}
-                            <p className={styles.mobileGroupTitle}>Resources</p>
-                            {resources.map((resource) => (
-                                <Link
-                                    key={resource.href}
-                                    href={resource.href}
-                                    download={isDownloadLink(resource.href) ? "" : undefined}
-                                    onClick={close}
-                                    className={styles.mobileResourceLink}
-                                >
-                                    {resource.label}
-                                    <small>{resource.body}</small>
-                                </Link>
-                            ))}
+                            <Accordion type="multiple" className={styles.mobileAccordion}>
+                                <AccordionItem value="services" className={styles.mobileAccordionItem}>
+                                    <AccordionTrigger className={styles.mobileAccordionTrigger}>
+                                        Services
+                                    </AccordionTrigger>
+                                    <AccordionContent className={styles.mobileAccordionContent}>
+                                        <div className={styles.mobileNestedList}>
+                                            {services.map((service) => (
+                                                <Link
+                                                    key={service.href}
+                                                    href={service.href}
+                                                    onClick={close}
+                                                    className={styles.mobileResourceLink}
+                                                >
+                                                    <span>{service.label}</span>
+                                                    {service.body ? <small>{service.body}</small> : null}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </AccordionContent>
+                                </AccordionItem>
+                                <AccordionItem value="resources" className={styles.mobileAccordionItem}>
+                                    <AccordionTrigger className={styles.mobileAccordionTrigger}>
+                                        Resources
+                                    </AccordionTrigger>
+                                    <AccordionContent className={styles.mobileAccordionContent}>
+                                        <div className={styles.mobileNestedList}>
+                                            {resources.map((resource) => (
+                                                <Link
+                                                    key={resource.href}
+                                                    href={resource.href}
+                                                    download={isDownloadLink(resource.href) ? "" : undefined}
+                                                    onClick={close}
+                                                    className={styles.mobileResourceLink}
+                                                >
+                                                    <span>{resource.label}</span>
+                                                    {resource.body ? <small>{resource.body}</small> : null}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
                         </div>
                         <div className={styles.mobileSheetActions}>
                             <a href={`tel:${phone.replace(/\s+/g, "")}`} className={styles.mobileSheetPhone} onClick={close}>

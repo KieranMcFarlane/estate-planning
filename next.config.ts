@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
-const directusUrl = process.env.DIRECTUS_URL ? new URL(process.env.DIRECTUS_URL) : null;
+const directusBaseUrl = process.env.DIRECTUS_URL ?? process.env.ESTATE_DIRECTUS_URL ?? "";
+const directusUrl = directusBaseUrl ? new URL(directusBaseUrl) : null;
 
 const nextConfig: NextConfig = {
   images: {

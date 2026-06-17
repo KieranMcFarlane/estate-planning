@@ -11,8 +11,8 @@ export default function IHTPage() {
       eyebrow="Estate planning services"
       title="Inheritance Tax Planning"
       subtitle="Protect more of what you have built for the people you love."
-      heroImage="/generated/clear-path-hero.jpg"
-      heroAlt="Warm garden path leading to a welcoming front door"
+      heroImage="/generated/service-inheritance-tax.png"
+      heroAlt="Inheritance tax planning documents and calculator"
       canonicalPath="/inheritance-tax-planning"
       blocksBeforeSummary
       aiSummary={{

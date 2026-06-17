@@ -24,7 +24,7 @@ export default function Hero() {
                     </p>
                     <div className={styles.trustIndicator}>
                         <Icon name="shield-check" size="sm" />
-                        <span>Over 15 years of experience • 5-star rated on Google</span>
+                        <span>Over 15 years of experience • trusted by local families</span>
                     </div>
                     <div className={styles.actions}>
                         <Button href="/contact" variant="action" size="lg">

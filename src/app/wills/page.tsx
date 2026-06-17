@@ -11,8 +11,8 @@ export default function WillsPage() {
       eyebrow="Estate planning services"
       title="Wills"
       subtitle="A calm, clear way to protect the people you love."
-      heroImage="/generated/clear-path-hero.jpg"
-      heroAlt="Warm garden path leading to a welcoming front door"
+      heroImage="/generated/service-wills.png"
+      heroAlt="Will writing documents on a desk"
       canonicalPath="/wills"
       aiSummary={{
         answer:

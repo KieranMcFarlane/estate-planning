@@ -255,7 +255,7 @@ section { padding: var(--s-7) 0; }
 /* Hero */
 .hero {
   position: relative;
-  min-height: 660px;
+  min-height: 840px;
   display: flex;
   align-items: center;
   padding: 96px 32px;
@@ -380,9 +380,13 @@ section { padding: var(--s-7) 0; }
 
 /* Trust bar */
 .trustbar {
+  position: relative;
+  top: -81px;
+  z-index: 999;
   background: var(--sage-deep);
   color: rgba(255,255,255,0.92);
   padding: 22px 0;
+  margin-bottom: -81px;
 }
 .trustbar__inner {
   display: grid;
@@ -603,13 +607,11 @@ section { padding: var(--s-7) 0; }
 .services__grid > :first-child .service__icon { width: 48px; height: 48px; }
 .services__grid > :first-child h3 { font-size: 28px; }
 .services__grid > :first-child p { font-size: 16px; max-width: 38ch; }
-.services__grid > :first-child .service__image { height: 260px; }
 @media (max-width: 640px) {
   .services__grid { grid-template-columns: repeat(2, 1fr); }
   .services__grid > :first-child { grid-column: span 2; grid-row: auto; }
   .services__grid > :first-child h3 { font-size: 22px; }
   .services__grid > :first-child .service__icon { width: 36px; height: 36px; }
-  .services__grid > :first-child .service__image { height: 170px; }
 }
 .services__grid > :nth-child(5),
 .services__grid > :nth-child(6),
@@ -631,21 +633,6 @@ section { padding: var(--s-7) 0; }
   border-color: var(--sage);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(40, 60, 40, 0.06);
-}
-.service__image {
-  position: relative;
-  height: 150px;
-  margin: -24px -24px 20px;
-  overflow: hidden;
-  border-radius: 14px 14px 0 0;
-  background: var(--cream);
-}
-.service__image img {
-  object-fit: cover;
-  transition: transform .35s ease;
-}
-.service:hover .service__image img {
-  transform: scale(1.035);
 }
 .service__icon {
   width: 36px; height: 36px;
@@ -763,9 +750,6 @@ section { padding: var(--s-7) 0; }
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-}
-.testimonial__stars {
-  display: flex; gap: 2px; margin-bottom: 12px; color: #d4a64a;
 }
 .testimonial__attr {
   font-size: 14px; color: var(--stone);

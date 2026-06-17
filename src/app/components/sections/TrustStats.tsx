@@ -9,7 +9,7 @@ export default function TrustStats({ className = '' }: TrustStatsProps) {
     const stats = [
         { number: "1,000+", label: "Families Protected", icon: "shield" },
         { number: "18+", label: "Years Experience", icon: "award" },
-        { number: "5.0", label: "Star Rating", icon: "star", subtitle: "Google Reviews" },
+        { number: "2006", label: "Established", icon: "award", subtitle: "Serving local families" },
         { number: "98%", label: "Client Satisfaction", icon: "heart" }
     ];
 

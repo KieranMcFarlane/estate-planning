@@ -23,12 +23,6 @@
     flex-direction: column;
 }
 
-.stars {
-    color: var(--color-action);
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-}
-
 /* Featured testimonial card */
 .featured {
     background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-tertiary) 100%);

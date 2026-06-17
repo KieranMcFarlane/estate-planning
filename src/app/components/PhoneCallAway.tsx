@@ -26,7 +26,7 @@ export default function PhoneCallAway() {
                 <div className={styles.illustration}>
                     <div className={styles.iconLarge}>💬</div>
                     <div className={styles.trustBadges}>
-                        <span>5-star rated</span>
+                        <span>Client stories</span>
                         <span>STEP qualified</span>
                         <span>Since 2006</span>
                     </div>

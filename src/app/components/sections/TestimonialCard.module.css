@@ -5,16 +5,6 @@
   justify-content: space-between;
 }
 
-.stars {
-  display: flex;
-  gap: 0.25rem;
-  margin-bottom: var(--spacing-sm);
-}
-
-.star {
-  color: var(--color-accent);
-}
-
 .quote {
   font-size: var(--text-base);
   font-style: italic;

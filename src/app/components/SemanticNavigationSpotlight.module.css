@@ -232,10 +232,6 @@
   box-shadow: 0 24px 60px rgba(22, 31, 42, 0.22), 0 6px 18px rgba(22, 31, 42, 0.1);
 }
 
-:global([data-radix-popper-content-wrapper]) {
-  z-index: 1200 !important;
-}
-
 .matchesCommand {
   background: transparent !important;
   font-family: var(--font-main), sans-serif;
