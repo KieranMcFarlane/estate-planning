@@ -16,6 +16,26 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+For fast design and CSS work, use the local dev server as the source of truth while iterating:
+
+```bash
+npm run dev -- --hostname 127.0.0.1 --port 61181 --webpack
+```
+
+Open `http://127.0.0.1:61181/` and make changes locally until the page looks right. The public production site at `estate.nakanodigital.com` runs from the last deployed production build, so it will not update from local CSS changes until the changes are committed, pushed, pulled by production, rebuilt, and restarted.
+
+Typical workflow:
+
+```bash
+npm run build
+git status --short
+git add <changed site files>
+git commit -m "Describe the site update"
+git push origin <branch>
+```
+
+If production is tracking that branch, the pushed commit can be deployed. If production tracks another branch, merge or pull the pushed changes there first.
+
 ## Directus CMS
 
 This app uses an existing self-hosted Directus instance as the CMS for one tenant. Configure:
@@ -25,6 +45,13 @@ DIRECTUS_URL=https://cms.example.com
 DIRECTUS_TOKEN=directus-static-token
 DIRECTUS_TENANT_ID=estate-planning
 DIRECTUS_CACHE_SECONDS=300
+```
+
+If you are running this inside the wider Nakano stack, the app also accepts the estate-scoped environment names:
+
+```bash
+ESTATE_DIRECTUS_URL=https://cms.example.com
+ESTATE_DIRECTUS_ADMIN_TOKEN=directus-static-token
 ```
 
 Bootstrap the Directus collections and starter tenant/page/navigation records:
