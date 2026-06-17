@@ -70,6 +70,12 @@ export default function Navbar({ cms }: NavbarProps) {
     const resources = withGlossaryDownload(resourcesBase);
     const phone = cms?.tenant.phone ?? "07902 863999";
     const logo = cms?.tenant.logo ?? { src: "/pathway-logo_1.png", alt: "Pathway Estate Planning Specialists" };
+    const primaryItems = primary.length ? primary : [{ href: "/", label: "Home", sort: 10 }];
+    const isHome = (item: { href: string; label: string }) => item.href === "/" || item.label.toLowerCase() === "home";
+    const isContact = (item: { href: string; label: string }) => item.href === "/contact" || item.label.toLowerCase() === "contact";
+    const homeItem = primaryItems.find(isHome);
+    const contactItem = primaryItems.find(isContact);
+    const mobileMiddleItems = primaryItems.filter((item) => !isHome(item) && !isContact(item));
 
     const close = () => {
         setMobileMenuOpen(false);
@@ -136,7 +142,7 @@ export default function Navbar({ cms }: NavbarProps) {
                 </Link>
 
                 <div className={styles.links}>
-                    {(primary.length ? primary : [{ href: "/", label: "Home", sort: 10 }]).map((item) => (
+                    {primaryItems.map((item) => (
                         <Link href={item.href} onClick={close} key={item.href}>{item.label}</Link>
                     ))}
 
@@ -218,9 +224,9 @@ export default function Navbar({ cms }: NavbarProps) {
                             <Image src={logo.src} alt="" width={2680} height={880} className={styles.mobileSheetLogo} unoptimized />
                         </SheetHeader>
                         <div className={styles.mobileSheetLinks}>
-                            {(primary.length ? primary : [{ href: "/", label: "Home", sort: 10 }]).map((item) => (
-                                <Link href={item.href} onClick={close} key={item.href} className={styles.mobilePrimaryLink}>{item.label}</Link>
-                            ))}
+                            {homeItem ? (
+                                <Link href={homeItem.href} onClick={close} className={styles.mobilePrimaryLink}>{homeItem.label}</Link>
+                            ) : null}
                             <Accordion type="multiple" className={styles.mobileAccordion}>
                                 <AccordionItem value="services" className={styles.mobileAccordionItem}>
                                     <AccordionTrigger className={styles.mobileAccordionTrigger}>
@@ -242,6 +248,11 @@ export default function Navbar({ cms }: NavbarProps) {
                                         </div>
                                     </AccordionContent>
                                 </AccordionItem>
+                            </Accordion>
+                            {mobileMiddleItems.map((item) => (
+                                <Link href={item.href} onClick={close} key={item.href} className={styles.mobilePrimaryLink}>{item.label}</Link>
+                            ))}
+                            <Accordion type="multiple" className={styles.mobileAccordion}>
                                 <AccordionItem value="resources" className={styles.mobileAccordionItem}>
                                     <AccordionTrigger className={styles.mobileAccordionTrigger}>
                                         Resources
@@ -264,6 +275,9 @@ export default function Navbar({ cms }: NavbarProps) {
                                     </AccordionContent>
                                 </AccordionItem>
                             </Accordion>
+                            {contactItem ? (
+                                <Link href={contactItem.href} onClick={close} className={styles.mobilePrimaryLink}>{contactItem.label}</Link>
+                            ) : null}
                         </div>
                         <div className={styles.mobileSheetActions}>
                             <a href={`tel:${phone.replace(/\s+/g, "")}`} className={styles.mobileSheetPhone} onClick={close}>
