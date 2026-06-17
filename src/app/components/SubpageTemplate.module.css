@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  height: 640px;
+  height: 480px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -420,7 +420,7 @@
 
 @media (max-width: 760px) {
   .hero {
-    height: 640px;
+    height: 480px;
     align-items: center;
   }
 
