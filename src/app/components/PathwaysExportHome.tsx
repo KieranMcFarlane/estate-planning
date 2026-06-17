@@ -173,8 +173,8 @@ function Hero({ onBook, page }: { onBook: () => void; page?: CmsPage | null }) {
   );
   const serviceLine = page?.intro?.[0] ?? "Wills | Trusts | LPAs | Inheritance tax planning";
   const assurance = page?.intro?.[1] ?? "No obligation. No jargon. Home visits available across Warwickshire.";
-  const heroImage = "/generated/service-wills.png";
-  const heroAlt = "Will writing documents on a desk";
+  const heroImage = "/generated/clear-path-hero.jpg";
+  const heroAlt = "Warm garden path leading to a welcoming front door";
   const titleParts = title.match(/^(.*?)(calm, clear, and human\.?)$/i);
   return (
     <section className="hero">
