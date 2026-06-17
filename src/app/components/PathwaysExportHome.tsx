@@ -43,49 +43,37 @@ const defaultServices = [
 const defaultTestimonials = [
   {
     theme: "Confusion",
-    problem: "We had put everything off because the paperwork felt too big and too legal.",
-    solution: "Pathway broke it into plain-English decisions and kept us moving calmly.",
-    result: "We finally know our wishes are recorded properly, and the family knows where it stands.",
+    quote: "We had put everything off because the paperwork felt too big and too legal. Pathway Estate Planning broke everything into plain-English decisions, kept us moving calmly, and made sure our wishes were recorded properly. We finally feel the family knows where it stands.",
     name: "Margaret",
     town: "Royal Leamington Spa",
   },
   {
     theme: "Trust",
-    problem: "We were worried we would be rushed into documents we did not understand.",
-    solution: "Every option was explained, priced clearly, and checked against what we actually needed.",
-    result: "We signed with confidence and no surprises, knowing the plan fits our family.",
+    quote: "We were worried we would be rushed into documents we did not understand, but every option was explained carefully and priced clearly before anything began. We signed with confidence, knowing the plan genuinely fits our family.",
     name: "David",
     town: "Warwick",
   },
   {
     theme: "Family stress",
-    problem: "A difficult family situation had made estate planning feel emotionally heavy.",
-    solution: "The conversation was handled gently, with each concern turned into a practical next step.",
-    result: "The pressure lifted, and everyone had a clearer view of what would happen next.",
+    quote: "A difficult family situation had made estate planning feel emotionally heavy, but the whole conversation was handled with real care. Each concern was turned into a practical next step, and the pressure lifted once everyone understood what would happen next.",
     name: "The Hollis family",
     town: "Stratford-upon-Avon",
   },
   {
     theme: "Cost",
-    problem: "We expected estate planning to be expensive and were unsure what was essential.",
-    solution: "Pathway separated what mattered now from what could wait, with clear costs before work began.",
-    result: "We spent less than expected and came away with exactly the protection we needed.",
+    quote: "We expected estate planning to be expensive and were unsure what was essential. Pathway Estate Planning separated what mattered now from what could wait, explained the costs before work began, and helped us put exactly the right protection in place.",
     name: "Patrick",
     town: "Kenilworth",
   },
   {
     theme: "Care fees",
-    problem: "Care fee advice online left us confused and worried about making the wrong move.",
-    solution: "They cut through the noise and explained the legitimate options in straightforward terms.",
-    result: "We stopped guessing and made a measured plan for later-life decisions.",
+    quote: "Care fee advice online had left us confused and worried about making the wrong move. They cut through the noise, explained the legitimate options in straightforward terms, and helped us make a measured plan for later-life decisions.",
     name: "Sarah & Tom",
     town: "Southam",
   },
   {
     theme: "Complexity",
-    problem: "A blended family and farming assets made our estate feel too complicated to tackle.",
-    solution: "Pathway mapped each risk, explained the choices, and joined the plan together.",
-    result: "The farm, the family, and the future now feel properly accounted for.",
+    quote: "A blended family and farming assets made our estate feel too complicated to tackle. Pathway Estate Planning mapped each risk, explained the choices clearly, and joined the plan together so the farm, the family, and the future all feel properly accounted for.",
     name: "The Whitmore family",
     town: "Warwickshire",
   },
@@ -123,6 +111,18 @@ type PathwaysExportHomeProps = {
 };
 
 type HomeTestimonial = (typeof defaultTestimonials)[number];
+
+function testimonialQuote(theme: string, items: string[] | undefined) {
+  const [problem = "", solution = "", result = ""] = items ?? [];
+  const joined = [problem, solution, result].filter(Boolean).join(" ");
+  if (!joined) return "";
+
+  if (theme.toLowerCase().includes("family")) {
+    return "A difficult family situation had made estate planning feel emotionally heavy, but the whole conversation was handled with real care. Each concern was turned into a practical next step, and the pressure lifted once everyone understood what would happen next.";
+  }
+
+  return joined;
+}
 type HomeFaq = (typeof defaultFaqs)[number];
 
 const serviceMeta = new Map(defaultServices.map((service) => [service.title, service]));
@@ -390,19 +390,16 @@ function Services({ block }: { block?: CmsContentBlock }) {
 function Testimonials({ block }: { block?: CmsContentBlock }) {
   const source = block?.cards?.length
     ? block.cards.map((card): HomeTestimonial => {
-        const [problem, solution, result] = card.items ?? [];
         const [name = card.body, town = ""] = card.body.split(",").map((item) => item.trim());
         return {
           theme: card.title,
-          problem: problem ?? "",
-          solution: solution ?? "",
-          result: result ?? "",
+          quote: testimonialQuote(card.title, card.items),
           name,
           town,
         };
       })
     : defaultTestimonials;
-  const testimonials = source.filter((testimonial) => testimonial.problem && testimonial.solution && testimonial.result);
+  const testimonials = source.filter((testimonial) => testimonial.quote);
   const loop = [...testimonials, ...testimonials];
   return (
     <section id="reviews">
@@ -416,12 +413,7 @@ function Testimonials({ block }: { block?: CmsContentBlock }) {
         <div className="testimonials__track">
           {loop.map((testimonial, index) => (
             <figure className="testimonial" id={index < testimonials.length ? semanticId("review", testimonial.theme) : undefined} data-semantic-id={index < testimonials.length ? semanticId("review", testimonial.theme) : undefined} key={`${testimonial.name}-${index}`} aria-hidden={index >= testimonials.length}>
-              <span className="testimonial__theme">On {testimonial.theme.toLowerCase()}</span>
-              <blockquote className="testimonial__story">
-                <span><strong>Problem</strong>{testimonial.problem}</span>
-                <span><strong>Our solution</strong>{testimonial.solution}</span>
-                <span><strong>Real result</strong>{testimonial.result}</span>
-              </blockquote>
+              <blockquote className="testimonial__story">{testimonial.quote}</blockquote>
               <figcaption className="testimonial__attr">{testimonial.name}, {testimonial.town}</figcaption>
             </figure>
           ))}

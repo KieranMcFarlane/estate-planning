@@ -738,27 +738,16 @@ section { padding: var(--s-7) 0; }
 .testimonial__quote::before { content: '"'; }
 .testimonial__quote::after { content: '"'; }
 .testimonial__story {
-  display: grid;
-  gap: 14px;
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 300;
+  line-height: 1.55;
   color: var(--ink);
   margin: 0 0 20px;
   flex: 1;
 }
-.testimonial__story span {
-  display: grid;
-  gap: 4px;
-  font-size: 15px;
-  line-height: 1.5;
-}
-.testimonial__story strong {
-  color: var(--sage);
-  font-size: 11px;
-  font-family: var(--sans);
-  font-style: normal;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
+.testimonial__story::before { content: '"'; }
+.testimonial__story::after { content: '"'; }
 .testimonial__attr {
   font-size: 14px; color: var(--stone);
 }
