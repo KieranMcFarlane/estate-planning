@@ -10,7 +10,8 @@
 }
 
 .heroImage {
-  object-fit: cover;
+  object-fit: contain;
+  object-position: right;
 }
 
 .hero::before {
@@ -424,6 +425,11 @@
     height: 480px;
     align-items: center;
     margin-top: 0;
+  }
+
+  .heroImage {
+    object-fit: cover;
+    object-position: center;
   }
 
   .hero::before {

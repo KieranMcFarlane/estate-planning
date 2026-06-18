@@ -76,6 +76,7 @@ export default function Navbar({ cms }: NavbarProps) {
     const homeItem = primaryItems.find(isHome);
     const contactItem = primaryItems.find(isContact);
     const mobileMiddleItems = primaryItems.filter((item) => !isHome(item) && !isContact(item));
+    const desktopPrimaryItems = primaryItems.filter((item) => !isContact(item));
 
     const close = () => {
         setMobileMenuOpen(false);
@@ -142,7 +143,7 @@ export default function Navbar({ cms }: NavbarProps) {
                 </Link>
 
                 <div className={styles.links}>
-                    {primaryItems.map((item) => (
+                    {desktopPrimaryItems.map((item) => (
                         <Link href={item.href} onClick={close} key={item.href}>{item.label}</Link>
                     ))}
 
@@ -199,6 +200,9 @@ export default function Navbar({ cms }: NavbarProps) {
                         </div>
                     </div>
 
+                    {contactItem ? (
+                        <Link href={contactItem.href} onClick={close}>{contactItem.label}</Link>
+                    ) : null}
                 </div>
 
                 <div className={styles.desktopCta}>

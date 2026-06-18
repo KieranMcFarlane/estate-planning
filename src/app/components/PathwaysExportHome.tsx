@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { FormEvent } from "react";
 import Image from "next/image";
 import {
   Award,
@@ -117,6 +118,28 @@ type PathwaysExportHomeProps = {
 };
 
 type HomeTestimonial = (typeof defaultTestimonials)[number];
+type HomepageLeadSource = "newsletter_signup" | "initial_chat_request";
+type SubmitStatus = "idle" | "sending" | "sent" | "saved" | "error";
+
+async function submitHomepageLead(payload: {
+  source: HomepageLeadSource;
+  name?: string;
+  phone?: string;
+  email?: string;
+  message?: string;
+}) {
+  const response = await fetch("/api/home-lead", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      ...payload,
+      pageUrl: window.location.href,
+    }),
+  });
+  const result = (await response.json().catch(() => ({}))) as { status?: SubmitStatus; error?: string };
+  if (!response.ok) throw new Error(result.error || "Could not send your details.");
+  return result.status === "sent" ? "sent" : "saved";
+}
 
 function testimonialQuote(theme: string, items: string[] | undefined) {
   const [problem = "", solution = "", result = ""] = items ?? [];
@@ -521,11 +544,32 @@ function FAQ({ onBook, block }: { onBook: () => void; block?: CmsContentBlock })
 
 function Newsletter({ block }: { block?: CmsContentBlock }) {
   const [email, setEmail] = useState("");
-  const [done, setDone] = useState(false);
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [error, setError] = useState("");
   const paragraphs = paragraphsOr(block, [
     "Practical notes on wills, trusts, tax planning and care - plus occasional celebrity estate-planning stories and useful lessons.",
     "We never share your details.",
   ]);
+
+  const submitNewsletter = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (status === "sending") return;
+    setError("");
+    setStatus("sending");
+
+    try {
+      const result = await submitHomepageLead({
+        source: "newsletter_signup",
+        email,
+        message: "Newsletter signup from homepage.",
+      });
+      setStatus(result);
+    } catch (newsletterError) {
+      setStatus("error");
+      setError(newsletterError instanceof Error ? newsletterError.message : "Could not send your details.");
+    }
+  };
+
   return (
     <section className="newsletter" id="newsletter">
       <div className="newsletter__inner">
@@ -534,15 +578,16 @@ function Newsletter({ block }: { block?: CmsContentBlock }) {
           <h2>{block?.heading ?? "Plain-English guides,"} <em style={{ fontFamily: "var(--serif)", fontStyle: "italic", color: "var(--sage)" }}>with a lighter touch.</em></h2>
           <p style={{ marginTop: 12, maxWidth: "42ch" }}>{paragraphs[0]}</p>
         </div>
-        <form className="newsletter__form-wrap" onSubmit={(event) => { event.preventDefault(); setDone(true); }}>
-          {done ? (
-            <div style={{ padding: "14px 18px", background: "var(--sage-light)", borderRadius: 10, color: "var(--sage-deep)", fontWeight: 500 }}>Thank you - please check your inbox to confirm.</div>
+        <form className="newsletter__form-wrap" onSubmit={submitNewsletter}>
+          {status === "sent" || status === "saved" ? (
+            <div style={{ padding: "14px 18px", background: "var(--sage-light)", borderRadius: 10, color: "var(--sage-deep)", fontWeight: 500 }}>Thank you - we&apos;ve saved your signup.</div>
           ) : (
             <>
               <div className="newsletter__form">
                 <input type="email" required placeholder="Your email address" value={email} onChange={(event) => setEmail(event.target.value)} aria-label="Email address" />
-                <button type="submit" className="btn btn--primary">Sign up</button>
+                <button type="submit" className="btn btn--primary" disabled={status === "sending"}>{status === "sending" ? "Sending..." : "Sign up"}</button>
               </div>
+              {status === "error" && <p className="newsletter__note" style={{ color: "#8a3030" }}>{error}</p>}
               <p className="newsletter__note">{paragraphs[1]}</p>
             </>
           )}
@@ -576,10 +621,14 @@ function FinalCTA({ onBook, block }: { onBook: () => void; block?: CmsContentBlo
 
 function BookingModal({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState<SubmitStatus>("idle");
+  const [error, setError] = useState("");
   const [data, setData] = useState({ name: "", phone: "", email: "", when: "morning", note: "" });
 
   const closeModal = useCallback(() => {
     setSubmitted(false);
+    setStatus("idle");
+    setError("");
     setData({ name: "", phone: "", email: "", when: "morning", note: "" });
     onClose();
   }, [onClose]);
@@ -594,6 +643,34 @@ function BookingModal({ open, onClose }: { open: boolean; onClose: () => void })
 
   if (!open) return null;
 
+  const submitBooking = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (status === "sending") return;
+    setError("");
+    setStatus("sending");
+
+    try {
+      await submitHomepageLead({
+        source: "initial_chat_request",
+        name: data.name,
+        phone: data.phone,
+        email: data.email,
+        message: [
+          "Homepage initial chat request.",
+          `Preferred time: ${data.when}`,
+          data.note ? `Note: ${data.note}` : "",
+        ]
+          .filter(Boolean)
+          .join("\n"),
+      });
+      setSubmitted(true);
+      setStatus("sent");
+    } catch (bookingError) {
+      setStatus("error");
+      setError(bookingError instanceof Error ? bookingError.message : "Could not send your details.");
+    }
+  };
+
   return (
     <div className="modal" onClick={closeModal}>
       <div className="modal__card" onClick={(event) => event.stopPropagation()} role="dialog" aria-modal="true" aria-label="Book an initial chat">
@@ -606,7 +683,7 @@ function BookingModal({ open, onClose }: { open: boolean; onClose: () => void })
             <button className="btn btn--ghost" onClick={closeModal}>Close</button>
           </div>
         ) : (
-          <form className="form" onSubmit={(event) => { event.preventDefault(); setSubmitted(true); }}>
+          <form className="form" onSubmit={submitBooking}>
             <h3>Book your initial chat</h3>
             <p className="modal__lede">In person, by phone, or video. We&apos;ll listen, and you&apos;ll leave with a clearer view.</p>
             <div className="field">
@@ -637,7 +714,8 @@ function BookingModal({ open, onClose }: { open: boolean; onClose: () => void })
               <textarea id="bk-note" rows={3} value={data.note} onChange={(event) => setData({ ...data, note: event.target.value })} />
             </div>
             <div className="form__assure"><Lock width="14" height="14" /> Your details stay with the practice. We never share them.</div>
-            <button type="submit" className="btn btn--primary btn--lg form__submit"><Calendar className="btn__icon" /> Request an initial chat</button>
+            {status === "error" && <p className="modal__lede" style={{ color: "#8a3030" }}>{error}</p>}
+            <button type="submit" className="btn btn--primary btn--lg form__submit" disabled={status === "sending"}><Calendar className="btn__icon" /> {status === "sending" ? "Sending..." : "Request an initial chat"}</button>
           </form>
         )}
       </div>

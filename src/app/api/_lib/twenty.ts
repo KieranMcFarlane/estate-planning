@@ -1,8 +1,9 @@
 import { appendFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
+import { recordControlLeadCapture } from "./nakano-control";
 
 export type EstateLeadInput = {
-  source: "contact_form" | "assistant_handoff" | "cal_booking";
+  source: "contact_form" | "assistant_handoff" | "cal_booking" | "newsletter_signup" | "initial_chat_request";
   name?: string;
   phone?: string;
   email?: string;
@@ -114,9 +115,13 @@ async function createTwentyNote(input: EstateLeadInput, personId: string) {
       title:
         input.source === "contact_form"
           ? "Website enquiry"
-          : input.source === "cal_booking"
-            ? "Cal.diy booking"
-            : "Assistant handoff",
+          : input.source === "newsletter_signup"
+            ? "Newsletter signup"
+            : input.source === "initial_chat_request"
+              ? "Initial chat request"
+              : input.source === "cal_booking"
+                ? "Cal.diy booking"
+                : "Assistant handoff",
       bodyV2: {
         markdown: [
           `Source: ${input.source}`,
@@ -173,6 +178,7 @@ export async function captureEstateLead(input: EstateLeadInput): Promise<EstateL
 
   await mkdir(dirname(fallbackPath), { recursive: true });
   await appendFile(fallbackPath, `${JSON.stringify({ ...record, crm })}\n`, "utf8");
+  await recordControlLeadCapture({ ...record, crm });
 
   return {
     id: record.id,
