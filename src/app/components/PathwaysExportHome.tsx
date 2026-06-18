@@ -46,36 +46,42 @@ const defaultTestimonials = [
     quote: "We had put everything off because the paperwork felt too big and too legal. Pathway Estate Planning broke everything into plain-English decisions, kept us moving calmly, and made sure our wishes were recorded properly. We finally feel the family knows where it stands.",
     name: "Margaret",
     town: "Royal Leamington Spa",
+    rating: 5,
   },
   {
     theme: "Trust",
     quote: "We were worried we would be rushed into documents we did not understand, but every option was explained carefully and priced clearly before anything began. We signed with confidence, knowing the plan genuinely fits our family.",
     name: "David",
     town: "Warwick",
+    rating: 5,
   },
   {
     theme: "Family stress",
     quote: "A difficult family situation had made estate planning feel emotionally heavy, but the whole conversation was handled with real care. Each concern was turned into a practical next step, and the pressure lifted once everyone understood what would happen next.",
     name: "The Hollis family",
     town: "Stratford-upon-Avon",
+    rating: 4,
   },
   {
     theme: "Cost",
     quote: "We expected estate planning to be expensive and were unsure what was essential. Pathway Estate Planning separated what mattered now from what could wait, explained the costs before work began, and helped us put exactly the right protection in place.",
     name: "Patrick",
     town: "Kenilworth",
+    rating: 5,
   },
   {
     theme: "Care fees",
     quote: "Care fee advice online had left us confused and worried about making the wrong move. They cut through the noise, explained the legitimate options in straightforward terms, and helped us make a measured plan for later-life decisions.",
     name: "Sarah & Tom",
     town: "Southam",
+    rating: 4,
   },
   {
     theme: "Complexity",
     quote: "A blended family and farming assets made our estate feel too complicated to tackle. Pathway Estate Planning mapped each risk, explained the choices clearly, and joined the plan together so the farm, the family, and the future all feel properly accounted for.",
     name: "The Whitmore family",
     town: "Warwickshire",
+    rating: 5,
   },
 ];
 
@@ -124,6 +130,24 @@ function testimonialQuote(theme: string, items: string[] | undefined) {
   return joined;
 }
 type HomeFaq = (typeof defaultFaqs)[number];
+
+function ReviewStars({ rating }: { rating: number }) {
+  const boundedRating = Math.max(4, Math.min(5, Math.round(rating)));
+
+  return (
+    <div className="testimonial__stars" aria-label={`${boundedRating} out of 5 stars`}>
+      {Array.from({ length: 5 }, (_, index) => (
+        <span key={index} aria-hidden="true">
+          {index < boundedRating ? "★" : "☆"}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function reviewRating(index: number) {
+  return [5, 5, 4, 5, 4, 5][index % 6];
+}
 
 const serviceMeta = new Map(defaultServices.map((service) => [service.title, service]));
 
@@ -389,13 +413,14 @@ function Services({ block }: { block?: CmsContentBlock }) {
 
 function Testimonials({ block }: { block?: CmsContentBlock }) {
   const source = block?.cards?.length
-    ? block.cards.map((card): HomeTestimonial => {
+    ? block.cards.map((card, index): HomeTestimonial => {
         const [name = card.body, town = ""] = card.body.split(",").map((item) => item.trim());
         return {
           theme: card.title,
           quote: testimonialQuote(card.title, card.items),
           name,
           town,
+          rating: reviewRating(index),
         };
       })
     : defaultTestimonials;
@@ -413,6 +438,7 @@ function Testimonials({ block }: { block?: CmsContentBlock }) {
         <div className="testimonials__track">
           {loop.map((testimonial, index) => (
             <figure className="testimonial" id={index < testimonials.length ? semanticId("review", testimonial.theme) : undefined} data-semantic-id={index < testimonials.length ? semanticId("review", testimonial.theme) : undefined} key={`${testimonial.name}-${index}`} aria-hidden={index >= testimonials.length}>
+              <ReviewStars rating={testimonial.rating} />
               <blockquote className="testimonial__story">{testimonial.quote}</blockquote>
               <figcaption className="testimonial__attr">{testimonial.name}, {testimonial.town}</figcaption>
             </figure>

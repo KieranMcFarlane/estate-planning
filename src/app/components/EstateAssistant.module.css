@@ -25,6 +25,8 @@
   justify-content: center;
   width: 48px;
   height: 48px;
+  min-width: 48px;
+  min-height: 48px;
   padding: 0;
   border: 1px solid rgba(255, 255, 255, 0.34);
   border-radius: 999px;
@@ -995,8 +997,8 @@
 
   .launcher {
     align-self: flex-end;
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
   }
 
   .panel {

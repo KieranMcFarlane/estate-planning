@@ -6,6 +6,7 @@
   overflow: hidden;
   background: var(--paper, #faf8f4);
   border-bottom: 1px solid var(--hairline, #e5e1d8);
+  margin-top: 78px;
 }
 
 .heroImage {
@@ -39,7 +40,7 @@
   margin: 0 0 14px;
   color: var(--sage, #2f4d7a);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -422,6 +423,7 @@
   .hero {
     height: 480px;
     align-items: center;
+    margin-top: 0;
   }
 
   .hero::before {

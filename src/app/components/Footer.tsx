@@ -88,7 +88,7 @@ export default function Footer({ cms }: FooterProps) {
                     ]} />
                 </div>
 
-                <div className={styles.column}>
+                <div className={`${styles.column} ${styles.secondaryColumn}`}>
                     <h4 className={styles.subheading}>Specialist Services</h4>
                     <LinkList items={specialistItems.length ? specialistItems : [
                         { href: "/asset-protection", label: "Asset Protection" },
@@ -109,7 +109,7 @@ export default function Footer({ cms }: FooterProps) {
                     ]} />
                 </div>
 
-                <div className={styles.column}>
+                <div className={`${styles.column} ${styles.secondaryColumn}`}>
                     <h4 className={styles.subheading}>Company</h4>
                     <LinkList items={companyItems.length ? companyItems : [
                         { href: "/about", label: "About Us" },
